@@ -40,7 +40,7 @@ const Header = () => {
           <img 
             src={mcLogo} 
             alt="MC Logo" 
-            className="w-12 h-12 object-contain group-hover:scale-105 transition-transform"
+            className="w-36 h-36 object-contain group-hover:scale-105 transition-transform"
           />
           <div className="hidden sm:block">
             <span className="text-cream text-lg font-serif tracking-wide">Michael Chandler</span>
