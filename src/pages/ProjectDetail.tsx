@@ -75,7 +75,7 @@ const ProjectDetail = () => {
               <p className="text-muted-foreground leading-relaxed text-lg mb-8">{project.description}</p>
 
               {project.role && (
-                <div className="mb-8">
+                <div className="mb-8 bg-primary/10 border-l-4 border-primary p-6">
                   <h3 className="text-xl font-serif text-charcoal mb-3">My Role</h3>
                   <p className="text-muted-foreground">{project.role}</p>
                 </div>
