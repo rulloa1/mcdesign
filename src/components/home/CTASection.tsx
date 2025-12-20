@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { cn } from "@/lib/utils";
 
 const CTASection = () => {
+  const { ref, isVisible } = useScrollAnimation();
+
   return (
-    <section className="relative py-32 overflow-hidden">
+    <section ref={ref} className="relative py-32 overflow-hidden">
       <div className="absolute inset-0">
         <img
           src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=80"
@@ -15,7 +19,10 @@ const CTASection = () => {
       </div>
 
       <div className="container mx-auto px-6 relative z-10 text-center">
-        <div className="max-w-3xl mx-auto animate-fade-in-up">
+        <div className={cn(
+          "max-w-3xl mx-auto transition-all duration-700",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        )}>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-cream mb-6 leading-tight">
             Ready to Build Your Dream Home?
           </h2>

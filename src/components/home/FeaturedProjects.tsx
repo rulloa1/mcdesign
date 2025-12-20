@@ -2,15 +2,22 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { projects } from "@/data/projects";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { cn } from "@/lib/utils";
 
 const featuredProjects = projects.slice(0, 4);
 
 const FeaturedProjects = () => {
+  const { ref, isVisible } = useScrollAnimation();
+
   return (
-    <section className="py-24 bg-cream">
+    <section ref={ref} className="py-24 bg-cream">
       <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
-          <div className="animate-slide-in-left">
+        <div className={cn(
+          "flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6 transition-all duration-700",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        )}>
+          <div>
             <p className="text-primary tracking-[0.3em] uppercase text-sm mb-4">My Work</p>
             <h2 className="text-4xl md:text-5xl font-serif text-charcoal">Featured Projects</h2>
           </div>
@@ -27,8 +34,11 @@ const FeaturedProjects = () => {
             <Link
               key={project.id}
               to={`/project/${project.id}`}
-              className="group relative aspect-[4/3] overflow-hidden animate-fade-in-up"
-              style={{ animationDelay: `${index * 100}ms` }}
+              className={cn(
+                "group relative aspect-[4/3] overflow-hidden transition-all duration-700",
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              )}
+              style={{ transitionDelay: isVisible ? `${index * 100}ms` : "0ms" }}
             >
               <img
                 src={project.coverImage}
