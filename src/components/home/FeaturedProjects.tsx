@@ -1,13 +1,9 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { projects } from "@/data/projects";
 
-const projects = [
-  { id: 1, title: "S. Florida", subtitle: "High Rise Luxe Condo", category: "Residential Construction", image: "https://mcdesign.bio/assets/miami-beach-cover-BhM84cOz.webp" },
-  { id: 2, title: "High Alpine Mtn.", subtitle: "Ranch Luxe Retreat", category: "Residential Construction", image: "https://mcdesign.bio/assets/alpine-ranch-cover-BjXjWziU.webp" },
-  { id: 3, title: "Syracuse House", subtitle: "N. Utah Craftsman Estate", category: "Design Build", image: "https://mcdesign.bio/assets/syracuse-1-s4u68PjR.webp" },
-  { id: 4, title: "Ultra Luxe Private Club", subtitle: "Resort Pool", category: "Hospitality", image: "https://mcdesign.bio/assets/pool-design-1-C5ZyjJVV.webp" },
-];
+const featuredProjects = projects.slice(0, 4);
 
 const FeaturedProjects = () => {
   return (
@@ -27,15 +23,15 @@ const FeaturedProjects = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {projects.map((project, index) => (
+          {featuredProjects.map((project, index) => (
             <Link
               key={project.id}
-              to="/portfolio"
+              to={`/project/${project.id}`}
               className="group relative aspect-[4/3] overflow-hidden animate-fade-in-up"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <img
-                src={project.image}
+                src={project.coverImage}
                 alt={project.title}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
