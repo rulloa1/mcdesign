@@ -62,7 +62,7 @@ const HeroSection = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/portfolio">
               <Button size="lg" className="bg-primary text-primary-foreground hover:bg-gold-dark px-8 py-6 text-sm tracking-widest uppercase">
-                View Our Work
+                View My Work
               </Button>
             </Link>
             <Link to="/contact">

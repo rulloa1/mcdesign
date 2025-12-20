@@ -24,7 +24,7 @@ const Portfolio = () => {
         <div className="absolute inset-0 bg-charcoal/60" />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
-            <p className="text-primary tracking-[0.3em] uppercase text-sm mb-4">Our Work</p>
+            <p className="text-primary tracking-[0.3em] uppercase text-sm mb-4">My Work</p>
             <h1 className="text-5xl md:text-7xl font-serif text-cream mb-6">Portfolio</h1>
             <div className="w-20 h-1 bg-primary mx-auto mb-6" />
             <p className="text-cream/80 max-w-2xl mx-auto px-6">

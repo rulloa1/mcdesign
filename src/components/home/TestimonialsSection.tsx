@@ -4,21 +4,21 @@ import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 const testimonials = [
   {
     id: 1,
-    quote: "Michael and his team transformed our vision into a stunning reality. Their attention to detail and commitment to excellence exceeded all our expectations. Our home is truly a masterpiece.",
+    quote: "Michael transformed our vision into a stunning reality. His attention to detail and commitment to excellence exceeded all our expectations. Our home is truly a masterpiece.",
     author: "Robert & Sarah Thompson",
     location: "Coastal Modern Estate",
     image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
   },
   {
     id: 2,
-    quote: "Working with Michael Chandler Design was an absolute pleasure. They listened to our needs, offered brilliant solutions, and delivered on time and within budget. Highly recommend!",
+    quote: "Working with Michael was an absolute pleasure. He listened to our needs, offered brilliant solutions, and delivered on time and within budget. Highly recommend!",
     author: "Jennifer Martinez",
     location: "Urban Loft Renovation",
     image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=80",
   },
   {
     id: 3,
-    quote: "The craftsmanship and quality of work is unmatched. Michael's team brought our mountain retreat dream to life with incredible skill and professionalism.",
+    quote: "The craftsmanship and quality of work is unmatched. Michael brought our mountain retreat dream to life with incredible skill and professionalism.",
     author: "David & Linda Chen",
     location: "Mountain Retreat",
     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",
@@ -42,7 +42,7 @@ const TestimonialsSection = () => {
       <div className="container mx-auto px-6 relative">
         <div className="text-center mb-16 animate-fade-in-up">
           <p className="text-primary tracking-[0.3em] uppercase text-sm mb-4">Testimonials</p>
-          <h2 className="text-4xl md:text-5xl font-serif text-cream mb-6">What Our Clients Say</h2>
+          <h2 className="text-4xl md:text-5xl font-serif text-cream mb-6">What My Clients Say</h2>
           <div className="w-20 h-1 bg-primary mx-auto" />
         </div>
 

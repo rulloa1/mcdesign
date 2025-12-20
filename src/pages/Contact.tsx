@@ -16,7 +16,7 @@ const Contact = () => {
     setIsSubmitting(true);
     // Email functionality will be added with edge function
     setTimeout(() => {
-      toast({ title: "Message Sent", description: "We'll get back to you shortly!" });
+      toast({ title: "Message Sent", description: "I'll get back to you shortly!" });
       setFormData({ name: "", email: "", phone: "", message: "" });
       setIsSubmitting(false);
     }, 1000);
@@ -28,14 +28,14 @@ const Contact = () => {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <p className="text-primary tracking-[0.3em] uppercase text-sm mb-4">Get In Touch</p>
-            <h1 className="text-5xl md:text-6xl font-serif text-charcoal mb-6">Contact Us</h1>
+            <h1 className="text-5xl md:text-6xl font-serif text-charcoal mb-6">Contact Me</h1>
             <div className="w-20 h-1 bg-primary mx-auto" />
           </div>
 
           <div className="grid lg:grid-cols-2 gap-16 max-w-6xl mx-auto">
             <div>
               <h2 className="text-3xl font-serif text-charcoal mb-6">Let's Discuss Your Project</h2>
-              <p className="text-muted-foreground mb-8">Ready to start? We'd love to hear about your vision and how we can bring it to life.</p>
+              <p className="text-muted-foreground mb-8">Ready to start? I'd love to hear about your vision and how I can bring it to life.</p>
               
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
@@ -44,7 +44,7 @@ const Contact = () => {
                 </div>
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-primary/10 flex items-center justify-center"><Mail className="w-5 h-5 text-primary" /></div>
-                  <div><p className="text-sm text-muted-foreground">Email</p><a href="mailto:info@mcdesign.bio" className="text-charcoal hover:text-primary">info@mcdesign.bio</a></div>
+                  <div><p className="text-sm text-muted-foreground">Email</p><a href="mailto:michael@mcdesign.bio" className="text-charcoal hover:text-primary">michael@mcdesign.bio</a></div>
                 </div>
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-primary/10 flex items-center justify-center"><MapPin className="w-5 h-5 text-primary" /></div>
