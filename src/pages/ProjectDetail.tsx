@@ -81,20 +81,6 @@ const ProjectDetail = () => {
                 </div>
               )}
 
-              {/* Features */}
-              <div className="mb-8">
-                <h3 className="text-xl font-serif text-charcoal mb-4">Feature Highlights</h3>
-                <div className="flex flex-wrap gap-3">
-                  {project.features.map((feature, index) => (
-                    <span
-                      key={index}
-                      className="px-4 py-2 bg-charcoal text-cream text-sm"
-                    >
-                      {feature}
-                    </span>
-                  ))}
-                </div>
-              </div>
             </div>
 
             {/* Sidebar Stats */}
