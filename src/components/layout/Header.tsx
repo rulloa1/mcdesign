@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, User } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const Header = () => {
@@ -61,12 +60,6 @@ const Header = () => {
               <span className="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
-          <Link to="/portal">
-            <Button variant="outline" size="sm" className="ml-4 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-              <User className="w-4 h-4 mr-2" />
-              Client Portal
-            </Button>
-          </Link>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -95,12 +88,6 @@ const Header = () => {
                 {link.name}
               </Link>
             ))}
-            <Link to="/portal" onClick={() => setIsMobileMenuOpen(false)}>
-              <Button variant="outline" className="w-full mt-4 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                <User className="w-4 h-4 mr-2" />
-                Client Portal
-              </Button>
-            </Link>
           </nav>
         </div>
       )}
