@@ -18,7 +18,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-cream/70 text-sm leading-relaxed">
-              With over 37 years of experience, we bring unparalleled craftsmanship and attention to detail to every project.
+              With over 37 years of experience, I bring unparalleled craftsmanship and attention to detail to every project.
             </p>
           </div>
 
@@ -42,9 +42,9 @@ const Footer = () => {
                 <Phone className="w-4 h-4" />
                 (123) 456-7890
               </a>
-              <a href="mailto:info@mcdesign.bio" className="flex items-center gap-3 text-cream/70 hover:text-primary transition-colors text-sm">
+              <a href="mailto:michael@mcdesign.bio" className="flex items-center gap-3 text-cream/70 hover:text-primary transition-colors text-sm">
                 <Mail className="w-4 h-4" />
-                info@mcdesign.bio
+                michael@mcdesign.bio
               </a>
               <div className="flex items-start gap-3 text-cream/70 text-sm">
                 <MapPin className="w-4 h-4 mt-0.5" />

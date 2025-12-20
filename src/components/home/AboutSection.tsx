@@ -14,16 +14,16 @@ const AboutSection = () => {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Content */}
           <div className="animate-slide-in-left">
-            <p className="text-primary tracking-[0.3em] uppercase text-sm mb-4">About Us</p>
+            <p className="text-primary tracking-[0.3em] uppercase text-sm mb-4">About Me</p>
             <h2 className="text-4xl md:text-5xl font-serif text-charcoal mb-6 leading-tight">
               Crafting Dreams Into Reality Since 1987
             </h2>
             <div className="w-20 h-1 bg-primary mb-8" />
             <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-              With over three decades of experience, Michael Chandler Design has established itself as a premier custom home builder and renovation specialist. Our commitment to excellence, attention to detail, and innovative design solutions have earned us a reputation for creating homes that exceed expectations.
+              With over three decades of experience, I have established myself as a premier custom home builder and renovation specialist. My commitment to excellence, attention to detail, and innovative design solutions have earned me a reputation for creating homes that exceed expectations.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-8">
-              We believe every home tells a story. Our approach combines traditional craftsmanship with modern techniques, ensuring that each project reflects the unique vision and lifestyle of our clients. From initial concept to final walkthrough, we partner with you to bring your dream home to life.
+              I believe every home tells a story. My approach combines traditional craftsmanship with modern techniques, ensuring that each project reflects the unique vision and lifestyle of my clients. From initial concept to final walkthrough, I partner with you to bring your dream home to life.
             </p>
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-primary">

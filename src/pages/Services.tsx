@@ -18,8 +18,8 @@ const Services = () => {
       <section className="pt-32 pb-24 bg-cream">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <p className="text-primary tracking-[0.3em] uppercase text-sm mb-4">What We Do</p>
-            <h1 className="text-5xl md:text-6xl font-serif text-charcoal mb-6">Our Services</h1>
+            <p className="text-primary tracking-[0.3em] uppercase text-sm mb-4">What I Do</p>
+            <h1 className="text-5xl md:text-6xl font-serif text-charcoal mb-6">My Services</h1>
             <div className="w-20 h-1 bg-primary mx-auto mb-6" />
             <p className="text-muted-foreground max-w-2xl mx-auto">Comprehensive solutions from concept to completion.</p>
           </div>

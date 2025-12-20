@@ -20,7 +20,7 @@ const CTASection = () => {
             Ready to Build Your Dream Home?
           </h2>
           <p className="text-cream/80 text-lg md:text-xl mb-10 leading-relaxed">
-            Let's discuss your vision and create something extraordinary together. Our team is ready to bring your ideas to life with unparalleled craftsmanship and attention to detail.
+            Let's discuss your vision and create something extraordinary together. I'm ready to bring your ideas to life with unparalleled craftsmanship and attention to detail.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/contact">
@@ -35,7 +35,7 @@ const CTASection = () => {
                 variant="outline"
                 className="border-cream text-cream hover:bg-cream hover:text-charcoal px-10 py-6 text-sm tracking-widest uppercase"
               >
-                View Our Portfolio
+                View My Portfolio
               </Button>
             </Link>
           </div>

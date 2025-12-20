@@ -11,7 +11,7 @@ const FeaturedProjects = () => {
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
           <div className="animate-slide-in-left">
-            <p className="text-primary tracking-[0.3em] uppercase text-sm mb-4">Our Work</p>
+            <p className="text-primary tracking-[0.3em] uppercase text-sm mb-4">My Work</p>
             <h2 className="text-4xl md:text-5xl font-serif text-charcoal">Featured Projects</h2>
           </div>
           <Link to="/portfolio" className="animate-slide-in-right">
