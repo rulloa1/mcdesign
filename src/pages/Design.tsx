@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 
 const interiorCategories = [
-  { title: "Great Rooms", image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&h=400&fit=crop" },
-  { title: "Primary Suites", image: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&h=400&fit=crop" },
-  { title: "Chef's Kitchens", image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=400&fit=crop" },
+  { title: "Great Rooms", image: "https://mcdesign.bio/assets/detail-spa-vanity-BxlkwkET.jpg" },
+  { title: "Primary Suites", image: "https://mcdesign.bio/assets/detail-marble-bath-BMs-D6Yk.jpg" },
+  { title: "Chef's Kitchens", image: "https://mcdesign.bio/assets/detail-pro-range-Dljk2FL9.jpg" },
 ];
 
 const developmentConcepts = [
@@ -37,7 +37,7 @@ const Design = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div className="relative">
               <img 
-                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=1000&fit=crop" 
+                src="https://mcdesign.bio/assets/detail-timber-beams-DCRmMNpo.jpg" 
                 alt="Architecture detail" 
                 className="w-full h-[600px] object-cover"
               />
@@ -80,7 +80,7 @@ const Design = () => {
               </p>
             </div>
             <img 
-              src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=500&fit=crop" 
+              src="https://mcdesign.bio/assets/detail-limestone-fireplace-D6LgYJBI.jpg" 
               alt="Exterior spaces"
               className="w-full h-80 object-cover"
             />
@@ -93,7 +93,7 @@ const Design = () => {
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <img 
-              src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&h=500&fit=crop" 
+              src="https://mcdesign.bio/assets/detail-leather-cabinetry-BBj8D7nk.jpg" 
               alt="Custom furniture"
               className="w-full h-80 object-cover"
             />
