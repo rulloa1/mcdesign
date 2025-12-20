@@ -1,7 +1,8 @@
+import { useState } from "react";
 import Layout from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowLeft } from "lucide-react";
+import { ArrowRight, ArrowLeft, Construction, X } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const interiorCategories = [
@@ -18,6 +19,7 @@ const developmentConcepts = [
 ];
 
 const Design = () => {
+  const [showConstruction, setShowConstruction] = useState(true);
   const heroAnimation = useScrollAnimation();
   const architectureAnimation = useScrollAnimation();
   const interiorsAnimation = useScrollAnimation();
@@ -29,6 +31,39 @@ const Design = () => {
 
   return (
     <Layout>
+      {/* Under Construction Overlay */}
+      {showConstruction && (
+        <div className="fixed inset-0 z-50 bg-charcoal/95 backdrop-blur-sm flex items-center justify-center">
+          <button 
+            onClick={() => setShowConstruction(false)}
+            className="absolute top-6 right-6 text-white/60 hover:text-white transition-colors"
+          >
+            <X className="w-8 h-8" />
+          </button>
+          <div className="text-center px-6 max-w-lg">
+            <div className="w-24 h-24 mx-auto mb-8 bg-primary/20 rounded-full flex items-center justify-center">
+              <Construction className="w-12 h-12 text-primary" />
+            </div>
+            <h2 className="text-4xl md:text-5xl font-serif text-white mb-4">Under Construction</h2>
+            <p className="text-white/70 mb-8">
+              I'm currently updating this page with new content and projects. Check back soon for the full experience.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                onClick={() => setShowConstruction(false)}
+                className="bg-primary text-primary-foreground hover:bg-gold-dark"
+              >
+                Preview Anyway
+              </Button>
+              <Link to="/">
+                <Button variant="outline" className="border-white text-white hover:bg-white hover:text-charcoal w-full">
+                  Back to Home
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Hero Section */}
       <section className="pt-32 pb-16 bg-cream">
         <div 
