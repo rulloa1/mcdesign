@@ -1,4 +1,5 @@
 import { Award, Clock, Users, Building2 } from "lucide-react";
+import mikeProfile from "@/assets/mike-profile.jpeg";
 
 const stats = [
   { icon: Clock, value: "37+", label: "Years Experience" },
@@ -28,7 +29,7 @@ const AboutSection = () => {
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-primary">
                 <img
-                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80"
+                  src={mikeProfile}
                   alt="Michael Chandler"
                   className="w-full h-full object-cover"
                 />
