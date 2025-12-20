@@ -4,10 +4,10 @@ import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const heroImages = [
-  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80",
-  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80",
-  "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=80",
-  "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920&q=80",
+  "https://mcdesign.bio/assets/miami-beach-cover-BhM84cOz.webp",
+  "https://mcdesign.bio/assets/southcoast-cover-BXExeqou.webp",
+  "https://mcdesign.bio/assets/pool-design-1-C5ZyjJVV.webp",
+  "https://mcdesign.bio/assets/alpine-ranch-cover-BjXjWziU.webp",
 ];
 
 const HeroSection = () => {
