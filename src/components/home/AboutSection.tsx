@@ -23,16 +23,19 @@ const AboutSection = () => {
             "transition-all duration-700",
             isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
           )}>
-            <p className="text-primary tracking-[0.3em] uppercase text-sm mb-4">About Me</p>
+            <p className="text-primary tracking-[0.3em] uppercase text-sm mb-4">About</p>
             <h2 className="text-4xl md:text-5xl font-serif text-charcoal mb-6 leading-tight">
-              Crafting Dreams Into Reality Since 1987
+              Who I Am
             </h2>
             <div className="w-20 h-1 bg-primary mb-8" />
             <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-              With over three decades of experience, I have established myself as a premier custom home builder and renovation specialist. My commitment to excellence, attention to detail, and innovative design solutions have earned me a reputation for creating homes that exceed expectations.
+              Through my experience of 37 years as a Business, Design, and Construction professional, I have found that exceptional results come from exceptional teams.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mb-6">
+              My approach is simple: bring together the right people, create an environment built on mutual respect, and stay closely attuned to client feedback throughout every phase of a project.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-8">
-              I believe every home tells a story. My approach combines traditional craftsmanship with modern techniques, ensuring that each project reflects the unique vision and lifestyle of my clients. From initial concept to final walkthrough, I partner with you to bring your dream home to life.
+              I've built my career on the universal business principle that quality construction isn't just about meeting standards—it's about exceeding them by combining rigorous processes with forward-thinking design.
             </p>
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-primary">
