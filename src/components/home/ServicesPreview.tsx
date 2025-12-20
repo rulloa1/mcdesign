@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Compass, PenTool, HardHat, ClipboardCheck, Shield, Leaf, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { cn } from "@/lib/utils";
 
 const services = [
   {
@@ -36,10 +38,15 @@ const services = [
 ];
 
 const ServicesPreview = () => {
+  const { ref, isVisible } = useScrollAnimation();
+
   return (
-    <section className="py-24 bg-charcoal text-cream">
+    <section ref={ref} className="py-24 bg-charcoal text-cream">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16 animate-fade-in-up">
+        <div className={cn(
+          "text-center mb-16 transition-all duration-700",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        )}>
           <p className="text-primary tracking-[0.3em] uppercase text-sm mb-4">What We Do</p>
           <h2 className="text-4xl md:text-5xl font-serif mb-6">Our Services</h2>
           <div className="w-20 h-1 bg-primary mx-auto mb-6" />
@@ -52,8 +59,11 @@ const ServicesPreview = () => {
           {services.map((service, index) => (
             <div
               key={index}
-              className="group p-8 bg-charcoal-light/50 hover:bg-charcoal-light border border-cream/10 hover:border-primary/30 transition-all duration-300 animate-fade-in-up"
-              style={{ animationDelay: `${index * 100}ms` }}
+              className={cn(
+                "group p-8 bg-charcoal-light/50 hover:bg-charcoal-light border border-cream/10 hover:border-primary/30 transition-all duration-500",
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              )}
+              style={{ transitionDelay: isVisible ? `${index * 100}ms` : "0ms" }}
             >
               <service.icon className="w-12 h-12 text-primary mb-6 group-hover:scale-110 transition-transform" />
               <h3 className="text-xl font-serif mb-4">{service.title}</h3>
@@ -62,7 +72,10 @@ const ServicesPreview = () => {
           ))}
         </div>
 
-        <div className="text-center mt-12 animate-fade-in-up animation-delay-600">
+        <div className={cn(
+          "text-center mt-12 transition-all duration-700 delay-500",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        )}>
           <Link to="/services">
             <Button size="lg" className="bg-primary text-primary-foreground hover:bg-gold-dark">
               Explore All Services

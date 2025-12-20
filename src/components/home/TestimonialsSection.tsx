@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { cn } from "@/lib/utils";
 
 const testimonials = [
   {
@@ -27,12 +29,13 @@ const testimonials = [
 
 const TestimonialsSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { ref, isVisible } = useScrollAnimation();
 
   const next = () => setCurrentIndex((prev) => (prev + 1) % testimonials.length);
   const prev = () => setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
 
   return (
-    <section className="py-24 bg-charcoal relative overflow-hidden">
+    <section ref={ref} className="py-24 bg-charcoal relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 border border-cream rounded-full" />
@@ -40,13 +43,19 @@ const TestimonialsSection = () => {
       </div>
 
       <div className="container mx-auto px-6 relative">
-        <div className="text-center mb-16 animate-fade-in-up">
+        <div className={cn(
+          "text-center mb-16 transition-all duration-700",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        )}>
           <p className="text-primary tracking-[0.3em] uppercase text-sm mb-4">Testimonials</p>
           <h2 className="text-4xl md:text-5xl font-serif text-cream mb-6">What My Clients Say</h2>
           <div className="w-20 h-1 bg-primary mx-auto" />
         </div>
 
-        <div className="max-w-4xl mx-auto">
+        <div className={cn(
+          "max-w-4xl mx-auto transition-all duration-700 delay-200",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        )}>
           <div className="relative">
             {testimonials.map((testimonial, index) => (
               <div
