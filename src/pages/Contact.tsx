@@ -27,7 +27,7 @@ const Contact = () => {
       <section className="pt-32 pb-24 bg-cream">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <p className="text-primary tracking-[0.3em] uppercase text-sm mb-4">Get In Touch</p>
+            <p className="text-gold-dark tracking-[0.3em] uppercase text-sm mb-4 font-semibold">Get In Touch</p>
             <h1 className="text-5xl md:text-6xl font-serif text-charcoal mb-6">Contact Me</h1>
             <div className="w-20 h-1 bg-primary mx-auto" />
           </div>
