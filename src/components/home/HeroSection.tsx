@@ -44,12 +44,7 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
-        <div className="animate-fade-in-up">
-          <div className="mb-6">
-            <div className="w-20 h-20 bg-primary mx-auto rounded-sm flex items-center justify-center mb-6">
-              <span className="text-primary-foreground font-serif text-3xl font-bold">MC</span>
-            </div>
-          </div>
+      <div className="animate-fade-in-up">
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-cream mb-4 tracking-wide">
             Michael Chandler
           </h1>
