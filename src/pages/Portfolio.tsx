@@ -1,12 +1,13 @@
 import Layout from "@/components/layout/Layout";
-import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowRight, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { projects, categories } from "@/data/projects";
 
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState("All");
+  const navigate = useNavigate();
 
   const filteredProjects = activeFilter === "All" 
     ? projects 
@@ -14,56 +15,70 @@ const Portfolio = () => {
 
   return (
     <Layout>
-      {/* Hero */}
-      <section className="relative h-[60vh] min-h-[400px]">
-        <img 
-          src="https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/miami-beach-cover.webp" 
-          alt="Portfolio" 
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-charcoal/60" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center">
-            <p className="text-primary tracking-[0.3em] uppercase text-sm mb-4">My Work</p>
-            <h1 className="text-5xl md:text-7xl font-serif text-cream mb-6">Portfolio</h1>
-            <div className="w-20 h-1 bg-primary mx-auto mb-6" />
-            <p className="text-cream/80 max-w-2xl mx-auto px-6">
-              A curated selection of residential, commercial, and hospitality projects showcasing 37 years of design excellence.
+      {/* Hero - Split Layout */}
+      <section className="min-h-[70vh] grid lg:grid-cols-2">
+        {/* Left - Image with vertical text */}
+        <div className="relative h-[50vh] lg:h-auto">
+          <img 
+            src="https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/miami-beach-cover.webp" 
+            alt="Portfolio" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-charcoal/40" />
+          {/* Vertical Portfolio Text */}
+          <div className="absolute left-6 top-1/2 -translate-y-1/2 hidden lg:block">
+            <p className="text-cream text-xl tracking-[0.5em] font-serif" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', transform: 'rotate(180deg)' }}>
+              PORTFOLIO
             </p>
           </div>
         </div>
-      </section>
 
-      {/* Stats */}
-      <section className="bg-charcoal py-8">
-        <div className="container mx-auto px-6 flex justify-center gap-16">
-          <div className="text-center">
-            <p className="text-4xl font-serif text-primary">{projects.length}</p>
-            <p className="text-cream/60 text-sm uppercase tracking-wider">Projects</p>
-          </div>
-          <div className="text-center">
-            <p className="text-4xl font-serif text-primary">37</p>
-            <p className="text-cream/60 text-sm uppercase tracking-wider">Years</p>
+        {/* Right - Content */}
+        <div className="bg-cream flex flex-col justify-center px-8 lg:px-16 py-12 lg:py-0">
+          <button 
+            onClick={() => navigate(-1)} 
+            className="flex items-center gap-2 text-charcoal hover:text-primary transition-colors mb-8 self-start"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back
+          </button>
+          
+          <p className="text-muted-foreground tracking-[0.3em] uppercase text-sm mb-4">Our Work</p>
+          <h1 className="text-4xl md:text-5xl font-serif text-charcoal mb-4">Project Collection</h1>
+          <div className="w-16 h-1 bg-primary mb-6" />
+          <p className="text-muted-foreground text-lg leading-relaxed mb-10 max-w-lg">
+            A curated selection of residential, commercial, and hospitality projects showcasing 37 years of design excellence and meticulous craftsmanship.
+          </p>
+          
+          {/* Stats */}
+          <div className="flex gap-12">
+            <div>
+              <p className="text-4xl font-serif text-primary">{projects.length}</p>
+              <p className="text-muted-foreground text-sm uppercase tracking-wider">Projects</p>
+            </div>
+            <div>
+              <p className="text-4xl font-serif text-primary">37</p>
+              <p className="text-muted-foreground text-sm uppercase tracking-wider">Years</p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Filters */}
-      <section className="bg-cream py-8 border-b border-border">
+      <section className="bg-cream py-6 border-b border-border">
         <div className="container mx-auto px-6">
-          <div className="flex flex-wrap justify-center gap-3">
+          <div className="flex flex-wrap gap-3">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveFilter(cat)}
-                className={`px-4 py-2 text-sm tracking-wide transition-all border ${
+                className={`px-5 py-2.5 text-sm tracking-wide transition-all rounded-full border ${
                   activeFilter === cat
                     ? "bg-charcoal text-cream border-charcoal"
                     : "bg-transparent text-charcoal border-border hover:border-charcoal"
                 }`}
               >
-                {cat} {cat !== "All" && `(${projects.filter(p => p.category === cat).length})`}
-                {cat === "All" && ` (${projects.length})`}
+                {cat} ({cat === "All" ? projects.length : projects.filter(p => p.category === cat).length})
               </button>
             ))}
           </div>
