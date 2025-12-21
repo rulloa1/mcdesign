@@ -1,36 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
-import { toast } from "sonner";
 
 interface NumberedGalleryProps {
   images: string[];
   projectTitle: string;
   onImageClick: (index: number) => void;
-  onOrderChange?: (newImages: string[]) => void;
+  onOrderChange?: (newImages: string[]) => Promise<boolean> | void;
+  isEditable?: boolean;
 }
 
 export const NumberedGallery = ({
-  images: initialImages,
+  images: externalImages,
   projectTitle,
   onImageClick,
   onOrderChange,
+  isEditable = false,
 }: NumberedGalleryProps) => {
-  const [images, setImages] = useState(initialImages);
+  const [images, setImages] = useState(externalImages);
   const [orderValues, setOrderValues] = useState<{ [key: number]: string }>(
-    Object.fromEntries(initialImages.map((_, i) => [i, String(i + 1)]))
+    Object.fromEntries(externalImages.map((_, i) => [i, String(i + 1)]))
   );
+
+  // Sync with external images
+  useEffect(() => {
+    setImages(externalImages);
+    setOrderValues(Object.fromEntries(externalImages.map((_, i) => [i, String(i + 1)])));
+  }, [externalImages]);
 
   const handleOrderChange = (index: number, value: string) => {
     setOrderValues((prev) => ({ ...prev, [index]: value }));
   };
 
-  const handleOrderBlur = (index: number) => {
+  const handleOrderBlur = async (index: number) => {
     const newOrder = parseInt(orderValues[index], 10);
     
     if (isNaN(newOrder) || newOrder < 1 || newOrder > images.length) {
-      // Reset to current position
       setOrderValues((prev) => ({ ...prev, [index]: String(index + 1) }));
-      toast.error("Invalid position number");
       return;
     }
 
@@ -43,13 +48,16 @@ export const NumberedGallery = ({
     const [movedImage] = newImages.splice(index, 1);
     newImages.splice(targetIndex, 0, movedImage);
     
-    setImages(newImages);
-    // Reset all order values to reflect new positions
-    setOrderValues(Object.fromEntries(newImages.map((_, i) => [i, String(i + 1)])));
+    // Notify parent and save
+    const result = await onOrderChange?.(newImages);
     
-    // Notify parent of the change
-    onOrderChange?.(newImages);
-    toast.success("Gallery order saved");
+    if (result !== false) {
+      setImages(newImages);
+      setOrderValues(Object.fromEntries(newImages.map((_, i) => [i, String(i + 1)])));
+    } else {
+      // Reset on failure
+      setOrderValues((prev) => ({ ...prev, [index]: String(index + 1) }));
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
@@ -65,18 +73,20 @@ export const NumberedGallery = ({
           key={`${image}-${index}`}
           className="aspect-square overflow-hidden group relative"
         >
-          {/* Order number input */}
-          <div className="absolute top-2 left-2 z-10">
-            <Input
-              type="text"
-              inputMode="numeric"
-              value={orderValues[index] || ""}
-              onChange={(e) => handleOrderChange(index, e.target.value)}
-              onBlur={() => handleOrderBlur(index)}
-              onKeyDown={(e) => handleKeyDown(e, index)}
-              className="w-12 h-8 text-center bg-charcoal/80 text-cream border-cream/30 text-sm font-medium"
-            />
-          </div>
+          {/* Order number input - only show if editable */}
+          {isEditable && (
+            <div className="absolute top-2 left-2 z-10">
+              <Input
+                type="text"
+                inputMode="numeric"
+                value={orderValues[index] || ""}
+                onChange={(e) => handleOrderChange(index, e.target.value)}
+                onBlur={() => handleOrderBlur(index)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
+                className="w-12 h-8 text-center bg-charcoal/80 text-cream border-cream/30 text-sm font-medium"
+              />
+            </div>
+          )}
 
           {/* Image */}
           <img
