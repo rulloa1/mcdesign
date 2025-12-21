@@ -12,6 +12,7 @@ export interface Project {
   sqft?: string;
   bedrooms?: string;
   baths?: string;
+  lotSize?: string;
   role?: string;
   description: string;
   gallery: string[];
@@ -346,14 +347,14 @@ export const projects: Project[] = [
   // 8. North Florida Renovation
   {
     id: "north-florida-renovation",
-    title: "North Florida Renovation",
+    title: "North Florida Renovation/Addition",
     subtitle: "Addition",
     category: "Residential Construction",
     location: "N. Florida",
     coverImage: `${GITHUB_RAW_BASE}/north-florida-14.webp`,
     duration: "10 months",
-    sqft: "3,600",
-    role: "Design/Build, Estate Management",
+    sqft: "3,600 + 1,200 sq ft addition",
+    role: "All House Project, Estate Management",
     description: "We revitalized this 3,600 sq ft home with a 1,200 sq ft addition over a 10-month period. Our comprehensive approach included a new roof, impact windows, and updated electrical and plumbing systems. The interior was completely refreshed, and our estate management services ensured a seamless coordination of all trades. The result is a home that is not only more spacious and modern but also fortified and meticulously detailed.",
     gallery: [
       `${GITHUB_RAW_BASE}/north-florida-14.webp`,
@@ -519,7 +520,8 @@ export const projects: Project[] = [
     location: "Abaco, Bahamas",
     coverImage: `${GITHUB_RAW_BASE}/beachfront-1.webp`,
     sqft: "6,800",
-    role: "Project Manager in a Foreign Country for US Owners",
+    lotSize: "2.5 Acres",
+    role: "Project Manager, Foreign Country for US Owners",
     description: "We developed a 2.5-acre beachfront estate, creating a 6,800 sq ft main residence that embodies luxury Caribbean living. This premier property features 180 feet of private beach frontage and is fortified with Category 5 hurricane-resistant construction. The estate is a self-sufficient oasis, with an infinity pool, guest cottage, dock facilities, solar power backup, and rainwater collection systems. This is more than a home; it is a legacy property on the shores of the Atlantic.",
     gallery: [
       `${GITHUB_RAW_BASE}/beachfront-1.webp`,
@@ -531,17 +533,17 @@ export const projects: Project[] = [
       `${GITHUB_RAW_BASE}/beachfront-7.webp`,
     ],
   },
-  // 15. Development Civil
+  // 15. Civil Engineering
   {
     id: "development-civil",
-    title: "Development Civil",
-    subtitle: "Infrastructure",
+    title: "Civil Engineering",
+    subtitle: "Infrastructure Projects",
     category: "Residential Development",
-    location: "SE Texas",
+    location: "CA, TX, NM, CO, MT",
     coverImage: `${GITHUB_RAW_BASE}/development-1.webp`,
     duration: "36 months",
-    role: "Project Management Development / Civil Engineering Project",
-    description: "Over 36 months, we executed a 45-acre master-planned residential development, laying the groundwork for a new community. This comprehensive project included infrastructure for over 120 home sites, 3.2 miles of roads, and complete utility installation. We also created 2 miles of walking trails and community amenities, all while adhering to environmental compliance measures and coordinating with multiple municipal agencies. This project was about more than construction; it was about building a neighborhood.",
+    role: "Civil Engineering, Contractor/Builder",
+    description: "Our civil engineering portfolio is a testament to our ability to tackle complex infrastructure challenges across five states. From 2015 to 2024, we have moved over 50,000 cubic yards of earth, installed more than 2,500 linear feet of retaining walls, and executed numerous coastal restoration and hillside stabilization projects. Our expertise in heavy construction and infrastructure development allows us to deliver exceptional results, even in the most challenging terrains.",
     gallery: [
       `${GITHUB_RAW_BASE}/development-1.webp`,
       `${GITHUB_RAW_BASE}/development-2.webp`,
