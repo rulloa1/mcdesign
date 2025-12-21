@@ -444,7 +444,7 @@ export const projects: Project[] = [
   {
     id: "carmel-knolls",
     title: "Carmel Knolls",
-    subtitle: "Complete Transformation",
+    subtitle: "More Than Lipstick on an Old Lady!",
     category: "Civil",
     location: "Carmel, CA",
     coverImage: `${GITHUB_RAW_BASE}/carmel-knolls-cover.webp`,
@@ -533,17 +533,17 @@ export const projects: Project[] = [
       `${GITHUB_RAW_BASE}/beachfront-7.webp`,
     ],
   },
-  // 15. Civil Engineering
+  // 15. Development Civil
   {
     id: "development-civil",
-    title: "Civil Engineering",
-    subtitle: "Infrastructure Projects",
+    title: "Development Civil",
+    subtitle: "Construction",
     category: "Residential Development",
-    location: "CA, TX, NM, CO, MT",
+    location: "SE Texas",
     coverImage: `${GITHUB_RAW_BASE}/development-1.webp`,
     duration: "36 months",
-    role: "Civil Engineering, Contractor/Builder",
-    description: "Our civil engineering portfolio is a testament to our ability to tackle complex infrastructure challenges across five states. From 2015 to 2024, we have moved over 50,000 cubic yards of earth, installed more than 2,500 linear feet of retaining walls, and executed numerous coastal restoration and hillside stabilization projects. Our expertise in heavy construction and infrastructure development allows us to deliver exceptional results, even in the most challenging terrains.",
+    role: "Project Management Development/Civil Engineering Project",
+    description: "Over 36 months, we executed a 45-acre master-planned residential development, laying the groundwork for a new community. This comprehensive project included infrastructure for over 120 home sites, 3.2 miles of roads, and complete utility installation. We also created 2 miles of walking trails and community amenities, all while adhering to environmental compliance measures and coordinating with multiple municipal agencies. This project was about more than construction; it was about building a neighborhood.",
     gallery: [
       `${GITHUB_RAW_BASE}/development-1.webp`,
       `${GITHUB_RAW_BASE}/development-2.webp`,
