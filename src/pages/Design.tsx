@@ -119,7 +119,7 @@ const Design = () => {
                   <Link
                     to={category.link}
                     key={index}
-                    className="group relative overflow-hidden bg-card cursor-pointer block"
+                    className="group relative overflow-hidden cursor-pointer block"
                     style={{ transitionDelay: `${(index + 1) * 100}ms` }}
                   >
                     <div className="relative overflow-hidden">
@@ -128,19 +128,18 @@ const Design = () => {
                         alt={category.title}
                         className="w-full h-48 object-cover transition-all duration-700 group-hover:scale-[1.05]"
                       />
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/20 to-transparent" />
                       {/* Hover overlay */}
-                      <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/40 transition-all duration-500" />
-                      {/* View details text */}
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        <span className="text-white text-sm font-medium tracking-wider uppercase px-4 py-2 border border-white/60 backdrop-blur-sm">
-                          View Details
-                        </span>
+                      <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/30 transition-all duration-500" />
+                      {/* Title on photo */}
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <h4 className="text-xl font-serif text-white group-hover:text-primary transition-colors duration-300">
+                          {category.title}
+                        </h4>
                       </div>
                       {/* Corner accent */}
                       <div className="absolute bottom-3 right-3 w-6 h-6 border-r-2 border-b-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    </div>
-                    <div className="p-4 border border-t-0 border-border group-hover:border-primary/30 transition-colors duration-300">
-                      <h4 className="text-lg font-serif text-charcoal group-hover:text-primary transition-colors duration-300">{category.title}</h4>
                     </div>
                   </Link>
                 ))}
