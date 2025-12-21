@@ -43,7 +43,7 @@ const Portfolio = () => {
             Back
           </button>
           
-          <p className="text-muted-foreground tracking-[0.3em] uppercase text-sm mb-4">Our Work</p>
+          
           <h1 className="text-4xl md:text-5xl font-serif text-charcoal mb-4">Project Collection</h1>
           <div className="w-16 h-1 bg-primary mb-6" />
           <p className="text-muted-foreground text-lg leading-relaxed mb-10 max-w-lg">
