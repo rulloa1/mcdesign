@@ -1,15 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { getProjectById, projects } from "@/data/projects";
 import { ArrowLeft, ArrowRight, X, ChevronLeft, ChevronRight, Clock, Maximize2, Home, Bath } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NumberedGallery } from "@/components/gallery/NumberedGallery";
+import { useGalleryOrder } from "@/hooks/useGalleryOrder";
+
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const project = getProjectById(id || "");
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  
+  // Memoize default gallery to prevent infinite loops
+  const defaultGallery = useMemo(() => project?.gallery || [], [project?.gallery]);
+  const { images: galleryImages, isLoading, isAdmin, saveGalleryOrder } = useGalleryOrder(
+    id || "",
+    defaultGallery
+  );
 
   // Scroll to top when project changes
   useEffect(() => {
@@ -38,7 +47,7 @@ const ProjectDetail = () => {
   const openLightbox = (index: number) => setSelectedImage(index);
   const closeLightbox = () => setSelectedImage(null);
   const nextImage = () => {
-    if (selectedImage !== null && selectedImage < project.gallery.length - 1) {
+    if (selectedImage !== null && selectedImage < galleryImages.length - 1) {
       setSelectedImage(selectedImage + 1);
     }
   };
@@ -138,12 +147,20 @@ const ProjectDetail = () => {
       <section className="py-16 bg-charcoal">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-serif text-cream mb-8">Gallery</h2>
-          <p className="text-cream/60 text-sm mb-4">Enter a number to reorder images</p>
-          <NumberedGallery
-            images={project.gallery}
-            projectTitle={project.title}
-            onImageClick={openLightbox}
-          />
+          {isAdmin && (
+            <p className="text-cream/60 text-sm mb-4">Enter a number to reorder images</p>
+          )}
+          {isLoading ? (
+            <div className="text-cream/60">Loading gallery...</div>
+          ) : (
+            <NumberedGallery
+              images={galleryImages}
+              projectTitle={project.title}
+              onImageClick={openLightbox}
+              onOrderChange={saveGalleryOrder}
+              isEditable={isAdmin}
+            />
+          )}
         </div>
       </section>
 
@@ -204,7 +221,7 @@ const ProjectDetail = () => {
           </button>
 
           <img
-            src={project.gallery[selectedImage]}
+            src={galleryImages[selectedImage]}
             alt={`${project.title} - Image ${selectedImage + 1}`}
             className="max-h-[85vh] max-w-[85vw] object-contain"
           />
@@ -218,7 +235,7 @@ const ProjectDetail = () => {
           </button>
 
           <div className="absolute bottom-6 text-cream/60 text-sm">
-            {selectedImage + 1} / {project.gallery.length}
+            {selectedImage + 1} / {galleryImages.length}
           </div>
         </div>
       )}
