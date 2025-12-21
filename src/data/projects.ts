@@ -122,7 +122,7 @@ export const projects: Project[] = [
     coverImage: `${GITHUB_RAW_BASE}/syracuse-cover.jpg`,
     duration: "18 months",
     sqft: "6,200",
-    role: "Owner Representation, Project Management, Property Management",
+    role: "Owner's Representative & Project Executive — Led comprehensive oversight of design-build execution, contractor coordination, budget management, and ongoing property stewardship for this landmark estate development.",
     description: "This 6,200 sq ft craftsman-style estate is a testament to our integrated design-build approach. Over 18 months, we were integral in the creation of not just a home, but a complete two-acre landscape. The project's exterior is defined by over 400 tons of decorative stone, professional hardscaping, and dramatic low-voltage evening lighting. The design embraced drought-tolerant native plantings and elegant water features, creating a seamless transition between the built and natural environments. The separate 6 car garage/workshop was for antique restoration, and the two horse stall horse barn + storage rounded out the perfect home/estate/equestrian property.",
     
     gallery: [
