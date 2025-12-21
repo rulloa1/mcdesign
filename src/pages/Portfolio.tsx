@@ -1,13 +1,22 @@
 import Layout from "@/components/layout/Layout";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { projects, categories } from "@/data/projects";
 
 const Portfolio = () => {
-  const [activeFilter, setActiveFilter] = useState("All");
+  const [searchParams] = useSearchParams();
+  const categoryFromUrl = searchParams.get("category");
+  const [activeFilter, setActiveFilter] = useState(categoryFromUrl || "All");
   const navigate = useNavigate();
+
+  // Update filter when URL changes
+  useEffect(() => {
+    if (categoryFromUrl && categories.includes(categoryFromUrl)) {
+      setActiveFilter(categoryFromUrl);
+    }
+  }, [categoryFromUrl]);
 
   const filteredProjects = activeFilter === "All" 
     ? projects 
