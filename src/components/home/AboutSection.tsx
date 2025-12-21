@@ -60,14 +60,14 @@ const AboutSection = () => {
             <div className="space-y-4">
               <div className="aspect-[4/5] overflow-hidden">
                 <img
-                  src="https://mcdesign.bio/assets/miami-beach-cover-BhM84cOz.webp"
+                  src="https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/miami-beach-cover.webp"
                   alt="S. Florida High Rise Luxe Condo"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
               </div>
               <div className="aspect-square overflow-hidden">
                 <img
-                  src="https://mcdesign.bio/assets/alpine-ranch-cover-BjXjWziU.webp"
+                  src="https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/alpine-ranch-cover.webp"
                   alt="High Alpine Ranch Montana"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
@@ -76,14 +76,14 @@ const AboutSection = () => {
             <div className="space-y-4 pt-8">
               <div className="aspect-square overflow-hidden">
                 <img
-                  src="https://mcdesign.bio/assets/southcoast-cover-BXExeqou.webp"
+                  src="https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/southcoast-cover.webp"
                   alt="South Coast Renovation Big Sur"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
               </div>
               <div className="aspect-[4/5] overflow-hidden">
                 <img
-                  src="https://mcdesign.bio/assets/pool-design-1-C5ZyjJVV.webp"
+                  src="https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-1.webp"
                   alt="Ultra Luxe Private Club Pool"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
