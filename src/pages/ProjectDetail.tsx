@@ -4,7 +4,7 @@ import Layout from "@/components/layout/Layout";
 import { getProjectById, projects } from "@/data/projects";
 import { ArrowLeft, ArrowRight, X, ChevronLeft, ChevronRight, Clock, Maximize2, Home, Bath } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { DraggableGallery } from "@/components/gallery/DraggableGallery";
+import { NumberedGallery } from "@/components/gallery/NumberedGallery";
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -138,8 +138,8 @@ const ProjectDetail = () => {
       <section className="py-16 bg-charcoal">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-serif text-cream mb-8">Gallery</h2>
-          <p className="text-cream/60 text-sm mb-4">Drag images to reorder</p>
-          <DraggableGallery
+          <p className="text-cream/60 text-sm mb-4">Enter a number to reorder images</p>
+          <NumberedGallery
             images={project.gallery}
             projectTitle={project.title}
             onImageClick={openLightbox}
