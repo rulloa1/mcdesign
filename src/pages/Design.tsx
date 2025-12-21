@@ -8,10 +8,10 @@ const interiorCategories = [{
   image: "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/miami-beach-cover.webp"
 }, {
   title: "Primary Suites",
-  image: "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/coconut-grove-cover.webp"
+  image: "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/montana-cover.webp"
 }, {
   title: "Chef's Kitchens",
-  image: "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/coral-gables-cover.webp"
+  image: "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/southcoast-cover.webp"
 }];
 const developmentConcepts = [{
   title: "Land Development",
@@ -124,7 +124,7 @@ const Design = () => {
               </p>
             </div>
             <div className={`group relative overflow-hidden transition-all duration-700 delay-150 ${exteriorAnimation.isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"}`}>
-              <img src="https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/key-biscayne-cover.webp" alt="Exterior spaces" className="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+              <img src="https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-cover.webp" alt="Exterior spaces" className="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
           </div>
@@ -136,7 +136,7 @@ const Design = () => {
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div ref={furnitureAnimation.ref} className={`group relative overflow-hidden transition-all duration-700 ${furnitureAnimation.isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"}`}>
-              <img src="https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pinecrest-cover.webp" alt="Custom furniture" className="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+              <img src="https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/carmel-knolls-cover.webp" alt="Custom furniture" className="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
             <div className={`transition-all duration-700 delay-150 ${furnitureAnimation.isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"}`}>
