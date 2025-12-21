@@ -42,9 +42,7 @@ const AboutSection = () => {
             <p className="text-muted-foreground leading-relaxed mb-6 text-lg">
               My approach is simple: bring together the right people, create an environment built on mutual respect, and stay closely attuned to client feedback throughout every phase of a project.
             </p>
-            <p className="text-muted-foreground leading-relaxed mb-8 text-lg">
-              I've built my career on the universal business principle that quality construction isn't just about meeting standards—it's about exceeding them by combining rigorous processes with forward-thinking design.
-            </p>
+            <p className="text-muted-foreground leading-relaxed mb-8 text-lg">I've built my career on the universal business principle that quality construction isn't just about meeting standards—it's about exceeding them, by combining rigorous processes with forward-thinking design.</p>
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-primary">
                 <img src={mikeProfile} alt="Michael Chandler" className="w-full h-full object-cover" />
