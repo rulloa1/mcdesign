@@ -17,7 +17,7 @@ const Portfolio = () => {
       {/* Hero */}
       <section className="relative h-[60vh] min-h-[400px]">
         <img 
-          src="https://mcdesign.bio/assets/miami-beach-cover-BhM84cOz.webp" 
+          src="https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/miami-beach-cover.webp" 
           alt="Portfolio" 
           className="w-full h-full object-cover"
         />
