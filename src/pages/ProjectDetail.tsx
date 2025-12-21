@@ -4,7 +4,7 @@ import Layout from "@/components/layout/Layout";
 import { getProjectById, projects } from "@/data/projects";
 import { ArrowLeft, ArrowRight, X, ChevronLeft, ChevronRight, Clock, Maximize2, Home, Bath } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
+import { DraggableGallery } from "@/components/gallery/DraggableGallery";
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -138,21 +138,12 @@ const ProjectDetail = () => {
       <section className="py-16 bg-charcoal">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-serif text-cream mb-8">Gallery</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {project.gallery.map((image, index) => (
-              <div
-                key={index}
-                onClick={() => openLightbox(index)}
-                className="aspect-square overflow-hidden cursor-pointer group"
-              >
-                <img
-                  src={image}
-                  alt={`${project.title} - Image ${index + 1}`}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-              </div>
-            ))}
-          </div>
+          <p className="text-cream/60 text-sm mb-4">Drag images to reorder</p>
+          <DraggableGallery
+            images={project.gallery}
+            projectTitle={project.title}
+            onImageClick={openLightbox}
+          />
         </div>
       </section>
 
