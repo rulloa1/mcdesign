@@ -6,12 +6,14 @@ interface NumberedGalleryProps {
   images: string[];
   projectTitle: string;
   onImageClick: (index: number) => void;
+  onOrderChange?: (newImages: string[]) => void;
 }
 
 export const NumberedGallery = ({
   images: initialImages,
   projectTitle,
   onImageClick,
+  onOrderChange,
 }: NumberedGalleryProps) => {
   const [images, setImages] = useState(initialImages);
   const [orderValues, setOrderValues] = useState<{ [key: number]: string }>(
@@ -44,7 +46,10 @@ export const NumberedGallery = ({
     setImages(newImages);
     // Reset all order values to reflect new positions
     setOrderValues(Object.fromEntries(newImages.map((_, i) => [i, String(i + 1)])));
-    toast.success("Gallery order updated");
+    
+    // Notify parent of the change
+    onOrderChange?.(newImages);
+    toast.success("Gallery order saved");
   };
 
   const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
