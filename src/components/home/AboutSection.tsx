@@ -28,7 +28,7 @@ const AboutSection = () => {
               Who I Am
             </h2>
             <div className="w-20 h-1 bg-primary mb-8" />
-            <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+            <p className="text-gold text-lg leading-relaxed mb-6">
               Through my experience of 37 years as a Business, Design, and Construction professional, I have found that exceptional results come from exceptional teams.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-6">
