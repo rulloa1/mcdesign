@@ -49,7 +49,69 @@ const Design = () => {
       </section>
 
       {/* Architecture Section */}
-      
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div ref={architectureAnimation.ref} className={`group relative overflow-hidden transition-all duration-700 ${architectureAnimation.isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"}`}>
+              <img src="https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/miami-beach-cover.webp" alt="Architecture" className="w-full h-96 object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </div>
+            <div className={`transition-all duration-700 delay-150 ${architectureAnimation.isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"}`}>
+              <h2 className="text-3xl font-serif text-charcoal mb-4">Architecture</h2>
+              <p className="text-muted-foreground text-lg mb-6">
+                From concept to completion, we craft residences that seamlessly blend form and function. Our architectural vision embraces modern luxury while honoring timeless design principles.
+              </p>
+              <ul className="space-y-3 text-muted-foreground">
+                <li className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-primary rounded-full" />
+                  Custom Home Design
+                </li>
+                <li className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-primary rounded-full" />
+                  Renovations & Additions
+                </li>
+                <li className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-primary rounded-full" />
+                  Schematic & Construction Documents
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Interiors Section */}
+      <section className="py-20 bg-cream">
+        <div className="container mx-auto px-6">
+          <div ref={interiorsAnimation.ref} className={`text-center mb-16 transition-all duration-700 ${interiorsAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+            <h2 className="text-4xl font-serif text-charcoal mb-4">Interior Design</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Curated spaces that reflect your lifestyle. Every detail is thoughtfully considered to create environments of enduring beauty.
+            </p>
+            <div className="w-20 h-1 bg-primary mx-auto mt-6" />
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {interiorCategories.map((category, index) => (
+              <div 
+                key={index} 
+                className={`group relative overflow-hidden transition-all duration-500 ${interiorsAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                style={{ transitionDelay: `${(index + 1) * 150}ms` }}
+              >
+                <img 
+                  src={category.image} 
+                  alt={category.title} 
+                  className="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-[1.05]" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <h3 className="text-xl font-serif text-white">{category.title}</h3>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Exterior Spaces Section */}
       <section className="py-20 bg-cream">
