@@ -15,14 +15,17 @@ const interiorCategories = [
   {
     title: "Great Rooms",
     image: spaVanityImg,
+    link: "/portfolio?category=Residential+Construction",
   },
   {
     title: "Primary Suites",
     image: marbleBathImg,
+    link: "/portfolio?category=Design+Build",
   },
   {
     title: "Chef's Kitchens",
     image: proRangeImg,
+    link: "/portfolio?category=Hospitality",
   },
 ];
 
@@ -113,9 +116,10 @@ const Design = () => {
               <h3 className="text-xl font-serif text-charcoal mb-6 tracking-wider">INTERIORS</h3>
               <div className="space-y-6">
                 {interiorCategories.map((category, index) => (
-                  <div
+                  <Link
+                    to={category.link}
                     key={index}
-                    className="group relative overflow-hidden bg-card cursor-pointer"
+                    className="group relative overflow-hidden bg-card cursor-pointer block"
                     style={{ transitionDelay: `${(index + 1) * 100}ms` }}
                   >
                     <div className="relative overflow-hidden">
@@ -138,7 +142,7 @@ const Design = () => {
                     <div className="p-4 border border-t-0 border-border group-hover:border-primary/30 transition-colors duration-300">
                       <h4 className="text-lg font-serif text-charcoal group-hover:text-primary transition-colors duration-300">{category.title}</h4>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
