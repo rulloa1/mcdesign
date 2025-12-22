@@ -1,5 +1,6 @@
 // Base URL for project images from GitHub
-const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects";
+const GITHUB_RAW_BASE =
+  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects";
 
 // Import local assets
 import woodPanelingDetail from "@/assets/detail-wood-paneling.png";
@@ -34,7 +35,8 @@ export const projects: Project[] = [
     sqft: "4,200",
     bedrooms: "4",
     baths: "4",
-    description: "Over a 5 month time, the newest Smart-Home Technologies were obtained and installed, with most components not even available to the public in this Country yet. Custom scalloped Solid Wood Paneling, made from some very special and rare South American wood—the likes of which cannot be obtained in this country anymore. Hand-picked craftsmen, world-class millworkers, and some extremely talented artisans who installed hand-applied specialty wall finishes, all worked in perfect harmony to deliver this one-of-a-kind ocean-side, high-rise residence, on time, on budget, and with every aspect of this remodel being on point. The delivery was flawless and made-ready for a world renown Interior Designer, who had nothing but praise for the fit and finish, throughout. All of this was accomplished at the height of a tragic world events, when everywhere else, the world had come to a screeching halt. Our hand-picked, old-world style craftsman, and modern technologists seamlessly went about their work, without faltering. The rare wood was sourced from another millwork company with a tragic cancelled order during this tragic time period. Going the extra many, many miles to Source the wood material, and then stepping in to purchase the lot, allowed for many jobs to be saved. Some of the Solid wood panels were even bent, into 1/4-rounds, using old-world wood bending techniques, to form the beautiful ends of the custom built-ins, in the Living Room. The residence was transformed from all white, to warm and beautiful. On Budget, On Schedule, and Perfectly On Point, thanks to a harmonious and incredible group of hand-picked craftsmen!",
+    description:
+      "Over a 5 month time, the newest Smart-Home Technologies were obtained and installed, with most components not even available to the public in this Country yet. Custom scalloped Solid Wood Paneling, made from some very special and rare South American wood—the likes of which cannot be obtained in this country anymore. Hand-picked craftsmen, world-class millworkers, and some extremely talented artisans who installed hand-applied specialty wall finishes, all worked in perfect harmony to deliver this one-of-a-kind ocean-side, high-rise residence, on time, on budget, and with every aspect of this remodel being on point. The delivery was flawless and made-ready for a world renown Interior Designer, who had nothing but praise for the fit and finish, throughout. All of this was accomplished at the height of a tragic world events, when everywhere else, the world had come to a screeching halt. Our hand-picked, old-world style craftsman, and modern technologists seamlessly went about their work, without faltering. The rare wood was sourced from another millwork company with a tragic cancelled order during this tragic time period. Going the extra many, many miles to Source the wood material, and then stepping in to purchase the lot, allowed for many jobs to be saved. Some of the Solid wood panels were even bent, into 1/4-rounds, using old-world wood bending techniques, to form the beautiful ends of the custom built-ins, in the Living Room. The residence was transformed from all white, to warm and beautiful. On Budget, On Schedule, and Perfectly On Point, thanks to a harmonious and incredible group of hand-picked craftsmen!",
     role: "Contractor Identification/Contract Negotiation/Project Management, Owner Representation, Property Management, International Furniture/Material/Art Receiving, Vehicle Representation/Management/Procurement/Shipping",
     gallery: [
       `${GITHUB_RAW_BASE}/miami-beach-cover.webp`,
@@ -100,7 +102,8 @@ export const projects: Project[] = [
     bedrooms: "5",
     baths: "2",
     role: "Owner Representation, Design Oversight, Contractor Procurement, Contract Negotiation, Project Management, Property Management",
-    description: "Nestled in the high-alpine region of Montana, this 2,300 sq ft luxury ranch was brought to life over 24 months. We merged modern mountain architecture with rustic charm, using exposed timber and custom stone masonry to complement the panoramic landscape. The residence features high volume vaulted ceilings and floor-to-ceiling Custom Bronze Windows / Doors Crafted in Italy that dissolve the boundary between the interior and the breathtaking mountain views. A Mix of Radiant and a special custom forced air system to maximize all efficiencies, a gourmet kitchen with natural stone countertops, and custom millwork throughout ensure that a special comfort and elegance are felt in every corner.",
+    description:
+      "Nestled in the high-alpine region of Montana, this 2,300 sq ft luxury ranch was brought to life over 24 months. We merged modern mountain architecture with rustic charm, using exposed timber and custom stone masonry to complement the panoramic landscape. The residence features high volume vaulted ceilings and floor-to-ceiling Custom Bronze Windows / Doors Crafted in Italy that dissolve the boundary between the interior and the breathtaking mountain views. A Mix of Radiant and a special custom forced air system to maximize all efficiencies, a gourmet kitchen with natural stone countertops, and custom millwork throughout ensure that a special comfort and elegance are felt in every corner.",
     gallery: [
       `${GITHUB_RAW_BASE}/alpine-ranch-cover.webp`,
       `${GITHUB_RAW_BASE}/alpine-ranch-1.webp`,
@@ -124,11 +127,12 @@ export const projects: Project[] = [
     subtitle: "N. Utah Craftsman Estate",
     category: "Design Build",
     location: "N. Utah",
-    coverImage: "/projects/syracuse-high-res/syracuse (1).PNG",
+    coverImage: "/projects/syracuse-cover.png",
     duration: "18 months",
     sqft: "6,200",
-    role: "Owner Representation, Project Management, Property Management",
-    description: "This 6,200 sq ft craftsman-style estate is a testament to our integrated design-build approach. Over 18 months, we orchestrated the creation of not just a home, but a complete two-acre landscape. The project's exterior is defined by over 400 tons of decorative stone, professional hardscaping, and dramatic low-voltage evening lighting. Our design embraced drought-tolerant native plantings and elegant water features, creating a seamless transition between the built and natural environments. The separate 6 car garage/workshop was for antique restoration, and the two horse stall horse barn + storage rounded out the perfect home/estate/equestrian property.",
+    role: "Owners Rep, Designer Architectural, Interior Designer, Project Management, Property Management",
+    description:
+      "This 6,200 sq ft craftsman-style estate is a testament to our integrated design-build approach. Over 18 months, we orchestrated the creation of not just a home, but a complete two-acre landscape. The project's exterior is defined by over 400 tons of decorative stone, professional hardscaping, and dramatic low-voltage evening lighting. The design embraced drought-tolerant native plantings and elegant water features, creating a seamless transition between the built and natural environments. The separate 6 car garage/workshop was for antique restoration, and the two horse stall horse barn + storage rounded out the perfect Home/Estate/Equestrian property.",
     gallery: [
       "/projects/syracuse-high-res/syracuse (1).PNG",
       "/projects/syracuse-high-res/syracuse (28).PNG",
@@ -170,7 +174,8 @@ export const projects: Project[] = [
     duration: "8 months",
     sqft: "2,800",
     role: "Owner Representation, Project Management, Property Management",
-    description: "In just eight months, this 2,800 sq ft condo was completed as a new build, reimagined as a sophisticated mountain retreat. The new build focused on creating a sanctuary of modern comfort, featuring spa-inspired bathrooms with heated floors and contemporary finishes throughout. The selections were of a palette of Calacatta marble, and other fine marbles, many of which were installed as full slabs for floor to ceiling wall finishes, along with warm wood accents, and special hand-applied wall/ceiling finishes. The result is a space that perfectly balances modern living with the tranquility of a mountain setting.",
+    description:
+      "In just eight months, this 2,800 sq ft condo was completed as a new build, reimagined as a sophisticated mountain retreat. The new build focused on creating a sanctuary of modern comfort, featuring spa-inspired bathrooms with heated floors and contemporary finishes throughout. The selections were of a palette of Calacatta marble, and other fine marbles, many of which were installed as full slabs for floor to ceiling wall finishes, along with warm wood accents, and special hand-applied wall/ceiling finishes. The result is a space that perfectly balances modern living with the tranquility of a mountain setting.",
     gallery: [
       `${GITHUB_RAW_BASE}/montana-cover.webp`,
       `${GITHUB_RAW_BASE}/montana-1.webp`,
@@ -197,7 +202,8 @@ export const projects: Project[] = [
     duration: "18 months",
     sqft: "189,000",
     role: "Owner Representation, Daily Project Management, Co-Design of Many Elements, Property Management",
-    description: "We orchestrated the creation of a 189,000 gallon ultra-luxury private club amenity, a project that demanded the coordination of over 15 specialty trades. The centerpiece is a 189,000 gallon free-form pool with a swim-up bar, complemented by two beautiful Int. Design 1,200 sq ft pool houses. The design, inspired by 1950s New York smoking clubs, features imported travertine and 10' high solid mahogany wood walls and doors. This 18-month project delivered a resort-style oasis with professional landscaping, fire pits, and an outdoor kitchen, setting a new standard for private club luxury.",
+    description:
+      "We orchestrated the creation of a 189,000 gallon ultra-luxury private club amenity, a project that demanded the coordination of over 15 specialty trades. The centerpiece is a 189,000 gallon free-form pool with a swim-up bar, complemented by two beautiful Int. Design 1,200 sq ft pool houses. The design, inspired by 1950s New York smoking clubs, features imported travertine and 10' high solid mahogany wood walls and doors. This 18-month project delivered a resort-style oasis with professional landscaping, fire pits, and an outdoor kitchen, setting a new standard for private club luxury.",
     gallery: [
       `${GITHUB_RAW_BASE}/pool-design-cover.webp`,
       `${GITHUB_RAW_BASE}/pool-design-1.webp`,
@@ -250,7 +256,8 @@ export const projects: Project[] = [
     duration: "16 months",
     sqft: "3,800",
     role: "Owner Representative, Designer, Interior Designer, Builder, Project Manager, Owner Assignee during Photo Ad Campaign and Cinema Movie Shoots",
-    description: "This 3,800 sq ft residence was completely reimagined through our design-build process. Over 16 months, we opened up the home to panoramic ocean views with new floor-to-ceiling windows and custom skylights. The interior transformation features white oak flooring, a gourmet kitchen with waterfall quartzite countertops, and spa-quality bathrooms with radiant heat. We undertook a complete structural renovation, culminating in a home that is as solid as it is beautiful, a true sanctuary on the Big Sur coast.",
+    description:
+      "This 3,800 sq ft residence was completely reimagined through our design-build process. Over 16 months, we opened up the home to panoramic ocean views with new floor-to-ceiling windows and custom skylights. The interior transformation features white oak flooring, a gourmet kitchen with waterfall quartzite countertops, and spa-quality bathrooms with radiant heat. We undertook a complete structural renovation, culminating in a home that is as solid as it is beautiful, a true sanctuary on the Big Sur coast.",
     gallery: [
       `${GITHUB_RAW_BASE}/southcoast-cover.webp`,
       `${GITHUB_RAW_BASE}/southcoast-2.webp`,
@@ -318,7 +325,8 @@ export const projects: Project[] = [
     duration: "20 months",
     sqft: "4,800",
     role: "Designer, Builder, Project Manager, Civil Engineering Contractor",
-    description: "In the heart of Carmel Valley, we crafted a 4,800 sq ft custom residence that is a dialogue between architecture and nature. This 20-month design-build project features exposed steel beams and floor-to-ceiling glass walls that frame the oak-studded landscape. We integrated the home with its surroundings through extensive site work and native habitat restoration, creating a dwelling that is both a part of and a tribute to the natural beauty of the valley.",
+    description:
+      "In the heart of Carmel Valley, we crafted a 4,800 sq ft custom residence that is a dialogue between architecture and nature. This 20-month design-build project features exposed steel beams and floor-to-ceiling glass walls that frame the oak-studded landscape. We integrated the home with its surroundings through extensive site work and native habitat restoration, creating a dwelling that is both a part of and a tribute to the natural beauty of the valley.",
     gallery: [
       `${GITHUB_RAW_BASE}/carmel-valley-new-cover.webp`,
       `${GITHUB_RAW_BASE}/carmel-valley-new-1.webp`,
@@ -338,7 +346,8 @@ export const projects: Project[] = [
     duration: "10 months",
     sqft: "3,600 + 1,200 sq ft addition",
     role: "All House Project, Estate Management",
-    description: "We revitalized this 3,600 sq ft home with a 1,200 sq ft addition over a 10-month period. Our comprehensive approach included a new roof, impact windows, and updated electrical and plumbing systems. The interior was completely refreshed, and our estate management services ensured a seamless coordination of all trades. The result is a home that is not only more spacious and modern but also fortified and meticulously detailed.",
+    description:
+      "We revitalized this 3,600 sq ft home with a 1,200 sq ft addition over a 10-month period. Our comprehensive approach included a new roof, impact windows, and updated electrical and plumbing systems. The interior was completely refreshed, and our estate management services ensured a seamless coordination of all trades. The result is a home that is not only more spacious and modern but also fortified and meticulously detailed.",
     gallery: [
       `${GITHUB_RAW_BASE}/north-florida-14.webp`,
       `${GITHUB_RAW_BASE}/north-florida-cover.webp`,
@@ -368,11 +377,9 @@ export const projects: Project[] = [
     duration: "6 months",
     sqft: "1,800",
     role: "Project Manager in a Foreign Country for US Owners",
-    description: "On the pristine shores of the Abaco Islands, we constructed an 1,800 sq ft luxury boat house in just six months. Built to withstand the Caribbean climate, this waterfront structure features hurricane-resistant construction and premium marine-grade finishes. Custom mahogany millwork and covered dock access provide a touch of elegance, creating a functional and beautiful gateway to the open water.",
-    gallery: [
-      `${GITHUB_RAW_BASE}/abaco-luxe-boathouse-cover.webp`,
-      `${GITHUB_RAW_BASE}/abaco-luxe-boathouse-1.webp`,
-    ],
+    description:
+      "On the pristine shores of the Abaco Islands, we constructed an 1,800 sq ft luxury boat house in just six months. Built to withstand the Caribbean climate, this waterfront structure features hurricane-resistant construction and premium marine-grade finishes. Custom mahogany millwork and covered dock access provide a touch of elegance, creating a functional and beautiful gateway to the open water.",
+    gallery: [`${GITHUB_RAW_BASE}/abaco-luxe-boathouse-cover.webp`, `${GITHUB_RAW_BASE}/abaco-luxe-boathouse-1.webp`],
   },
   // 10. Carmel Forest to Ocean View
   {
@@ -383,7 +390,8 @@ export const projects: Project[] = [
     location: "Carmel By the Sea, CA",
     coverImage: `${GITHUB_RAW_BASE}/carmel-2-cover.webp`,
     role: "Designer, Builder, Project Manager",
-    description: "This project is a celebration of its stunning location, a coastal home that harmonizes with the natural beauty of the Carmel coastline. Our focus was on refined craftsmanship and thoughtful design, creating a space that feels both luxurious and deeply connected to its environment. The result is a home that is more than a structure; it is a serene retreat.",
+    description:
+      "This project is a celebration of its stunning location, a coastal home that harmonizes with the natural beauty of the Carmel coastline. Our focus was on refined craftsmanship and thoughtful design, creating a space that feels both luxurious and deeply connected to its environment. The result is a home that is more than a structure; it is a serene retreat.",
     gallery: [
       `${GITHUB_RAW_BASE}/carmel-2-cover.webp`,
       `${GITHUB_RAW_BASE}/carmel-2-1.webp`,
@@ -403,7 +411,8 @@ export const projects: Project[] = [
     coverImage: `${GITHUB_RAW_BASE}/bigsur-cover.webp`,
     duration: "11 months",
     role: "Owner Representative, Designer, Builder, Project Manager, Permit Procurement",
-    description: "Over 11 months, we reshaped a 1.2-acre mountain site in Big Sur, a project that required both heavy machinery and a delicate touch. We moved over 3,000 cubic yards of earth, constructed 320 linear feet of retaining walls, and built a 900 sq ft custom garage and workshop. Our work focused on erosion control and drainage systems, all while preserving the property's stunning ocean views and protecting the natural landscape.",
+    description:
+      "Over 11 months, we reshaped a 1.2-acre mountain site in Big Sur, a project that required both heavy machinery and a delicate touch. We moved over 3,000 cubic yards of earth, constructed 320 linear feet of retaining walls, and built a 900 sq ft custom garage and workshop. Our work focused on erosion control and drainage systems, all while preserving the property's stunning ocean views and protecting the natural landscape.",
     gallery: [
       `${GITHUB_RAW_BASE}/bigsur-cover.webp`,
       `${GITHUB_RAW_BASE}/bigsur-1.webp`,
@@ -434,7 +443,8 @@ export const projects: Project[] = [
     duration: "12 months",
     sqft: "2,200",
     role: "Designer, Interior Designer, Builder, Project Manager, Permit Procurement",
-    description: "This was more than a remodel; it was a complete transformation. Over 12 months, we took a 2,200 sq ft house and revitalized it from the ground up. The project included a new roofline, foundation repairs, 18 energy-efficient windows, and 1,400 sq ft of new composite decking. We also undertook extensive site work, including 200 linear feet of retaining walls and a complete landscape renovation, proving that with the right vision, any property can be reborn.",
+    description:
+      "This was more than a remodel; it was a complete transformation. Over 12 months, we took a 2,200 sq ft house and revitalized it from the ground up. The project included a new roofline, foundation repairs, 18 energy-efficient windows, and 1,400 sq ft of new composite decking. We also undertook extensive site work, including 200 linear feet of retaining walls and a complete landscape renovation, proving that with the right vision, any property can be reborn.",
     gallery: [
       `${GITHUB_RAW_BASE}/carmel-knolls-cover.webp`,
       `${GITHUB_RAW_BASE}/carmel-knolls-1.webp`,
@@ -474,7 +484,8 @@ export const projects: Project[] = [
     coverImage: `${GITHUB_RAW_BASE}/coastal-restoration-cover.webp`,
     duration: "9 months",
     role: "Civil Engineering Contractor, Builder, Permit Procurement (Emergency Construction Permit to Save Residence)",
-    description: "Faced with a dramatically eroded coastal property, we undertook a nine-month restoration project to preserve this spectacular oceanfront site. We moved over 2,500 cubic yards of material, installed 180 linear feet of engineered retaining walls, and performed comprehensive foundation work. This project was a battle against the elements, a successful effort to stabilize and restore a piece of the California coastline for generations to come.",
+    description:
+      "Faced with a dramatically eroded coastal property, we undertook a nine-month restoration project to preserve this spectacular oceanfront site. We moved over 2,500 cubic yards of material, installed 180 linear feet of engineered retaining walls, and performed comprehensive foundation work. This project was a battle against the elements, a successful effort to stabilize and restore a piece of the California coastline for generations to come.",
     gallery: [
       `${GITHUB_RAW_BASE}/coastal-restoration-cover.webp`,
       `${GITHUB_RAW_BASE}/coastal-restoration-1.webp`,
@@ -505,7 +516,8 @@ export const projects: Project[] = [
     sqft: "6,800",
     lotSize: "2.5 Acres",
     role: "Project Manager, Foreign Country for US Owners",
-    description: "We developed a 2.5-acre beachfront estate, creating a 6,800 sq ft main residence that embodies luxury Caribbean living. This premier property features 180 feet of private beach frontage and is fortified with Category 5 hurricane-resistant construction. The estate is a self-sufficient oasis, with an infinity pool, guest cottage, dock facilities, solar power backup, and rainwater collection systems. This is more than a home; it is a legacy property on the shores of the Atlantic.",
+    description:
+      "We developed a 2.5-acre beachfront estate, creating a 6,800 sq ft main residence that embodies luxury Caribbean living. This premier property features 180 feet of private beach frontage and is fortified with Category 5 hurricane-resistant construction. The estate is a self-sufficient oasis, with an infinity pool, guest cottage, dock facilities, solar power backup, and rainwater collection systems. This is more than a home; it is a legacy property on the shores of the Atlantic.",
     gallery: [
       `${GITHUB_RAW_BASE}/beachfront-1.webp`,
       `${GITHUB_RAW_BASE}/beachfront-2.webp`,
@@ -526,7 +538,8 @@ export const projects: Project[] = [
     coverImage: `${GITHUB_RAW_BASE}/development-1.webp`,
     duration: "36 months",
     role: "Project Management Development/Civil Engineering Project",
-    description: "Over 36 months, we executed a 45-acre master-planned residential development, laying the groundwork for a new community. This comprehensive project included infrastructure for over 120 home sites, 3.2 miles of roads, and complete utility installation. We also created 2 miles of walking trails and community amenities, all while adhering to environmental compliance measures and coordinating with multiple municipal agencies. This project was about more than construction; it was about building a neighborhood.",
+    description:
+      "Over 36 months, we executed a 45-acre master-planned residential development, laying the groundwork for a new community. This comprehensive project included infrastructure for over 120 home sites, 3.2 miles of roads, and complete utility installation. We also created 2 miles of walking trails and community amenities, all while adhering to environmental compliance measures and coordinating with multiple municipal agencies. This project was about more than construction; it was about building a neighborhood.",
     gallery: [
       `${GITHUB_RAW_BASE}/development-1.webp`,
       `${GITHUB_RAW_BASE}/development-2.webp`,
@@ -554,7 +567,8 @@ export const projects: Project[] = [
     duration: "14 months",
     sqft: "2,600",
     role: "Owner's Rep, Designer, Builder",
-    description: "Building a new 2,600 sq ft home in a historic neighborhood required a delicate balance of tradition and modernity. Over 14 months, our design-build team navigated historic district guidelines to create a home that respects its context while offering contemporary comforts. The exterior features period-appropriate details like cedar shingle siding and covered porches, while the interior boasts an open floor plan and energy-efficient systems. This project is a bridge between past and present.",
+    description:
+      "Building a new 2,600 sq ft home in a historic neighborhood required a delicate balance of tradition and modernity. Over 14 months, our design-build team navigated historic district guidelines to create a home that respects its context while offering contemporary comforts. The exterior features period-appropriate details like cedar shingle siding and covered porches, while the interior boasts an open floor plan and energy-efficient systems. This project is a bridge between past and present.",
     gallery: [
       `${GITHUB_RAW_BASE}/pg-cover.webp`,
       `${GITHUB_RAW_BASE}/pg-1.webp`,
@@ -579,7 +593,8 @@ export const projects: Project[] = [
     coverImage: `${GITHUB_RAW_BASE}/hillside-cleanup-cover.webp`,
     duration: "4 months",
     role: "Civil Engineering Contractor/Builder, Permit Procurement",
-    description: "In just four months, we executed a critical environmental cleanup on a 1.5-acre hillside. We removed over 80 tons of debris, including abandoned vehicles and construction waste. But our work didn't stop there. We implemented erosion control measures, restored the native plant life with over 200 new specimens, and improved drainage systems. This project was about more than just cleaning up; it was about healing a piece of the natural landscape.",
+    description:
+      "In just four months, we executed a critical environmental cleanup on a 1.5-acre hillside. We removed over 80 tons of debris, including abandoned vehicles and construction waste. But our work didn't stop there. We implemented erosion control measures, restored the native plant life with over 200 new specimens, and improved drainage systems. This project was about more than just cleaning up; it was about healing a piece of the natural landscape.",
     gallery: [
       `${GITHUB_RAW_BASE}/hillside-cleanup-cover.webp`,
       `${GITHUB_RAW_BASE}/hillside-cleanup-1.webp`,
@@ -610,7 +625,8 @@ export const projects: Project[] = [
     duration: "22 months",
     sqft: "12,000",
     role: "Owner's Representative, Designer, Builder, Permit Procurement",
-    description: "We brought the timeless beauty of Spanish Colonial Revival architecture to a new 12,000 sq ft commercial complex. This 22-month design-build project features authentic details like hand-formed clay roof tiles, custom ironwork, and arched colonnades. We balanced traditional aesthetics with the demands of modern commercial spaces, creating a complex that is both beautiful and functional, a landmark in its coastal location.",
+    description:
+      "We brought the timeless beauty of Spanish Colonial Revival architecture to a new 12,000 sq ft commercial complex. This 22-month design-build project features authentic details like hand-formed clay roof tiles, custom ironwork, and arched colonnades. We balanced traditional aesthetics with the demands of modern commercial spaces, creating a complex that is both beautiful and functional, a landmark in its coastal location.",
     gallery: [
       `${GITHUB_RAW_BASE}/laguna-grande-cover.webp`,
       `${GITHUB_RAW_BASE}/laguna-grande-1.webp`,
@@ -630,7 +646,8 @@ export const projects: Project[] = [
     location: "Carmel By the Sea, CA",
     coverImage: `${GITHUB_RAW_BASE}/carmel-3-cover-new.webp`,
     role: "Designer, Builder, Project Manager",
-    description: "A comprehensive renovation that transformed this Carmel property into a stunning coastal retreat. Every detail was carefully considered to maximize the natural beauty of the location while providing modern comfort and functionality.",
+    description:
+      "A comprehensive renovation that transformed this Carmel property into a stunning coastal retreat. Every detail was carefully considered to maximize the natural beauty of the location while providing modern comfort and functionality.",
     gallery: [
       `${GITHUB_RAW_BASE}/carmel-3-cover-new.webp`,
       `${GITHUB_RAW_BASE}/carmel-3-1.webp`,
