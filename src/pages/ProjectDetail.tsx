@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { getProjectById, projects } from "@/data/projects";
@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, X, ChevronLeft, ChevronRight, Clock, Maximize2, 
 import { Button } from "@/components/ui/button";
 import { NumberedGallery } from "@/components/gallery/NumberedGallery";
 import { motion, AnimatePresence } from "framer-motion";
+import { useGalleryOrder } from "@/hooks/useGalleryOrder";
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -14,6 +15,13 @@ const ProjectDetail = () => {
   const navigate = useNavigate();
   const project = getProjectById(id || "");
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+
+  // Memoize default gallery to prevent infinite loops
+  const defaultGallery = useMemo(() => project?.gallery || [], [project?.gallery]);
+  const { images: galleryImages, isLoading, isAdmin, saveGalleryOrder } = useGalleryOrder(
+    id || "",
+    defaultGallery
+  );
 
   // Scroll to top when project changes
   useEffect(() => {
@@ -43,7 +51,7 @@ const ProjectDetail = () => {
   const openLightbox = (index: number) => setSelectedImage(index);
   const closeLightbox = () => setSelectedImage(null);
   const nextImage = () => {
-    if (selectedImage !== null && selectedImage < project.gallery.length - 1) {
+    if (selectedImage !== null && selectedImage < galleryImages.length - 1) {
       setSelectedImage(selectedImage + 1);
     }
   };
@@ -181,12 +189,20 @@ const ProjectDetail = () => {
               transition={{ delay: 0.2 }}
             >
               <h2 className="text-3xl font-serif text-cream mb-8">Gallery</h2>
-              <p className="text-cream/60 text-sm mb-4">Enter a number to reorder images</p>
-              <NumberedGallery
-                images={project.gallery}
-                projectTitle={project.title}
-                onImageClick={openLightbox}
-              />
+              {isAdmin && (
+                <p className="text-cream/60 text-sm mb-4">Enter a number to reorder images</p>
+              )}
+              {isLoading ? (
+                <div className="text-cream/60">Loading gallery...</div>
+              ) : (
+                <NumberedGallery
+                  images={galleryImages}
+                  projectTitle={project.title}
+                  onImageClick={openLightbox}
+                  onOrderChange={saveGalleryOrder}
+                  isEditable={isAdmin}
+                />
+              )}
             </motion.div>
           </div>
         </section>
@@ -260,14 +276,14 @@ const ProjectDetail = () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3 }}
-                src={project.gallery[selectedImage]}
+                src={galleryImages[selectedImage]}
                 alt={`${project.title} - Image ${selectedImage + 1}`}
                 className="max-h-[85vh] max-w-[85vw] object-contain"
               />
 
               <button
                 onClick={nextImage}
-                disabled={selectedImage === project.gallery.length - 1}
+                disabled={selectedImage === galleryImages.length - 1}
                 className="absolute right-6 text-cream hover:text-primary transition-colors disabled:opacity-30"
                 aria-label="Next image"
               >
@@ -275,7 +291,7 @@ const ProjectDetail = () => {
               </button>
 
               <div className="absolute bottom-6 text-cream/60 text-sm">
-                {selectedImage + 1} / {project.gallery.length}
+                {selectedImage + 1} / {galleryImages.length}
               </div>
             </motion.div>
           )}
