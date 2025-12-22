@@ -8,6 +8,8 @@ import { NumberedGallery } from "@/components/gallery/NumberedGallery";
 import { motion, AnimatePresence } from "framer-motion";
 import { useGalleryOrder } from "@/hooks/useGalleryOrder";
 
+import { AIRedesignDialog } from "@/components/gallery/AIRedesignDialog";
+
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
   // Force a re-render/reset when ID changes
@@ -15,6 +17,10 @@ const ProjectDetail = () => {
   const navigate = useNavigate();
   const project = getProjectById(id || "");
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+
+  // AI Redesign State
+  const [isRedesignOpen, setIsRedesignOpen] = useState(false);
+  const [redesignImage, setRedesignImage] = useState<string | null>(null);
 
   // Memoize default gallery to prevent infinite loops
   const defaultGallery = useMemo(() => project?.gallery || [], [project?.gallery]);
@@ -28,6 +34,17 @@ const ProjectDetail = () => {
     window.scrollTo(0, 0);
     setKey(prev => prev + 1); // Trigger animation reset
   }, [id]);
+
+  const handleEditImage = (image: string) => {
+    setRedesignImage(image);
+    setIsRedesignOpen(true);
+  };
+
+  const handleSaveRedesign = (newImageUrl: string) => {
+    // Add the new image to the start of the gallery
+    const newGallery = [newImageUrl, ...galleryImages];
+    saveGalleryOrder(newGallery);
+  };
 
   if (!project) {
     return (
@@ -200,6 +217,7 @@ const ProjectDetail = () => {
                   projectTitle={project.title}
                   onImageClick={openLightbox}
                   onOrderChange={saveGalleryOrder}
+                  onEditImage={handleEditImage}
                   isEditable={isAdmin}
                 />
               )}
@@ -296,6 +314,14 @@ const ProjectDetail = () => {
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* AI Redesign Dialog */}
+        <AIRedesignDialog
+          isOpen={isRedesignOpen}
+          onClose={() => setIsRedesignOpen(false)}
+          imageUrl={redesignImage}
+          onSave={handleSaveRedesign}
+        />
       </motion.div>
     </Layout>
   );
