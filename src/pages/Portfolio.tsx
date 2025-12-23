@@ -33,7 +33,7 @@ const Portfolio = () => {
             initial={{ scale: 1.1, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
-            src="https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/miami-beach-cover.webp"
+            src="/portfolio-hero.png"
             alt="Portfolio"
             className="w-full h-full object-cover"
           />
