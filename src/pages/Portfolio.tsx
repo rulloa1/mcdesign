@@ -85,7 +85,7 @@ const Portfolio = () => {
             className="absolute bottom-10 left-10 hidden lg:block"
           >
             <p 
-              className="text-xs tracking-[0.25em] text-primary font-medium"
+              className="text-xs tracking-[0.25em] text-cream/30 font-medium"
               style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
             >
               PORTFOLIO
