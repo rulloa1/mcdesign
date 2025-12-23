@@ -25,93 +25,187 @@ const Portfolio = () => {
 
   return (
     <Layout>
-      {/* Hero - Split Layout */}
-      <section className="min-h-[70vh] grid lg:grid-cols-2">
-        {/* Left - Image with vertical text */}
-        <div className="relative h-[50vh] lg:h-auto overflow-hidden">
-          <motion.img
-            initial={{ scale: 1.1, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            src="/portfolio-hero.png"
-            alt="Portfolio"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-charcoal/40" />
-          {/* Vertical Portfolio Text */}
-          <div className="absolute left-6 top-1/2 -translate-y-1/2 hidden lg:block">
+      {/* Hero - Full Split Layout */}
+      <section className="min-h-screen flex flex-col lg:flex-row">
+        {/* Left - Dark Hero with Hexagonal Logo */}
+        <div className="relative flex-1 bg-gradient-to-br from-charcoal to-charcoal-light flex items-center justify-center overflow-hidden min-h-[60vh] lg:min-h-screen">
+          {/* Background overlay pattern */}
+          <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_50%_50%,rgba(201,169,97,0.1)_0%,transparent_50%)]" />
+          
+          {/* Main Content */}
+          <div className="relative z-10 text-center px-8 py-16">
+            {/* Hexagonal Logo */}
+            <motion.div 
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="relative w-56 h-56 md:w-72 md:h-72 mx-auto mb-12 group"
+            >
+              {/* Hexagon Background with pulse animation */}
+              <motion.div 
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute inset-0 bg-gradient-to-br from-primary to-gold-dark"
+                style={{ 
+                  clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
+                }}
+              />
+              {/* Logo Text */}
+              <span className="absolute inset-0 flex items-center justify-center font-serif text-6xl md:text-7xl font-bold text-cream drop-shadow-lg">
+                MC
+              </span>
+            </motion.div>
+
+            {/* Title */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+              className="font-sans text-2xl md:text-4xl font-light tracking-[0.5em] text-cream mb-4"
+            >
+              MICHAEL CHANDLER
+            </motion.h1>
+
+            {/* Subtitle */}
             <motion.p
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-cream text-xl tracking-[0.5em] font-serif"
-              style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', transform: 'rotate(180deg)' }}
+              className="font-sans text-base md:text-lg tracking-[0.75em] text-primary"
             >
               PORTFOLIO
             </motion.p>
           </div>
+
+          {/* Vertical Side Text */}
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.8, duration: 0.6 }}
+            className="absolute bottom-10 left-10 hidden lg:block"
+          >
+            <p 
+              className="text-xs tracking-[0.25em] text-primary font-medium"
+              style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
+            >
+              PORTFOLIO
+            </p>
+          </motion.div>
         </div>
 
-        {/* Right - Content with improved spacing */}
-        <div className="bg-cream flex flex-col justify-center px-10 lg:px-16 py-10 lg:py-0">
-          <motion.button
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-            onClick={() => navigate(-1)}
-            className="flex items-center gap-2 text-charcoal hover:text-primary transition-colors mb-8 self-start"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back
-          </motion.button>
+        {/* Right - Content Section */}
+        <div className="relative flex-1 bg-background flex flex-col">
+          {/* Decorative Corner Accents */}
+          <div className="absolute top-10 right-10 w-24 h-24 border-t-2 border-r-2 border-primary/20 hidden lg:block" />
+          <div className="absolute bottom-10 left-10 w-24 h-24 border-b-2 border-l-2 border-primary/20 hidden lg:block" />
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="text-4xl md:text-5xl font-serif text-charcoal mb-4"
-          >
-            Project Collection
-          </motion.h1>
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="w-16 h-1 bg-primary mb-6 origin-left"
-          />
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.7, duration: 0.8 }}
-            className="text-muted-foreground text-lg leading-relaxed mb-10 max-w-lg"
-          >
-            A curated selection of residential, commercial, and hospitality projects showcasing 37 years of design excellence and meticulous craftsmanship.
-          </motion.p>
+          {/* Header */}
+          <div className="flex justify-between items-center px-10 lg:px-16 py-10 bg-card shadow-sm">
+            <div className="flex items-center gap-5">
+              {/* Mini Hexagon Logo */}
+              <div 
+                className="w-12 h-12 bg-gradient-to-br from-primary to-gold-dark flex items-center justify-center"
+                style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}
+              >
+                <span className="font-serif text-sm font-bold text-cream">MC</span>
+              </div>
+            </div>
+            <span className="text-sm tracking-[0.2em] text-primary font-medium cursor-pointer hover:text-gold-dark transition-colors">
+              PORTFOLIO
+            </span>
+          </div>
 
-          {/* Stats Section - Grid with improved spacing */}
-          <div className="grid grid-cols-2 gap-16 mt-16">
+          {/* Main Content */}
+          <div className="flex-1 flex flex-col justify-center px-10 lg:px-16 py-12">
+            {/* Back Button */}
+            <motion.button
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              onClick={() => navigate(-1)}
+              className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-all mb-10 self-start group"
+            >
+              <span className="text-lg group-hover:-translate-x-1 transition-transform">←</span>
+              Back
+            </motion.button>
+
+            {/* Title */}
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-foreground mb-6"
+            >
+              Project Collection
+            </motion.h2>
+
+            {/* Gold Underline Accent */}
             <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: 80 }}
+              transition={{ delay: 0.6, duration: 0.6 }}
+              className="h-1 bg-gradient-to-r from-primary to-transparent mb-8"
+            />
+
+            {/* Description */}
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.6 }}
+              transition={{ delay: 0.7, duration: 0.6 }}
+              className="text-lg leading-relaxed text-muted-foreground max-w-xl mb-16"
             >
-              <p className="text-7xl md:text-8xl font-light text-primary leading-none">{projects.length}</p>
-              <p className="text-sm text-muted-foreground uppercase tracking-[2px] mt-2">Projects</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9, duration: 0.6 }}
-            >
-              <p className="text-7xl md:text-8xl font-light text-primary leading-none">37</p>
-              <p className="text-sm text-muted-foreground uppercase tracking-[2px] mt-2">Years</p>
-            </motion.div>
+              A curated selection of residential, commercial, and hospitality projects showcasing 37 years of design excellence and meticulous craftsmanship.
+            </motion.p>
+
+            {/* Stats Section */}
+            <div className="grid grid-cols-2 gap-20 mt-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8, duration: 0.6 }}
+              >
+                <span 
+                  className="block font-serif text-7xl md:text-8xl font-light leading-none mb-3"
+                  style={{
+                    background: 'linear-gradient(135deg, hsl(var(--gold)) 0%, hsl(var(--gold-dark)) 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                  }}
+                >
+                  19
+                </span>
+                <span className="text-xs tracking-[0.2em] text-muted-foreground font-medium uppercase">
+                  Signature Projects
+                </span>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9, duration: 0.6 }}
+              >
+                <span 
+                  className="block font-serif text-7xl md:text-8xl font-light leading-none mb-3"
+                  style={{
+                    background: 'linear-gradient(135deg, hsl(var(--gold)) 0%, hsl(var(--gold-dark)) 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                  }}
+                >
+                  37
+                </span>
+                <span className="text-xs tracking-[0.2em] text-muted-foreground font-medium uppercase">
+                  Years of Excellence
+                </span>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Filters with improved spacing */}
-      <section className="bg-cream py-6 border-b border-border sticky top-0 z-10 backdrop-blur-sm bg-cream/90">
+      {/* Filters */}
+      <section className="bg-background py-6 border-b border-border sticky top-0 z-10 backdrop-blur-sm bg-background/90">
         <div className="container mx-auto px-10 lg:px-16">
           <div className="flex flex-wrap gap-3">
             {categories.map((cat, index) => (
@@ -123,7 +217,7 @@ const Portfolio = () => {
                 onClick={() => setActiveFilter(cat)}
                 className={`px-5 py-2.5 text-sm tracking-[2px] transition-all rounded-full border ${activeFilter === cat
                     ? "bg-charcoal text-cream border-charcoal"
-                    : "bg-transparent text-charcoal border-border hover:border-charcoal"
+                    : "bg-transparent text-foreground border-border hover:border-charcoal"
                   }`}
               >
                 {cat} ({cat === "All" ? projects.length : projects.filter(p => p.category === cat).length})
@@ -133,8 +227,8 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Projects Grid with improved spacing */}
-      <section className="py-16 bg-cream min-h-screen">
+      {/* Projects Grid */}
+      <section className="py-16 bg-background min-h-screen">
         <div className="container mx-auto px-10 lg:px-16">
           <motion.div
             layout
