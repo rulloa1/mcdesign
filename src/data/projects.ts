@@ -224,7 +224,7 @@ export const projects: Project[] = [
     subtitle: "Resort Pool",
     category: "Hospitality",
     location: "SE Texas",
-    coverImage: `${GITHUB_RAW_BASE}/pool-design-cover.webp`,
+    coverImage: "/projects/hospitality-pool-cover.jpg",
     duration: "18 months",
     sqft: "189,000",
     role: "Owner Representation, Daily Project Management, Co-Design of Many Elements, Property Management",
