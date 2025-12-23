@@ -231,6 +231,48 @@ const Design = () => {
                   transitionDelay: `${(index + 1) * 100}ms`,
                 }}
               >
+            {designAlbums
+              .filter((album) =>
+                [
+                  "land-development",
+                  "residential-communities",
+                  "resort-hospitality",
+                  "renovation-repositioning",
+                ].includes(album.id)
+              )
+              .map((album, index) => (
+                <Link
+                  to={`/design/${album.id}`}
+                  key={album.id}
+                  className={`group bg-card border border-border hover:border-primary/30 hover:-translate-y-2 hover:shadow-xl transition-all duration-500 overflow-hidden rounded-lg ${developmentAnimation.isVisible
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-8"
+                    }`}
+                  style={{
+                    transitionDelay: `${(index + 1) * 100}ms`,
+                  }}
+                >
+                  <div className="h-48 overflow-hidden relative">
+                    <img
+                      src={album.coverImage}
+                      alt={album.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+                  </div>
+                  <div className="p-6 text-center">
+                    <h3 className="text-xl font-serif text-charcoal mb-4">
+                      {album.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {album.description}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            {developmentConcepts.map((concept, index) => <div key={index} className={`bg-card p-8 border border-border hover:border-primary/30 hover:-translate-y-2 hover:shadow-xl transition-all duration-500 text-center ${developmentAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{
+            transitionDelay: `${(index + 1) * 100}ms`
+          }}>
                 <h3 className="text-xl font-serif text-charcoal mb-4">{concept.title}</h3>
                 <div className="space-y-2">
                   {concept.tags.map((tag, i) => (
