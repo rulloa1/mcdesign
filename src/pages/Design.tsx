@@ -11,32 +11,44 @@ import marbleBathImg from "@/assets/detail-marble-bath.jpg";
 import proRangeImg from "@/assets/detail-pro-range.jpg";
 import limestoneFireplaceImg from "@/assets/detail-limestone-fireplace.jpg";
 import leatherCabinetryImg from "@/assets/detail-leather-cabinetry.jpg";
-const interiorCategories = [{
-  title: "Great Rooms",
-  image: spaVanityImg,
-  link: "/portfolio?category=Residential+Construction"
-}, {
-  title: "Primary Suites",
-  image: marbleBathImg,
-  link: "/portfolio?category=Design+Build"
-}, {
-  title: "Chef's Kitchens",
-  image: proRangeImg,
-  link: "/portfolio?category=Hospitality"
-}];
-const developmentConcepts = [{
-  title: "Land Development",
-  tags: ["Entitlements", "Infrastructure", "Planning"]
-}, {
-  title: "Residential Communities",
-  tags: ["Master Plan", "Amenities", "HOA"]
-}, {
-  title: "Resort & Hospitality",
-  tags: ["Mixed-Use", "Golf", "Private Clubs"]
-}, {
-  title: "Renovation & Repositioning",
-  tags: ["Historic", "Adaptive Reuse", "Restoration"]
-}];
+
+const interiorCategories = [
+  {
+    title: "Great Rooms",
+    image: spaVanityImg,
+    link: "/portfolio?category=Residential+Construction",
+  },
+  {
+    title: "Primary Suites",
+    image: marbleBathImg,
+    link: "/portfolio?category=Design+Build",
+  },
+  {
+    title: "Chef's Kitchens",
+    image: proRangeImg,
+    link: "/portfolio?category=Hospitality",
+  },
+];
+
+const developmentConcepts = [
+  {
+    title: "Land Development",
+    tags: ["Entitlements", "Infrastructure", "Planning"],
+  },
+  {
+    title: "Residential Communities",
+    tags: ["Master Plan", "Amenities", "HOA"],
+  },
+  {
+    title: "Resort & Hospitality",
+    tags: ["Mixed-Use", "Golf", "Private Clubs"],
+  },
+  {
+    title: "Renovation & Repositioning",
+    tags: ["Historic", "Adaptive Reuse", "Restoration"],
+  },
+];
+
 const Design = () => {
   const heroAnimation = useScrollAnimation();
   const interiorsAnimation = useScrollAnimation();
@@ -250,15 +262,31 @@ const Design = () => {
                 </Link>
               ))}
             {developmentConcepts.map((concept, index) => <div key={index} className={`bg-card p-8 border border-border hover:border-primary/30 hover:-translate-y-2 hover:shadow-xl transition-all duration-500 text-center ${developmentAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{
-              transitionDelay: `${(index + 1) * 100}ms`
-            }}>
-              <h3 className="text-xl font-serif text-charcoal mb-4">{concept.title}</h3>
-              <div className="space-y-2">
-                {concept.tags.map((tag, i) => <span key={i} className="inline-block text-xs text-muted-foreground bg-cream px-3 py-1 rounded m-1">
-                  {tag}
-                </span>)}
+            transitionDelay: `${(index + 1) * 100}ms`
+          }}>
+            {developmentConcepts.map((concept, index) => (
+              <div
+                key={index}
+                className={`bg-card p-8 border border-border hover:border-primary/30 hover:-translate-y-2 hover:shadow-xl transition-all duration-500 text-center ${developmentAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                  }`}
+                style={{
+                  transitionDelay: `${(index + 1) * 100}ms`,
+                }}
+              >
+                <h3 className="text-xl font-serif text-charcoal mb-4">{concept.title}</h3>
+                <div className="space-y-2">
+                  {concept.tags.map((tag, i) => (
+                    <span
+                      key={i}
+                      className="inline-block text-xs text-muted-foreground bg-cream px-3 py-1 rounded m-1"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>)}
               </div>
-            </div>)}
+            ))}
           </div>
         </div>
       </section>
@@ -303,7 +331,34 @@ const Design = () => {
                   </Link>
                 </div>
               ))}
-
+            {designAlbums.map(album => <div key={album.id} className="group cursor-pointer">
+                <div className="overflow-hidden rounded-lg mb-4 aspect-[4/3] relative">
+                  <img src={album.coverImage} alt={album.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+                </div>
+                <h3 className="text-2xl font-serif text-charcoal mb-2 group-hover:text-primary transition-colors">{album.title}</h3>
+                <p className="text-muted-foreground mb-4">{album.description}</p>
+                <Link to={`/design/${album.id}`}>
+                  <Button variant="outline">View Collection</Button>
+                </Link>
+              </div>)}
+            {designAlbums.map((album) => (
+              <div key={album.id} className="group cursor-pointer">
+                <div className="overflow-hidden rounded-lg mb-4 aspect-[4/3] relative">
+                  <img
+                    src={album.coverImage}
+                    alt={album.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+                </div>
+                <h3 className="text-2xl font-serif text-charcoal mb-2 group-hover:text-primary transition-colors">{album.title}</h3>
+                <p className="text-muted-foreground mb-4">{album.description}</p>
+                <Link to={`/design/${album.id}`}>
+                  <Button variant="outline">View Collection</Button>
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </section>
