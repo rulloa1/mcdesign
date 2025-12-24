@@ -1,11 +1,51 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import { z } from 'https://deno.land/x/zod@v3.22.4/mod.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
+
+// Define allowed styles to prevent prompt injection
+const ALLOWED_STYLES = [
+  'Modern Luxury',
+  'Minimalist Scandinavian',
+  'Industrial Chic',
+  'Modern Farmhouse',
+  'Mid-Century Modern',
+  'Coastal Contemporary',
+  'Dark Academia',
+  'Art Deco',
+  'Bohemian',
+  'Traditional',
+  'Contemporary',
+  'Rustic',
+  'Mediterranean',
+  'Japanese Zen'
+] as const;
+
+// Input validation schema
+const requestSchema = z.object({
+  imageBase64: z.string()
+    .min(1, 'Image is required')
+    .refine(
+      (val) => val.startsWith('data:image/'),
+      'Invalid image format: must be a base64 data URL'
+    )
+    .refine(
+      (val) => /^data:image\/(jpeg|jpg|png|webp|gif);base64,/.test(val),
+      'Invalid image type: must be JPEG, PNG, WebP, or GIF'
+    )
+    .refine(
+      (val) => val.length < 10_000_000,
+      'Image too large: must be less than ~7.5MB'
+    ),
+  style: z.enum(ALLOWED_STYLES, {
+    errorMap: () => ({ message: `Invalid style. Allowed styles: ${ALLOWED_STYLES.join(', ')}` })
+  })
+});
 
 serve(async (req) => {
   // Handle CORS preflight requests
@@ -42,7 +82,31 @@ serve(async (req) => {
 
     console.log('Authenticated user:', user.id);
 
-    const { imageBase64, style } = await req.json();
+    // Parse and validate request body
+    let body;
+    try {
+      body = await req.json();
+    } catch {
+      return new Response(
+        JSON.stringify({ error: 'Invalid JSON in request body' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Validate input with zod
+    const validationResult = requestSchema.safeParse(body);
+    if (!validationResult.success) {
+      console.error('Validation failed:', validationResult.error.errors);
+      return new Response(
+        JSON.stringify({ 
+          error: 'Invalid request parameters', 
+          details: validationResult.error.errors.map(e => e.message)
+        }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const { imageBase64, style } = validationResult.data;
     
     const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY');
     if (!OPENAI_API_KEY) {
