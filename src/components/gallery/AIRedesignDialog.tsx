@@ -6,7 +6,7 @@ import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { Loader2, Wand2, Download, Save } from "lucide-react";
 import { toast } from "sonner";
-import OpenAI from "openai";
+import { supabase } from "@/integrations/supabase/client";
 
 interface AIRedesignDialogProps {
     isOpen: boolean;
@@ -42,47 +42,20 @@ export const AIRedesignDialog = ({ isOpen, onClose, imageUrl, onSave }: AIRedesi
         setGeneratedImage(null);
 
         try {
-            const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
-            if (!apiKey) throw new Error("Missing OpenAI API Key");
-
-            const openai = new OpenAI({
-                apiKey: apiKey,
-                dangerouslyAllowBrowser: true // Allowed for this specific client-side demo
-            });
-
-            // 1. Get Base64 of the image
+            // Get Base64 of the image
             const base64Image = await urlToBase64(imageUrl);
 
-            // 2. Vision API - Analyze the room
-            const visionResponse = await openai.chat.completions.create({
-                model: "gpt-4o",
-                messages: [
-                    {
-                        role: "user",
-                        content: [
-                            { type: "text", text: "Describe this interior room in detail. Focus on the architectural layout, perspective, furniture placement, and lighting. Do NOT describe the colors or specific decor style. Just the structure and composition." },
-                            { type: "image_url", image_url: { url: base64Image } }
-                        ],
-                    },
-                ],
+            // Call the edge function instead of OpenAI directly
+            const { data, error } = await supabase.functions.invoke('generate-design', {
+                body: { imageBase64: base64Image, style }
             });
 
-            const description = visionResponse.choices[0]?.message?.content || "A room interior";
-            console.log("Vision Analysis:", description);
+            if (error) {
+                throw new Error(error.message || 'Failed to generate design');
+            }
 
-            setStatusMessage("Dreaming up new design...");
-
-            // 3. DALL-E 3 - Generate new style
-            const imageResponse = await openai.images.generate({
-                model: "dall-e-3",
-                prompt: `A photorealistic, architectural digest quality photograph of a room with this structure: ${description}. The room is designed in a ${style} style. High end, professional interior design photography, 8k resolution.`,
-                n: 1,
-                size: "1024x1024",
-            });
-
-            const newUrl = imageResponse.data[0]?.url;
-            if (newUrl) {
-                setGeneratedImage(newUrl);
+            if (data?.imageUrl) {
+                setGeneratedImage(data.imageUrl);
                 toast.success("Design generated!");
             } else {
                 throw new Error("No image returned");
@@ -99,8 +72,6 @@ export const AIRedesignDialog = ({ isOpen, onClose, imageUrl, onSave }: AIRedesi
 
     const handleSave = () => {
         if (generatedImage) {
-            // In a real app we would upload this URL to Supabase storage first
-            // For now we pass the DALL-E url (which expires in 1 hour)
             onSave(generatedImage);
             onClose();
         }
@@ -121,7 +92,7 @@ export const AIRedesignDialog = ({ isOpen, onClose, imageUrl, onSave }: AIRedesi
                         AI Interior Redesign
                     </DialogTitle>
                     <DialogDescription>
-                        Experiment with different styles using OpenAI's DALL-E 3.
+                        Experiment with different styles using AI-powered design generation.
                     </DialogDescription>
                 </DialogHeader>
 
@@ -156,7 +127,7 @@ export const AIRedesignDialog = ({ isOpen, onClose, imageUrl, onSave }: AIRedesi
                                 className="py-4"
                             />
                             <p className="text-xs text-muted-foreground">
-                                (Note: DALL-E will reimagine the space based on the layout, not strictly adhere to pixel placement.)
+                                (Note: AI will reimagine the space based on the layout, not strictly adhere to pixel placement.)
                             </p>
                         </div>
 

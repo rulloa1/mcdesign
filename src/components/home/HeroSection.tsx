@@ -4,7 +4,7 @@ import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const heroImages = [
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/miami-beach-cover.webp",
+  "/hero-pool.png",
   "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/southcoast-cover.webp",
   "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-1.webp",
   "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/alpine-ranch-cover.webp",
@@ -44,16 +44,34 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
-      <div className="animate-fade-in-up">
+        <div className="animate-fade-in-up">
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-cream mb-4 tracking-wide">
             Michael Chandler
           </h1>
           <p className="text-lg md:text-xl text-primary tracking-[0.4em] uppercase mb-8">
             Design • Build • Develop
           </p>
-          <p className="text-cream/80 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light">
-            37 years of excellence in custom home building and renovation
-          </p>
+          
+          {/* Stats Container */}
+          <div className="grid grid-cols-2 gap-12 md:gap-20 mb-10">
+            <div className="text-center">
+              <span className="block text-6xl md:text-7xl lg:text-8xl font-light text-primary leading-none">
+                19
+              </span>
+              <span className="block text-xs md:text-sm tracking-[2px] text-cream/80 mt-2 uppercase">
+                Signature Projects
+              </span>
+            </div>
+            <div className="text-center">
+              <span className="block text-6xl md:text-7xl lg:text-8xl font-light text-primary leading-none">
+                37
+              </span>
+              <span className="block text-xs md:text-sm tracking-[2px] text-cream/80 mt-2 uppercase">
+                Years of Excellence
+              </span>
+            </div>
+          </div>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/portfolio">
               <Button size="lg" className="bg-primary text-primary-foreground hover:bg-gold-dark px-8 py-6 text-sm tracking-widest uppercase">

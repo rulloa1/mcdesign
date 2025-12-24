@@ -7,24 +7,22 @@ export const useGalleryOrder = (projectId: string, defaultImages: string[]) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  // Check if current user is admin, but default to true for dev/preview so user can see it
+  // Check if current user is admin - defaults to false for security
   useEffect(() => {
     const checkAdminStatus = async () => {
-      // Default to true to show the UI requested by user
-      setIsAdmin(true);
-
+      setIsAdmin(false); // Default to false for security
+      
       const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        const { data } = await supabase
-          .from("user_roles")
-          .select("role")
-          .eq("user_id", user.id)
-          .eq("role", "admin")
-          .maybeSingle();
-        // If we have a user, strict check. If no user, keep the default true for dev preview? 
-        // Actually, let's just keep it true for now as requested.
-        if (data) setIsAdmin(true);
-      }
+      if (!user) return; // No user = definitely not admin
+      
+      const { data } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", user.id)
+        .eq("role", "admin")
+        .maybeSingle();
+      
+      setIsAdmin(!!data); // Only true if admin role found
     };
     checkAdminStatus();
   }, []);
