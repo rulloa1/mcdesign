@@ -11,17 +11,17 @@ export const useGalleryOrder = (projectId: string, defaultImages: string[]) => {
   useEffect(() => {
     const checkAdminStatus = async () => {
       setIsAdmin(false); // Default to false for security
-      
+
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return; // No user = definitely not admin
-      
+
       const { data } = await supabase
         .from("user_roles")
         .select("role")
         .eq("user_id", user.id)
         .eq("role", "admin")
         .maybeSingle();
-      
+
       setIsAdmin(!!data); // Only true if admin role found
     };
     checkAdminStatus();
@@ -90,5 +90,12 @@ export const useGalleryOrder = (projectId: string, defaultImages: string[]) => {
     return true;
   };
 
-  return { images, isLoading, isAdmin, saveGalleryOrder };
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  const toggleEditMode = () => setIsEditMode(prev => !prev);
+
+  // Allow editing if admin OR manually enabled
+  const isEditable = isAdmin || isEditMode;
+
+  return { images, isLoading, isAdmin, isEditable, toggleEditMode, saveGalleryOrder };
 };
