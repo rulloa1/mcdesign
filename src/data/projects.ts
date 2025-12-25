@@ -14,6 +14,7 @@ export interface Project {
   coverImage: string;
   duration?: string;
   sqft?: string;
+  gallons?: string;
   bedrooms?: string;
   baths?: string;
   lotSize?: string;
@@ -226,7 +227,7 @@ export const projects: Project[] = [
     location: "SE Texas",
     coverImage: "/projects/hospitality-pool-cover-v2.jpg",
     duration: "18 months",
-    sqft: "189,000",
+    gallons: "189,000",
     role: "Owner Representation, Daily Project Management, Co-Design of Many Elements, Property Management",
     description:
       "We orchestrated the creation of a 189,000 gallon ultra-luxury private club amenity, a project that demanded the coordination of over 15 specialty trades. The centerpiece is a 189,000 gallon free-form pool with a swim-up bar, complemented by two beautiful Int. Design 1,200 sq ft pool houses. The design, inspired by 1950s New York smoking clubs, features imported travertine and 10' high solid mahogany wood walls and doors. This 18-month project delivered a resort-style oasis with professional landscaping, fire pits, and an outdoor kitchen, setting a new standard for private club luxury.",
