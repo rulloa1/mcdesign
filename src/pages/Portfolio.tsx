@@ -62,30 +62,11 @@ const Portfolio = () => {
           {/* Subtle Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-charcoal/50 via-transparent to-charcoal/80 z-0" />
 
-          {/* Main Content */}
-          <div className="relative z-10 text-center px-12 py-24">
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 1 }}
-              className="text-[10px] tracking-[0.4em] text-cream/50 uppercase mb-8"
-            >
-              Michael Chandler
-            </motion.p>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-              className="font-serif text-5xl md:text-7xl lg:text-8xl font-light text-cream mb-6 tracking-tight"
-            >
-              Portfolio
-            </motion.h1>
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: 60 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
-              className="h-[1px] bg-gold mx-auto"
-            />
+          {/* MC Logo */}
+          <div className="absolute top-12 left-12 z-20">
+            <div className="w-10 h-10 border border-gold/50 flex items-center justify-center">
+              <span className="font-serif text-sm font-medium text-gold">MC</span>
+            </div>
           </div>
 
           {/* Vertical Side Text */}
