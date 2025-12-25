@@ -31,7 +31,25 @@ const Portfolio = () => {
         {/* Left - Dark Hero with Hexagonal Logo */}
         <div className="relative flex-1 bg-charcoal flex items-center justify-center overflow-hidden min-h-[60vh] lg:min-h-screen">
 
-          {/* Video Background */}
+          {/* Static Project Photo Collage Background */}
+          <div className="absolute inset-0">
+            <div className="grid h-full w-full grid-cols-3 grid-rows-3">
+              {projects.slice(0, 9).map((p, i) => (
+                <img
+                  key={p.id}
+                  src={p.coverImage}
+                  alt=""
+                  aria-hidden="true"
+                  loading={i < 3 ? "eager" : "lazy"}
+                  decoding="async"
+                  className="h-full w-full object-cover opacity-35 blur-[1px] saturate-90"
+                />
+              ))}
+            </div>
+            <div className="absolute inset-0 bg-charcoal/55" />
+          </div>
+
+          {/* Logo Animation Layer */}
           <div className="absolute inset-0 w-full h-full overflow-hidden">
             <video
               src={logoVideo}
@@ -39,12 +57,12 @@ const Portfolio = () => {
               loop
               muted
               playsInline
-              className="w-full h-full object-cover opacity-40"
+              className="w-full h-full object-cover opacity-55"
             />
           </div>
 
           {/* Dark Overlay for Text Readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-charcoal/80 via-charcoal/60 to-charcoal/90 z-0" />
+          <div className="absolute inset-0 bg-gradient-to-b from-charcoal/70 via-charcoal/55 to-charcoal/85 z-0" />
 
           {/* Main Content */}
           <div className="relative z-10 text-center px-8 py-16">
