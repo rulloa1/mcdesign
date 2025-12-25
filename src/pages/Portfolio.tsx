@@ -31,52 +31,23 @@ const Portfolio = () => {
         {/* Left - Dark Hero with Hexagonal Logo */}
         <div className="relative flex-1 bg-charcoal flex items-center justify-center overflow-hidden min-h-[60vh] lg:min-h-screen">
 
-          {/* Dynamic Scrolling Background */}
+          {/* Video Background */}
           <div className="absolute inset-0 w-full h-full overflow-hidden">
-            <motion.div
-              animate={{ y: ["-2%", "-50%"] }}
-              transition={{
-                repeat: Infinity,
-                duration: 60,
-                ease: "linear",
-              }}
-              className="grid grid-cols-3 gap-2 w-[150%] -ml-[25%]" // Wider than container to cover fully
-            >
-              {/* Duplicate projects array 4 times to ensure ample scrolling content */}
-              {[...projects, ...projects, ...projects, ...projects].map((p, i) => (
-                <div key={i} className="aspect-[4/5] relative overflow-hidden bg-charcoal-light/20">
-                  <img
-                    src={p.coverImage}
-                    alt=""
-                    className="w-full h-full object-cover opacity-40 grayscale hover:grayscale-0 transition-all duration-700"
-                  />
-                </div>
-              ))}
-            </motion.div>
+            <video
+              src={logoVideo}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover opacity-60"
+            />
           </div>
 
           {/* Dark Overlay for Text Readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-charcoal/90 via-charcoal/80 to-charcoal/90 z-0" />
+          <div className="absolute inset-0 bg-gradient-to-b from-charcoal/70 via-charcoal/50 to-charcoal/80 z-0" />
 
           {/* Main Content */}
           <div className="relative z-10 text-center px-8 py-16">
-            {/* Logo Animation */}
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="relative w-56 h-56 md:w-72 md:h-72 mx-auto mb-12"
-            >
-              <video
-                src={logoVideo}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-contain"
-              />
-            </motion.div>
-
             {/* Title */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
