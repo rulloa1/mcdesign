@@ -176,7 +176,7 @@ const ProjectDetail = () => {
                   {project.sqft && <div className="flex items-center gap-4">
                       <Maximize2 className="w-5 h-5 text-primary" />
                       <div>
-                        <p className="text-cream/60 text-sm">Gallons</p>
+                        <p className="text-cream/60 text-sm">Square Footage</p>
                         <p className="text-lg">{project.sqft}</p>
                       </div>
                     </div>}
