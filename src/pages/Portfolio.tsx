@@ -67,24 +67,17 @@ const Portfolio = () => {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="relative w-56 h-56 md:w-72 md:h-72 mx-auto mb-12 group"
             >
-              {/* Hexagon Background with pulse animation */}
-              <motion.div
-                animate={{ scale: [1, 1.05, 1] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute inset-0 shadow-2xl"
+              {/* Transparent Hexagon with border */}
+              <div
+                className="absolute inset-0 border-2 border-primary/40 bg-charcoal/20 backdrop-blur-sm"
                 style={{
                   clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
                 }}
               >
-                <video
-                  src={logoVideo}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-full object-cover"
-                />
-              </motion.div>
+                <div className="w-full h-full flex items-center justify-center">
+                  <span className="font-serif text-4xl md:text-5xl font-bold text-primary">MC</span>
+                </div>
+              </div>
             </motion.div>
 
             {/* Title */}
@@ -96,16 +89,6 @@ const Portfolio = () => {
             >
               MICHAEL CHANDLER
             </motion.h1>
-
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              className="font-sans text-base md:text-lg tracking-[0.75em] text-primary drop-shadow-md"
-            >
-              PORTFOLIO
-            </motion.p>
           </div>
 
           {/* Vertical Side Text */}
