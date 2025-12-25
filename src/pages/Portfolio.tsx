@@ -39,12 +39,12 @@ const Portfolio = () => {
               loop
               muted
               playsInline
-              className="w-full h-full object-cover opacity-60"
+              className="w-full h-full object-cover opacity-40"
             />
           </div>
 
           {/* Dark Overlay for Text Readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-charcoal/70 via-charcoal/50 to-charcoal/80 z-0" />
+          <div className="absolute inset-0 bg-gradient-to-b from-charcoal/80 via-charcoal/60 to-charcoal/90 z-0" />
 
           {/* Main Content */}
           <div className="relative z-10 text-center px-8 py-16">
