@@ -3,8 +3,11 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import { z } from 'https://deno.land/x/zod@v3.22.4/mod.ts';
 
+// Get allowed origin from environment variable, default to production domain
+const ALLOWED_ORIGIN = Deno.env.get('ALLOWED_ORIGIN') || 'https://mike-construction.lovable.app';
+
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
@@ -156,8 +159,16 @@ serve(async (req) => {
     }
 
     const visionData = await visionResponse.json();
-    const description = visionData.choices?.[0]?.message?.content || 'A room interior';
-    console.log('Vision Analysis complete:', description.substring(0, 100) + '...');
+    const rawDescription = visionData.choices?.[0]?.message?.content || 'A room interior';
+    
+    // Sanitize Vision API output to prevent prompt injection
+    // Limit length and remove special characters that could affect DALL-E prompts
+    const description = rawDescription
+      .substring(0, 500)
+      .replace(/[^a-zA-Z0-9\s,.'\\-]/g, '')
+      .trim() || 'A room interior';
+    
+    console.log('Vision Analysis complete (sanitized):', description.substring(0, 100) + '...');
 
     // Step 2: DALL-E 3 - Generate new style
     console.log('Generating redesigned image with DALL-E 3...');
