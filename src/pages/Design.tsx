@@ -73,14 +73,14 @@ const Design = () => {
             className="absolute inset-0"
             style={{ y: backgroundY, scale: backgroundScale }}
           >
-            <div className="grid h-full w-full grid-cols-2 grid-rows-3">
-              {[timberBeamsImg, spaVanityImg, marbleBathImg, proRangeImg, limestoneFireplaceImg, leatherCabinetryImg].map((img, i) => (
+            <div className="grid h-full w-full grid-cols-3 grid-rows-3">
+              {[timberBeamsImg, spaVanityImg, marbleBathImg, proRangeImg, limestoneFireplaceImg, leatherCabinetryImg, timberBeamsImg, spaVanityImg, marbleBathImg].map((img, i) => (
                 <img
                   key={i}
                   src={img}
                   alt=""
                   aria-hidden="true"
-                  loading={i < 2 ? "eager" : "lazy"}
+                  loading={i < 3 ? "eager" : "lazy"}
                   decoding="async"
                   className="h-full w-full object-cover opacity-25 grayscale"
                 />
@@ -116,12 +116,12 @@ const Design = () => {
         </div>
 
         {/* Right - Content Section */}
-        <div className="relative flex-1 bg-background flex flex-col">
+        <div className="relative flex-1 bg-background flex flex-col min-h-[40vh] lg:min-h-screen">
           {/* Minimal Corner Accent */}
           <div className="absolute top-16 right-16 w-20 h-20 border-t border-r border-border hidden lg:block" />
 
           {/* Header Area */}
-          <div className="flex justify-between items-center px-12 lg:px-20 py-12">
+          <div className="flex justify-between items-center px-8 lg:px-20 py-8 lg:py-12">
             <div className="w-8 h-8 bg-gold flex items-center justify-center">
               <span className="font-serif text-[10px] font-medium text-charcoal">MC</span>
             </div>
@@ -131,14 +131,14 @@ const Design = () => {
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 flex flex-col justify-center px-12 lg:px-20 py-16">
+          <div className="flex-1 flex flex-col justify-center px-8 lg:px-20 py-8 lg:py-16">
             {/* Back Button */}
             <motion.button
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
               onClick={() => navigate(-1)}
-              className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-all mb-16 self-start group text-[11px] tracking-[0.15em] uppercase font-light"
+              className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-all mb-8 lg:mb-16 self-start group text-[11px] tracking-[0.15em] uppercase font-light"
             >
               <span className="text-sm group-hover:-translate-x-1 transition-transform">←</span>
               Back
@@ -149,7 +149,7 @@ const Design = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.6 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-serif font-light text-foreground mb-8 tracking-tight leading-[1.1]"
+              className="text-3xl md:text-4xl lg:text-6xl font-serif font-light text-foreground mb-6 lg:mb-8 tracking-tight leading-[1.1]"
             >
               Interior<br />Design
             </motion.h1>
@@ -159,7 +159,7 @@ const Design = () => {
               initial={{ width: 0 }}
               animate={{ width: 40 }}
               transition={{ delay: 0.6, duration: 0.6 }}
-              className="h-[1px] bg-gold mb-10"
+              className="h-[1px] bg-gold mb-6 lg:mb-10"
             />
 
             {/* Description */}
@@ -167,14 +167,14 @@ const Design = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.6 }}
-              className="text-sm leading-relaxed text-muted-foreground max-w-md mb-20 font-light"
+              className="text-sm leading-relaxed text-muted-foreground max-w-md mb-10 lg:mb-20 font-light"
             >
               Architecture, interiors, and custom environments crafted with 
               meticulous attention to detail and timeless elegance.
             </motion.p>
 
             {/* Stats Section */}
-            <div className="grid grid-cols-3 gap-8 mt-auto">
+            <div className="grid grid-cols-3 gap-4 lg:gap-8 mt-auto">
               {["Architecture", "Interiors", "Custom"].map((label, i) => (
                 <motion.div
                   key={label}
@@ -182,7 +182,7 @@ const Design = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.8 + i * 0.1, duration: 0.6 }}
                 >
-                  <span className="text-[10px] tracking-[0.2em] text-gold font-light uppercase">
+                  <span className="text-[9px] lg:text-[10px] tracking-[0.2em] text-gold font-light uppercase">
                     {label}
                   </span>
                 </motion.div>
