@@ -82,7 +82,7 @@ const Design = () => {
                   aria-hidden="true"
                   loading={i < 3 ? "eager" : "lazy"}
                   decoding="async"
-                  className="h-full w-full object-cover opacity-25 grayscale"
+                  className="h-full w-full object-cover opacity-60"
                 />
               ))}
             </div>
