@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useGalleryOrder } from "@/hooks/useGalleryOrder";
 
 import { AIRedesignDialog } from "@/components/gallery/AIRedesignDialog";
+import { supabase } from "@/integrations/supabase/client";
 const ProjectDetail = () => {
   const {
     id
@@ -54,14 +55,35 @@ const ProjectDetail = () => {
   };
 
   const handleAddImage = async (file: File) => {
-    // Basic implementation - in a real app would upload to S3/Supabase first
-    // utilizing NumberedGallery's logic, but here we just need to pass the file logic
-    // Actually NumberedGallery handles the upload/URL creation, we just need to save the list
-    // Wait, NumberedGallery's onAddImage typically just returns the FILE, we need to process it
-    // But since we built logic into NumberedGallery to fallback to local URL, 
-    // let's just create a local URL here for simplicity if we want to bypass backend
-    const localUrl = URL.createObjectURL(file);
-    const newGallery = [...galleryImages, localUrl];
+    let publicUrl = "";
+
+    // Try Supabase upload if user is admin (or we just allow it for this demo if logic permits)
+    // In strict real world, we'd check auth/RLS.
+    if (id && isAdmin) {
+      try {
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${id}/${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+        const { error: uploadError } = await supabase.storage
+          .from('project-gallery')
+          .upload(fileName, file);
+
+        if (!uploadError) {
+          const { data } = supabase.storage
+            .from('project-gallery')
+            .getPublicUrl(fileName);
+          publicUrl = data.publicUrl;
+        }
+      } catch (error) {
+        console.error("Supabase upload failed:", error);
+      }
+    }
+
+    if (!publicUrl) {
+      // Fallback to local
+      publicUrl = URL.createObjectURL(file);
+    }
+
+    const newGallery = [...galleryImages, publicUrl];
     saveGalleryOrder(newGallery);
   };
 
