@@ -17,6 +17,7 @@ vi.mock('@/integrations/supabase/client', () => ({
 }));
 
 describe('useProjectsByCategory', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let mockBuilder: any;
 
     beforeEach(() => {
@@ -40,6 +41,7 @@ describe('useProjectsByCategory', () => {
         mockBuilder.in.mockReturnValue(mockBuilder);
 
         // Crucial: mockBuilder.order must call our test-controlled mockOrder
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         mockBuilder.order.mockImplementation((...args: any[]) => {
             return mockOrder(...args);
         });
@@ -55,10 +57,12 @@ describe('useProjectsByCategory', () => {
         mockSelect.mockReturnValue(mockBuilder);
 
         // Expose mocks for assertions
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         mockEq.mockImplementation((...args: any[]) => {
             // We track the call, and return builder
             return mockBuilder;
         });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         mockIn.mockImplementation((...args: any[]) => {
             return mockBuilder;
         });

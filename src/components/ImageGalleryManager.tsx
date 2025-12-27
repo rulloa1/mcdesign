@@ -45,6 +45,7 @@ const ImageGalleryManager = () => {
     setUploading(true);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { error } = await supabase.from('project_images' as any).insert({
       project_id: selectedProject,
       image_url: url,

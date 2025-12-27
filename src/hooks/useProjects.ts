@@ -26,8 +26,8 @@ export const useProjectsByCategory = (category: string | string[]) => {
             try {
                 setLoading(true);
                 // Optimized query: Uses Supabase JOIN to fetch projects and their first image in one request
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 let query = supabase
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     .from("projects" as any)
                     .select(`
             *,
@@ -48,6 +48,7 @@ export const useProjectsByCategory = (category: string | string[]) => {
 
                 if (error) throw error;
 
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const processedProjects = ((data as any[]) || []).map((project) => {
                     const images = project.project_images as unknown as { image_url: string; rotation_angle: number; display_order: number }[];
                     const firstImage = images && images.length > 0
