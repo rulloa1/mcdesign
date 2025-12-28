@@ -86,7 +86,7 @@ const ImageGalleryManager = () => {
       toast.success("Image added successfully");
       // Update local state
       if (activeProject && data) {
-        const typedData = data as { id: string };
+        const typedData = data as unknown as { id: string };
         const newImage: ProjectImage = {
           id: typedData.id,
           project_id: selectedProject,
