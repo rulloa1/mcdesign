@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Compass, PenTool, HardHat, ClipboardCheck, Shield, Leaf, ArrowRight, CheckCircle, Building2, LandPlot, Users, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { PremiumButton } from "@/components/ui/PremiumButton";
 import { useRef } from "react";
 import { developmentConcepts } from "@/data/developmentConcepts";
 
@@ -167,12 +168,12 @@ const Services = () => {
             </p>
 
             <Link to="/contact">
-              <Button
+              <PremiumButton
                 size="lg"
-                className="bg-gold text-charcoal hover:bg-cream hover:text-charcoal transition-all text-xs tracking-[0.2em] uppercase px-10 py-6 rounded-none min-w-[200px]"
+                className="bg-gold text-charcoal hover:bg-cream hover:text-charcoal transition-all text-xs tracking-[0.2em] uppercase px-10 py-6 min-w-[240px]"
               >
                 Start Consultation
-              </Button>
+              </PremiumButton>
             </Link>
           </motion.div>
         </div>

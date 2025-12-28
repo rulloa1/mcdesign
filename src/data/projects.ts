@@ -22,6 +22,12 @@ export interface ProjectData {
   bedrooms?: number;
   baths?: number;
   gallons?: string;
+  processView?: {
+    beforeImage: string;
+    afterImage: string;
+    beforeLabel?: string;
+    afterLabel?: string;
+  };
 }
 
 export const projects: ProjectData[] = [
@@ -40,7 +46,13 @@ export const projects: ProjectData[] = [
       "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-5.webp",
       "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-6.webp",
       "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-1.webp"
-    ]
+    ],
+    processView: {
+      beforeImage: "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-5.webp", // Using cover as placeholder for sketch
+      afterImage: "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-1.webp",
+      beforeLabel: "Structural Concept",
+      afterLabel: "Final Build"
+    }
   },
   {
     id: "modern-residential-1",

@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
+import { PremiumButton } from "@/components/ui/PremiumButton";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -224,14 +225,14 @@ const Contact = () => {
                     </div>
 
                     <div className="pt-6">
-                      <Button
+                      <PremiumButton
                         type="submit"
                         size="lg"
-                        className="bg-charcoal text-cream hover:bg-primary hover:text-charcoal transition-all px-12 py-8 rounded-none text-xs tracking-[0.3em] uppercase w-full md:w-auto"
+                        className="bg-charcoal text-cream hover:bg-gold hover:text-charcoal transition-all px-12 py-8 min-w-[240px] w-full md:w-auto"
                         disabled={isSubmitting}
                       >
                         {isSubmitting ? "Processing..." : "Submit Inquiry"}
-                      </Button>
+                      </PremiumButton>
                     </div>
                   </form>
                 </div>

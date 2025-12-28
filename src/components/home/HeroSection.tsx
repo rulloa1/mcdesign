@@ -55,7 +55,7 @@ const HeroSection = () => {
         >
           <p className="text-primary tracking-[0.5em] uppercase text-xs mb-6 font-semibold">Master Builder & Designer</p>
 
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif text-cream mb-8 tracking-tight leading-[0.9]">
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif text-cream mb-8 tracking-tighter leading-[0.95] md:leading-[0.9]">
             Michael <br />
             <span className="italic font-light">Chandler</span>
           </h1>
