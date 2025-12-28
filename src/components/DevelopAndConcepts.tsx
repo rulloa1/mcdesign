@@ -1,23 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
-export const developmentConcepts = [
-  {
-    title: "Land Development",
-    tags: ["Entitlements", "Infrastructure", "Planning"],
-  },
-  {
-    title: "Residential Communities",
-    tags: ["Master Plan", "Amenities", "HOA"],
-  },
-  {
-    title: "Resort & Hospitality",
-    tags: ["Mixed-Use", "Golf", "Private Clubs"],
-  },
-  {
-    title: "Renovation & Repositioning",
-    tags: ["Historic", "Adaptive Reuse", "Restoration"],
-  },
-];
+import { developmentConcepts } from "@/data/developmentConcepts";
 
 const DevelopAndConcepts = () => {
   return (
