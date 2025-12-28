@@ -6,24 +6,53 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+    project_type: ""
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Mimic API delay
-    setTimeout(() => {
+
+    try {
+      const { error } = await supabase
+        .from('contact_inquiries')
+        .insert([
+          {
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone || null,
+            project_type: formData.project_type || null,
+            message: formData.message,
+          }
+        ]);
+
+      if (error) throw error;
+
       toast({
         title: "Message Sent",
         description: "Michael will get back to you personally within 24 hours.",
       });
-      setFormData({ name: "", email: "", phone: "", message: "" });
+      setFormData({ name: "", email: "", phone: "", message: "", project_type: "" });
+    } catch (error: any) {
+      console.error("Error submitting form:", error);
+      toast({
+        title: "Submission Failed",
+        description: "There was an error sending your message. Please try again or call us directly.",
+        variant: "destructive"
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
+    }
   };
 
   const contactInfo = [
@@ -176,6 +205,8 @@ const Contact = () => {
                         <Input
                           placeholder="e.g. Custom Residence, Renovation"
                           className="rounded-none border-0 border-b border-muted bg-transparent px-0 focus-visible:ring-0 focus-visible:border-primary transition-all text-lg py-6"
+                          value={formData.project_type}
+                          onChange={(e) => setFormData({ ...formData, project_type: e.target.value })}
                         />
                       </div>
                     </div>
