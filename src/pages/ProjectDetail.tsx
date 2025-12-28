@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useGalleryOrder } from "@/hooks/useGalleryOrder";
 
 import { AIRedesignDialog } from "@/components/gallery/AIRedesignDialog";
+import { SmelekLetterCard } from "@/components/gallery/SmelekLetterCard";
 import { supabase } from "@/integrations/supabase/client";
 const ProjectDetail = () => {
   const {
@@ -338,15 +339,29 @@ const ProjectDetail = () => {
             <ChevronLeft className="w-12 h-12" />
           </button>
 
-          <motion.img key={selectedImage} initial={{
-            opacity: 0,
-            scale: 0.9
-          }} animate={{
-            opacity: 1,
-            scale: 1
-          }} transition={{
-            duration: 0.3
-          }} src={galleryImages[selectedImage]} alt={`${project.title} - Image ${selectedImage + 1}`} className="max-h-[85vh] max-w-[85vw] object-contain" />
+          {galleryImages[selectedImage] === "special://smelek-letter" ? (
+            <div className="max-w-[85vw] max-h-[85vh] bg-cream shadow-2xl overflow-y-auto w-full">
+              <SmelekLetterCard />
+            </div>
+          ) : (
+            <motion.img
+              key={selectedImage}
+              initial={{
+                opacity: 0,
+                scale: 0.9
+              }}
+              animate={{
+                opacity: 1,
+                scale: 1
+              }}
+              transition={{
+                duration: 0.3
+              }}
+              src={galleryImages[selectedImage]}
+              alt={`${project.title} - Image ${selectedImage + 1}`}
+              className="max-h-[85vh] max-w-[85vw] object-contain"
+            />
+          )}
 
           <button onClick={nextImage} disabled={selectedImage === galleryImages.length - 1} className="absolute right-6 text-cream hover:text-primary transition-colors disabled:opacity-30" aria-label="Next image">
             <ChevronRight className="w-12 h-12" />
