@@ -3,6 +3,7 @@ import { Plus, X, Copy, Check, Upload } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
+import { SmelekLetterCard } from "./SmelekLetterCard";
 
 // DnD Imports
 import {
@@ -157,24 +158,27 @@ function SortableImage({
         </>
       )}
 
-      <img
-        src={image}
-        alt={`${projectTitle} - Image ${index + 1}`}
-        // If editable, clicking shouldn't open lightbox easily during drag interactions?
-        // But for consistency:
-        onClick={(e) => {
-          if (!isDragging && !isEditable) onImageClick(index)
-          if (!isDragging && isEditable) {
-            // allow click if not dragging? might interfere with drag start logic if not careful.
-            // But since we use listeners on the parent div, maybe ok.
-            // Actually, if editable, simple click might be ignored or used for selection.
-            // Let's keep it usable for lightbox even in edit mode unless dragging.
-            onImageClick(index);
-          }
-        }}
-        className={`w-full h-full object-cover transition-transform duration-500 ${isEditable ? "" : "group-hover:scale-110 cursor-pointer"
-          }`}
-      />
+      {image === "special://smelek-letter" ? (
+        <div
+          className="w-full h-full cursor-pointer"
+          onClick={() => onImageClick(index)}
+        >
+          <SmelekLetterCard />
+        </div>
+      ) : (
+        <img
+          src={image}
+          alt={`${projectTitle} - Image ${index + 1}`}
+          onClick={(e) => {
+            if (!isDragging && !isEditable) onImageClick(index)
+            if (!isDragging && isEditable) {
+              onImageClick(index);
+            }
+          }}
+          className={`w-full h-full object-cover transition-transform duration-500 ${isEditable ? "" : "group-hover:scale-110 cursor-pointer"
+            }`}
+        />
+      )}
     </div>
   );
 }
