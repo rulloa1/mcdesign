@@ -109,5 +109,33 @@ export const designAlbums: DesignAlbum[] = [
             "/design/finishes/IMG_4430.jpg"
         ]
     },
+    {
+        id: "architectural-renderings",
+        title: "Architectural Renderings",
+        description: "High-fidelity visualizations of conceptual designs and future projects.",
+        coverImage: "/design/renderings/cover.jpg",
+        images: []
+    },
+    {
+        id: "custom-furniture",
+        title: "Custom Furniture",
+        description: "Bespoke furniture pieces designed and crafted for specific spaces.",
+        coverImage: "/design/furniture/cover.jpg",
+        images: []
+    },
+    {
+        id: "exterior-spaces",
+        title: "Exterior Spaces & Landscape",
+        description: "Outdoor living environments, landscapes, and hardscapes.",
+        coverImage: "/design/exterior/cover.jpg",
+        images: []
+    },
+    {
+        id: "interiors",
+        title: "Interiors",
+        description: "Elegant residential interiors showcasing timeless design and craftsmanship.",
+        coverImage: "/design/interiors/cover.jpg",
+        images: []
+    }
     // Future albums can be added here
 ];
