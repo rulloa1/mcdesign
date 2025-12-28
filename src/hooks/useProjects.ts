@@ -11,6 +11,7 @@ export interface Project {
     rotation_angle?: number;
     // Properly typed images array to avoid lint errors
     images?: {
+        id: string;
         image_url: string;
         rotation_angle: number;
         display_order: number;
@@ -32,6 +33,7 @@ export const useProjectsByCategory = (category: string | string[]) => {
                     .select(`
             *,
             project_images (
+              id,
               image_url,
               rotation_angle,
               display_order
@@ -50,7 +52,7 @@ export const useProjectsByCategory = (category: string | string[]) => {
 
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const processedProjects = ((data as any[]) || []).map((project) => {
-                    const images = project.project_images as unknown as { image_url: string; rotation_angle: number; display_order: number }[];
+                    const images = project.project_images as unknown as { id: string; image_url: string; rotation_angle: number; display_order: number }[];
                     const firstImage = images && images.length > 0
                         ? images.sort((a, b) => a.display_order - b.display_order)[0]
                         : null;
