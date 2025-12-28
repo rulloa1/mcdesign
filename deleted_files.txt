@@ -1,0 +1,41 @@
+commit 650ac9fd4b5f7f487f4df546a383aca4226a2efc
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 23 01:02:13 2025 +0000
+
+    Reverted to commit 35afd90c8dd52840043eb62ba02158f437e947db
+
+ delete mode 100644 new_project_images.txt
+
+commit 9a24ad9c866cd6357dec3f82aaab66616d2bf5a7
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 21 19:32:37 2025 +0000
+
+    Reverted to commit 2f6ab8dd4dedc2c5535848e33f10546d4f73f02d
+
+ delete mode 100644 src/components/gallery/DraggableGallery.tsx
+ delete mode 100644 src/components/gallery/SortableGalleryItem.tsx
+
+commit 93ab7790653bf79ca98025b695e7feb0e782581b
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 21 19:32:06 2025 +0000
+
+    Reverted to commit 068eaccdb39bff4b7bd420ea31755b42527b611a
+
+ delete mode 100644 src/components/gallery/NumberedGallery.tsx
+
+commit 9fbab3230acd0168c0f27e38eaa959caf221a32d
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 21 19:26:22 2025 +0000
+
+    Changes
+
+ delete mode 100644 src/components/gallery/DraggableGallery.tsx
+ delete mode 100644 src/components/gallery/SortableGalleryItem.tsx
+
+commit d688c78f2f84e7add7fbe03cd5b5509ce0adc859
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Dec 20 23:21:42 2025 +0000
+
+    Reverted to commit 2bf327eb8ff672c740b094aa20e01af25955b723
+
+ delete mode 100644 src/assets/mc-logo.png
