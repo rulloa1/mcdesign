@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ChevronDown, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { PremiumButton } from "@/components/ui/PremiumButton";
 
@@ -84,102 +83,67 @@ const HeroSection = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            {/* Mobile Menu - Elegant Full Screen Overlay */}
-            <AnimatePresence>
-              {isMobileMenuOpen && (
-                <motion.div
-                  initial={{ opacity: 0, x: "100%" }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: "100%" }}
-                  transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                  className="fixed inset-0 z-[60] bg-charcoal flex flex-col p-12 lg:hidden"
-                >
-                  <div className="flex justify-between items-center mb-20">
-                    <img src={mcLogo} alt="" className="h-8 w-auto" />
-                    <button
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="w-12 h-12 border border-white/10 flex items-center justify-center text-cream"
-                    >
-                      <X className="w-5 h-5" />
-                    </button>
-                  </div>
-
-                  <nav className="flex flex-col gap-10">
-                    {navLinks.map((link, idx) => (
-                      <motion.div
-                        key={link.path}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1 + idx * 0.1 }}
-                      >
-                        <Link
-                          to={link.path}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                          className={cn(
-                            "text-4xl font-serif tracking-tight transition-colors",
-                            location.pathname === link.path ? "text-primary italic" : "text-cream hover:text-primary"
-                          )}
-                        >
-                          {link.name}
-                        </Link>
-                      </motion.div>
-                    ))}
-                  </nav>
-
-                  <div className="mt-auto space-y-6 pt-12 border-t border-white/5">
-                    <p className="text-[10px] tracking-widest text-primary uppercase font-bold">Inquiry</p>
-                    <a href="tel:+14352377373" className="block text-xl text-cream font-light">(435) 237-7373</a>
-                    <a href="mailto:Mike.rcccon@yahoo.com" className="block text-xl text-cream font-light">Mike.rcccon@yahoo.com</a>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </header>
-          );
-};
-
-export default Header; Dots */}
-          <div className="absolute bottom-12 left-12 z-30 hidden md:flex flex-col gap-4">
-            {heroImages.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
-                className="group flex items-center gap-4"
+            <Link to="/portfolio">
+              <PremiumButton size="lg" className="bg-primary text-charcoal hover:bg-gold-dark px-12 py-8 min-w-[240px]">
+                Explore Portfolio
+              </PremiumButton>
+            </Link>
+            <Link to="/contact">
+              <PremiumButton
+                size="lg"
+                variant="outline"
+                className="border-cream/20 bg-white/5 backdrop-blur-md text-cream hover:bg-cream hover:text-charcoal px-12 py-8 min-w-[240px]"
               >
-                <div className={`h-[1px] transition-all duration-500 ${index === currentSlide ? "w-12 bg-primary" : "w-6 bg-cream/20 group-hover:w-12 group-hover:bg-cream/40"}`} />
-                <span className={`text-[10px] tracking-widest transition-opacity duration-500 ${index === currentSlide ? "opacity-100 text-primary" : "opacity-0 group-hover:opacity-100 text-cream/40"}`}>
-                  0{index + 1}
-                </span>
-              </button>
-            ))}
+                Start Inquiry
+                <ArrowRight className="w-4 h-4 ml-3" />
+              </PremiumButton>
+            </Link>
           </div>
+        </motion.div>
+      </div>
 
-          {/* Arrow Controls - Minimal */}
-          <div className="absolute bottom-12 right-12 z-30 flex gap-4">
-            <button
-              onClick={prevSlide}
-              className="w-14 h-14 border border-white/10 flex items-center justify-center text-cream/40 hover:text-primary hover:border-primary transition-all duration-300 backdrop-blur-sm"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={nextSlide}
-              className="w-14 h-14 border border-white/10 flex items-center justify-center text-cream/40 hover:text-primary hover:border-primary transition-all duration-300 backdrop-blur-sm"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
-
-          {/* Scroll Indicator */}
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2 }}
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30"
+      {/* Slide Navigation - Refined Dots */}
+      <div className="absolute bottom-12 left-12 z-30 hidden md:flex flex-col gap-4">
+        {heroImages.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className="group flex items-center gap-4"
           >
-            <div className="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent mx-auto opacity-50" />
-          </motion.div>
-        </section>
-        );
+            <div className={`h-[1px] transition-all duration-500 ${index === currentSlide ? "w-12 bg-primary" : "w-6 bg-cream/20 group-hover:w-12 group-hover:bg-cream/40"}`} />
+            <span className={`text-[10px] tracking-widest transition-opacity duration-500 ${index === currentSlide ? "opacity-100 text-primary" : "opacity-0 group-hover:opacity-100 text-cream/40"}`}>
+              0{index + 1}
+            </span>
+          </button>
+        ))}
+      </div>
+
+      {/* Arrow Controls - Minimal */}
+      <div className="absolute bottom-12 right-12 z-30 flex gap-4">
+        <button
+          onClick={prevSlide}
+          className="w-14 h-14 border border-white/10 flex items-center justify-center text-cream/40 hover:text-primary hover:border-primary transition-all duration-300 backdrop-blur-sm"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="w-14 h-14 border border-white/10 flex items-center justify-center text-cream/40 hover:text-primary hover:border-primary transition-all duration-300 backdrop-blur-sm"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+      </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        animate={{ y: [0, 10, 0] }}
+        transition={{ repeat: Infinity, duration: 2 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30"
+      >
+        <div className="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent mx-auto opacity-50" />
+      </motion.div>
+    </section>
+  );
 };
 
-        export default HeroSection;
+export default HeroSection;
