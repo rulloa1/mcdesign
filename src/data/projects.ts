@@ -1,7 +1,30 @@
-[
-  "blob:https://id-preview--484d8772-8d1b-470c-abf3-e9e1b299cae2.lovable.app/53a433ea-59d6-4e14-bf0c-fdc98161de95",
-  "blob:https://id-preview--484d8772-8d1b-470c-abf3-e9e1b299cae2.lovable.app/92d67a73-04f9-4845-9fdf-caa1a301de1d",
-  "blob:https://id-preview--484d8772-8d1b-470c-abf3-e9e1b299cae2.lovable.app/69597742-403c-4c65-94da-c9099f00c294",
+import { designAlbums } from "./design-albums";
+
+export interface Project {
+  id: string;
+  title: string;
+  category: string;
+  coverImage: string;
+  description: string;
+  gallery: string[];
+  location: string;
+  subtitle?: string;
+  role?: string;
+  duration?: string;
+  sqft?: string;
+  gallons?: string;
+  bedrooms?: string;
+  baths?: string;
+  processView?: {
+    beforeImage: string;
+    afterImage: string;
+    beforeLabel: string;
+    afterLabel: string;
+  };
+}
+
+// Recovered pool images from previous file version
+const poolImages = [
   "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-5.webp",
   "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-6.webp",
   "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-7.webp",
@@ -36,3 +59,30 @@
   "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-36.webp",
   "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-37.webp",
 ];
+
+export const projects: Project[] = [
+  // Manually reconstructed pool project
+  {
+    id: "pools-exterior-spa",
+    title: "Pools & Exterior Spas",
+    category: "Exterior",
+    location: "California",
+    description: "Luxury pools, infinity edges, and integrated spa environments showcasing modern design and relaxation.",
+    coverImage: poolImages[0],
+    gallery: poolImages,
+  },
+  // Map other design albums to projects to populate the site
+  ...designAlbums.map(album => ({
+    id: album.id,
+    title: album.title,
+    category: "Design",
+    location: "Various Locations",
+    description: album.description,
+    coverImage: album.coverImage,
+    gallery: album.images,
+  }))
+];
+
+export const getProjectById = (id: string) => {
+  return projects.find((project) => project.id === id);
+};
