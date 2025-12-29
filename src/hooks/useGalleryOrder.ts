@@ -34,13 +34,13 @@ export const useGalleryOrder = (projectId: string, defaultImages: string[]) => {
 
       // 1. Try to load from project_images (structured table)
       const { data: imagesData, error: imagesError } = await supabase
-        .from("project_images" as any)
+        .from("project_images")
         .select("id, image_url, display_order, is_before, is_after")
         .eq("project_id", projectId)
         .order("display_order");
 
       if (!imagesError && imagesData && imagesData.length > 0) {
-        setImages(imagesData.map(img => (img as any).image_url));
+        setImages(imagesData.map(img => (img as { image_url: string }).image_url));
         setIsLoading(false);
         return;
       }
