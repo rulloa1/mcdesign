@@ -2,6 +2,7 @@ import * as React from "react";
 import { useState } from "react";
 import { GripVertical } from "lucide-react";
 import { ImageCard, ProjectImage } from "./ImageCard";
+import { motion } from "framer-motion";
 
 interface ImageGridProps {
     images: ProjectImage[];
@@ -48,17 +49,22 @@ export const ImageGrid = ({
     if (images.length === 0) return null;
 
     return (
-        <div className="bg-white p-6 rounded-lg shadow-md border border-charcoal/10">
-            <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-playfair font-semibold">
-                    Project Images ({images.length})
-                </h2>
-                <p className="text-sm text-charcoal/60 flex items-center gap-2">
-                    <GripVertical className="h-4 w-4" />
-                    Drag to reorder
-                </p>
+        <div className="space-y-6">
+            <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                    <h2 className="text-xl font-serif text-cream luxury-heading">
+                        Project Images <span className="text-gold/60 text-lg">({images.length})</span>
+                    </h2>
+                </div>
+                <div className="bg-white/5 rounded-full px-4 py-1.5 border border-white/5 flex items-center gap-2 text-xs text-cream/60">
+                    <GripVertical className="h-3 w-3 text-gold" />
+                    <span className="uppercase tracking-widest font-medium">Drag to reorder</span>
+                </div>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <motion.div
+                layout
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            >
                 {images.map((image, index) => (
                     <ImageCard
                         key={image.id}
@@ -74,7 +80,7 @@ export const ImageGrid = ({
                         onToggleBeforeAfter={onToggleBeforeAfter}
                     />
                 ))}
-            </div>
+            </motion.div>
         </div>
     );
 };
