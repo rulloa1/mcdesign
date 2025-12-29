@@ -480,6 +480,24 @@ const ProjectDetail = () => {
             <div className="max-w-[85vw] max-h-[85vh] bg-cream shadow-2xl overflow-y-auto w-full">
               <SmelekLetterCard />
             </div>
+          ) : galleryImages[selectedImage].match(/\.(mp4|webm|ogg)$/i) ? (
+            <video
+              src={galleryImages[selectedImage]}
+              controls
+              autoPlay
+              className="max-h-[85vh] max-w-[85vw] shadow-2xl"
+            />
+          ) : galleryImages[selectedImage].includes('youtube.com') || galleryImages[selectedImage].includes('youtu.be') ? (
+            <iframe
+              width="560"
+              height="315"
+              src={`https://www.youtube.com/embed/${galleryImages[selectedImage].includes('v=') ? galleryImages[selectedImage].split('v=')[1].split('&')[0] : galleryImages[selectedImage].split('/').pop()}`}
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              className="max-h-[85vh] max-w-[85vw] w-full aspect-video shadow-2xl"
+            ></iframe>
           ) : (
             <motion.img
               key={selectedImage}
@@ -495,7 +513,7 @@ const ProjectDetail = () => {
                 duration: 0.3
               }}
               src={galleryImages[selectedImage]}
-              alt={`${project.title} - Image ${selectedImage + 1}`}
+              alt={`${project.title} - Item ${selectedImage + 1}`}
               className="max-h-[85vh] max-w-[85vw] object-contain"
             />
           )}

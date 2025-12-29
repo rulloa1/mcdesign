@@ -87,7 +87,7 @@ const Contact = () => {
         <section className="relative h-[40vh] min-h-[400px] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 bg-charcoal">
             <img
-              src="https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/southcoast-cover.webp"
+              src="/design/southcoast-kitchen/18 Living Rm AFTER.JPG"
               alt="Background"
               className="w-full h-full object-cover opacity-30"
             />

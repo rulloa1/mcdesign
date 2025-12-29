@@ -19,7 +19,7 @@ const PremiumButton = React.forwardRef<HTMLButtonElement, PremiumButtonProps>(
         const moveX = useTransform(springX, (v) => (magnetic ? v * 15 : 0));
         const moveY = useTransform(springY, (v) => (magnetic ? v * 15 : 0));
 
-        const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
+        const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
             const rect = e.currentTarget.getBoundingClientRect();
             const x = (e.clientX - rect.left) / rect.width - 0.5;
             const y = (e.clientY - rect.top) / rect.height - 0.5;

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Plus, X, Copy, Check, Upload } from "lucide-react";
+import { Plus, X, Copy, Check, Upload, Play } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
@@ -72,12 +72,13 @@ function SortableImage({
     opacity: isDragging ? 0.5 : 1,
   };
 
+  const isVideo = image.match(/\.(mp4|webm|ogg)$/i) || image.includes('youtube.com') || image.includes('vimeo.com');
+
   return (
     <div
       ref={setNodeRef}
       style={style}
-      className={`aspect-square overflow-hidden group relative bg-black/20 ${isEditable ? "touch-none" : ""
-        }`}
+      className={`aspect-square overflow-hidden group relative bg-black/20 ${isEditable ? "touch-none" : ""}`}
       {...(isEditable ? attributes : {})}
       {...(isEditable ? listeners : {})}
     >
@@ -107,19 +108,19 @@ function SortableImage({
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  if (confirm("Are you sure you want to remove this image?")) {
+                  if (confirm("Are you sure you want to remove this item?")) {
                     onRemove(index);
                   }
                 }}
                 className="p-1.5 rounded hover:bg-destructive hover:text-white text-cream transition-colors"
-                title="Remove image"
+                title="Remove item"
               >
                 <X className="w-4 h-4" />
               </button>
             )}
           </div>
 
-          {onEdit && (
+          {onEdit && !isVideo && (
             <div className="absolute bottom-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
               <button
                 onPointerDown={(e) => e.stopPropagation()} // Prevent drag start
@@ -158,6 +159,14 @@ function SortableImage({
         </>
       )}
 
+      {isVideo && (
+        <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+          <div className="w-12 h-12 rounded-full bg-primary/80 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+            <Play className="w-6 h-6 text-charcoal fill-current ml-1" />
+          </div>
+        </div>
+      )}
+
       {image === "special://smelek-letter" ? (
         <div
           className="w-full h-full cursor-pointer"
@@ -165,18 +174,30 @@ function SortableImage({
         >
           <SmelekLetterCard />
         </div>
+      ) : isVideo ? (
+        <div
+          onClick={() => !isDragging && onImageClick(index)}
+          className="w-full h-full cursor-pointer bg-charcoal flex items-center justify-center group"
+        >
+          <img
+            src={`https://img.youtube.com/vi/${image.split('v=')[1]?.split('&')[0]}/0.jpg`}
+            alt="Video Thumbnail"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = "/og-image.png";
+              (e.target as HTMLImageElement).className = "w-full h-full object-cover opacity-20 grayscale";
+            }}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
+        </div>
       ) : (
         <img
           src={image}
-          alt={`${projectTitle} - Image ${index + 1}`}
-          onClick={(e) => {
-            if (!isDragging && !isEditable) onImageClick(index)
-            if (!isDragging && isEditable) {
-              onImageClick(index);
-            }
+          alt={`${projectTitle} - Item ${index + 1}`}
+          onClick={() => {
+            if (!isDragging) onImageClick(index);
           }}
-          className={`w-full h-full object-cover transition-transform duration-500 ${isEditable ? "" : "group-hover:scale-110 cursor-pointer"
-            }`}
+          className={`w-full h-full object-cover transition-transform duration-500 ${isEditable ? "" : "group-hover:scale-110 cursor-pointer"}`}
         />
       )}
     </div>

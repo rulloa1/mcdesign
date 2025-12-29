@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useState, useEffect, useRef } from "react";
 import { projects, categories } from "@/data/projects";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 const Portfolio = () => {
   const [searchParams] = useSearchParams();
@@ -24,6 +25,8 @@ const Portfolio = () => {
   useEffect(() => {
     if (categoryFromUrl && categories.includes(categoryFromUrl)) {
       setActiveFilter(categoryFromUrl);
+    } else {
+      setActiveFilter("All");
     }
   }, [categoryFromUrl]);
 

@@ -89,18 +89,18 @@ const AboutSection = () => {
         <div className="grid grid-cols-2 gap-6 relative">
           <motion.div style={{ y: y1 }} className="space-y-6">
             <div className="aspect-[4/5] overflow-hidden rounded-sm shadow-2xl">
-              <img src="https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/miami-beach-cover.webp" alt="S. Florida High Rise Luxe Condo" className="w-full h-full object-cover hover:scale-110 transition-transform duration-1000" />
+              <img src="/projects/S. Florida High Rise Luxe/Miami001 COVER.jpg" alt="S. Florida High Rise Luxe Condo" className="w-full h-full object-cover hover:scale-110 transition-transform duration-1000" />
             </div>
             <div className="aspect-square overflow-hidden rounded-sm shadow-2xl">
-              <img src="https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/alpine-ranch-cover.webp" alt="High Alpine Ranch Montana" className="w-full h-full object-cover hover:scale-110 transition-transform duration-1000" />
+              <img src="/projects/High Alpine Mtn. Ranch/High001 COVER.JPG" alt="High Alpine Ranch Montana" className="w-full h-full object-cover hover:scale-110 transition-transform duration-1000" />
             </div>
           </motion.div>
           <motion.div style={{ y: y2 }} className="space-y-6 pt-16">
             <div className="aspect-square overflow-hidden rounded-sm shadow-2xl">
-              <img src="https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/southcoast-cover.webp" alt="South Coast Renovation Big Sur" className="w-full h-full object-cover hover:scale-110 transition-transform duration-1000" />
+              <img src="/design/southcoast-kitchen/36 AFTER.JPG" alt="South Coast Renovation Big Sur" className="w-full h-full object-cover hover:scale-110 transition-transform duration-1000" />
             </div>
             <div className="aspect-[4/5] overflow-hidden rounded-sm shadow-2xl">
-              <img src="https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-1.webp" alt="Ultra Luxe Private Club Pool" className="w-full h-full object-cover hover:scale-110 transition-transform duration-1000" />
+              <img src="/projects/hospitality-pool-cover.jpg" alt="Ultra Luxe Private Club Pool" className="w-full h-full object-cover hover:scale-110 transition-transform duration-1000" />
             </div>
           </motion.div>
         </div>

@@ -2,7 +2,7 @@ import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Trash2, GripVertical } from "lucide-react";
+import { Trash2, GripVertical, Play } from "lucide-react";
 
 export interface ProjectImage {
     id: string;
@@ -58,11 +58,30 @@ export const ImageCard = ({
                 <GripVertical className="h-5 w-5 text-white" />
             </div>
             <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors pointer-events-none" />
-            <img
-                src={image.image_url}
-                alt={image.title || "Project image"}
-                className="w-full aspect-square object-cover"
-            />
+            {image.image_url.match(/\.(mp4|webm|ogg)$/i) || image.image_url.includes('youtube.com') || image.image_url.includes('vimeo.com') ? (
+                <div className="relative w-full aspect-square bg-charcoal flex items-center justify-center">
+                    <img
+                        src={image.image_url.includes('youtube.com') ? `https://img.youtube.com/vi/${image.image_url.split('v=')[1]?.split('&')[0]}/0.jpg` : image.image_url}
+                        alt={image.title || "Project video"}
+                        onError={(e) => {
+                            (e.target as HTMLImageElement).src = "/og-image.png";
+                            (e.target as HTMLImageElement).className = "w-full h-full object-cover opacity-20 grayscale";
+                        }}
+                        className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                        <div className="w-10 h-10 rounded-full bg-primary/80 flex items-center justify-center shadow-lg">
+                            <Play className="w-5 h-5 text-charcoal fill-current ml-0.5" />
+                        </div>
+                    </div>
+                </div>
+            ) : (
+                <img
+                    src={image.image_url}
+                    alt={image.title || "Project image"}
+                    className="w-full aspect-square object-cover"
+                />
+            )}
             <div className="p-3 space-y-2">
                 <div className="flex items-center justify-between">
                     <p className="text-sm font-medium">Image {index + 1}</p>

@@ -5,10 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { PremiumButton } from "@/components/ui/PremiumButton";
 
 const heroImages = [
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/miami-beach-cover.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/southcoast-cover.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-1.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/alpine-ranch-cover.webp",
+  "/projects/S. Florida High Rise Luxe/Miami001 COVER.jpg",
+  "/projects/High Alpine Mtn. Ranch/High001 COVER.JPG",
+  "/design/southcoast-kitchen/36 AFTER.JPG",
+  "/projects/hospitality-pool-cover.jpg"
 ];
 
 const HeroSection = () => {
