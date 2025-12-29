@@ -10,6 +10,8 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { z } from "zod";
+import { motion, AnimatePresence } from "framer-motion";
+import { Loader2, LogOut, LayoutDashboard, Image as ImageIcon, CheckCircle2 } from "lucide-react";
 
 // URL validation schema - only allow http/https URLs that look like images
 const imageUrlSchema = z.string()
@@ -42,11 +44,11 @@ const imageUrlSchema = z.string()
       /pexels\.com/i,
       /googleusercontent\.com/i,
     ];
-    
+
     // Allow if it has image extension OR is from known image hosting
     const hasImageExtension = imageExtensions.test(url);
     const isFromImageHost = imageHostingPatterns.some(pattern => pattern.test(url));
-    
+
     return hasImageExtension || isFromImageHost;
   }, { message: "URL must point to an image file (jpg, png, gif, webp, etc.)" });
 
@@ -73,7 +75,7 @@ const ImageGalleryManager = () => {
   useEffect(() => {
     const checkAdminStatus = async () => {
       const { data: { user } } = await supabase.auth.getUser();
-      
+
       if (!user) {
         setIsAdmin(false);
         setAuthChecked(true);
@@ -125,7 +127,7 @@ const ImageGalleryManager = () => {
   const handleUpload = async (file: File) => {
     if (!selectedProject) return;
     if (!verifyAdmin()) return;
-    
+
     setUploading(true);
 
     try {
@@ -154,14 +156,14 @@ const ImageGalleryManager = () => {
   const handleUrlAdd = async (url: string, title: string) => {
     if (!selectedProject) return;
     if (!verifyAdmin()) return;
-    
+
     // Validate URL before processing
     const validation = validateImageUrl(url);
     if (!validation.valid) {
       toast.error(validation.error || "Invalid image URL");
       return;
     }
-    
+
     setUploading(true);
 
     const newOrder = localImages.length;
@@ -216,28 +218,9 @@ const ImageGalleryManager = () => {
 
   const handleReorder = async (newOrder: ProjectImage[]) => {
     if (!verifyAdmin()) return;
-    
+
     // Optimistic update
     setLocalImages(newOrder);
-
-    // Prepare updates for Supabase
-    const updates = newOrder.map((img, index) => ({
-      id: img.id,
-      display_order: index,
-      project_id: img.project_id, // Ensure we have required keys if it's a composite key, though ID should suffice if PK
-      image_url: img.image_url, // Include just in case
-      rotation_angle: 0 // Default or preserve? We don't have it in ProjectImage easily without mapping back. 
-      // Actually, ProjectImage doesn't store rotation. 
-      // If the table requires it, we might be overwriting it. 
-      // But let's assume partial update works or 'id' is substantial. 
-      // If 'id' is PK, upserting {id, display_order} should work if valid.
-      // Wait, supabase upsert needs all non-nullable columns if it's considered an insert-on-conflict?
-      // No, if ID exists, it updates.
-    }));
-
-    // We only need to update the display_order. 
-    // We can't do a bulk update of just one field deeply easily without a custom function or making sure we provide enough info.
-    // Let's try upserting just id and display_order.
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { error } = await supabase.from('project_images' as any).upsert(
@@ -260,7 +243,7 @@ const ImageGalleryManager = () => {
 
   const handleToggle = async (image: ProjectImage, field: 'is_before' | 'is_after') => {
     if (!verifyAdmin()) return;
-    
+
     const newValue = !image[field];
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -283,8 +266,8 @@ const ImageGalleryManager = () => {
   // Show loading while checking auth
   if (!authChecked) {
     return (
-      <div className="container mx-auto py-8 text-center">
-        <p className="text-muted-foreground">Checking permissions...</p>
+      <div className="flex h-[50vh] w-full items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-gold" />
       </div>
     );
   }
@@ -292,84 +275,158 @@ const ImageGalleryManager = () => {
   // Show access denied if not admin
   if (!isAdmin) {
     return (
-      <div className="container mx-auto py-8 text-center">
-        <h1 className="text-3xl font-serif text-destructive mb-4">Access Denied</h1>
-        <p className="text-muted-foreground">You need admin privileges to access the Gallery Manager.</p>
-        <Button
-          variant="outline"
-          className="mt-4"
-          onClick={async () => {
-            await supabase.auth.signOut();
-          }}
+      <div className="min-h-screen w-full flex items-center justify-center bg-charcoal">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="w-full max-w-md p-6"
         >
-          Sign Out
-        </Button>
+          <Card className="bg-charcoal-light border-white/10 shadow-2xl overflow-hidden">
+            <CardContent className="pt-10 pb-8 px-8 text-center">
+              <div className="mx-auto w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mb-6">
+                <LogOut className="h-8 w-8 text-red-400" />
+              </div>
+              <h1 className="text-3xl font-serif text-cream mb-3 luxury-heading">Access Denied</h1>
+              <p className="text-cream/50 mb-8 font-light">You need administrator privileges to access the Gallery Manager.</p>
+              <Button
+                className="bg-gold hover:bg-gold-light text-charcoal w-full h-12"
+                onClick={async () => {
+                  await supabase.auth.signOut();
+                }}
+              >
+                Sign Out
+              </Button>
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto py-8 space-y-8">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-serif">Gallery Manager</h1>
-        <div className="flex gap-4">
-          <Button
-            variant="outline"
-            onClick={async () => {
-              await supabase.auth.signOut();
-            }}
-          >
-            Sign Out
-          </Button>
-          <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Category" />
-            </SelectTrigger>
-            <SelectContent>
-              {categories.map(cat => (
-                <SelectItem key={cat} value={cat}>{cat}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          <Select value={selectedProject || ""} onValueChange={setSelectedProject}>
-            <SelectTrigger className="w-[240px]">
-              <SelectValue placeholder="Select Project" />
-            </SelectTrigger>
-            <SelectContent>
-              {projects.map(p => (
-                <SelectItem key={p.id} value={p.id}>{p.title}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+    <div className="min-h-screen bg-charcoal pb-20">
+      {/* Premium Header */}
+      <div className="bg-charcoal-light border-b border-white/5 sticky top-0 z-30 backdrop-blur-md bg-opacity-80">
+        <div className="container mx-auto px-6 py-6 flex justify-between items-center">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 bg-gold/10 rounded-lg flex items-center justify-center">
+              <LayoutDashboard className="h-5 w-5 text-gold" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-serif text-cream luxury-heading">Gallery Manager</h1>
+              <p className="text-xs text-cream/40 uppercase tracking-widest hidden sm:block">Content Management System</p>
+            </div>
+          </div>
+          <div className="flex gap-4">
+            <Button
+              variant="ghost"
+              className="text-cream/60 hover:text-gold hover:bg-gold/10"
+              onClick={async () => {
+                await supabase.auth.signOut();
+              }}
+            >
+              <LogOut className="h-4 w-4 mr-2" />
+              Sign Out
+            </Button>
+          </div>
         </div>
       </div>
 
-      {activeProject ? (
-        <Card>
-          <CardHeader>
-            <CardTitle>Manage: {activeProject.title}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <ImageUploader
-              selectedProject={selectedProject}
-              uploading={uploading}
-              onFileUpload={handleUpload}
-              onUrlAdd={handleUrlAdd}
-            />
-            <ImageGrid
-              images={localImages}
-              onDelete={handleDelete}
-              onReorder={handleReorder}
-              onToggleBeforeAfter={handleToggle}
-            />
-          </CardContent>
-        </Card>
-      ) : (
-        <div className="text-center py-20 text-muted-foreground">
-          {loading ? "Loading projects..." : "Select a project to manage gallery"}
+      <div className="container mx-auto px-6 py-10 space-y-8 animate-fade-in-up">
+        {/* Selection Area */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card className="bg-charcoal-light/50 border-white/5 backdrop-blur-sm">
+            <CardContent className="p-6">
+              <label className="text-xs uppercase tracking-widest text-cream/30 mb-2 block">Filter by Category</label>
+              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                <SelectTrigger className="w-full h-12 bg-black/20 border-white/10 text-cream focus:ring-gold/20">
+                  <SelectValue placeholder="Category" />
+                </SelectTrigger>
+                <SelectContent className="bg-charcoal border-white/10 text-cream">
+                  {categories.map(cat => (
+                    <SelectItem key={cat} value={cat} className="focus:bg-gold/20 focus:text-gold">{cat}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-charcoal-light/50 border-white/5 backdrop-blur-sm">
+            <CardContent className="p-6">
+              <label className="text-xs uppercase tracking-widest text-cream/30 mb-2 block">Select Project</label>
+              <Select value={selectedProject || ""} onValueChange={setSelectedProject}>
+                <SelectTrigger className="w-full h-12 bg-black/20 border-white/10 text-cream focus:ring-gold/20">
+                  <SelectValue placeholder="Select Project" />
+                </SelectTrigger>
+                <SelectContent className="bg-charcoal border-white/10 text-cream">
+                  {projects.map(p => (
+                    <SelectItem key={p.id} value={p.id} className="focus:bg-gold/20 focus:text-gold">{p.title}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </CardContent>
+          </Card>
         </div>
-      )}
+
+        <AnimatePresence mode="wait">
+          {activeProject ? (
+            <motion.div
+              key="active-project"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+            >
+              <Card className="bg-charcoal-light border-white/5 shadow-xl overflow-hidden">
+                <CardHeader className="bg-black/20 border-b border-white/5 pb-6">
+                  <div className="flex items-center gap-3">
+                    <ImageIcon className="h-5 w-5 text-gold/60" />
+                    <CardTitle className="text-cream text-xl font-serif tracking-wide">{activeProject.title}</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-8 p-6 sm:p-8">
+                  <div className="bg-black/20 rounded-xl p-6 border border-white/5">
+                    <ImageUploader
+                      selectedProject={selectedProject}
+                      uploading={uploading}
+                      onFileUpload={handleUpload}
+                      onUrlAdd={handleUrlAdd}
+                    />
+                  </div>
+
+                  <div className="relative">
+                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-8" />
+                    <h3 className="text-sm uppercase tracking-widest text-cream/40 mb-6 font-medium">Gallery Ordering & Layout</h3>
+
+                    <ImageGrid
+                      images={localImages}
+                      onDelete={handleDelete}
+                      onReorder={handleReorder}
+                      onToggleBeforeAfter={handleToggle}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="empty-state"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="flex flex-col items-center justify-center py-32 text-center bg-white/5 rounded-3xl border border-white/5 border-dashed"
+            >
+              <div className="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mb-4">
+                <ImageIcon className="h-8 w-8 text-gold/40" />
+              </div>
+              <h3 className="text-cream text-lg font-serif mb-2">{loading ? "Loading projects..." : "Select a project"}</h3>
+              <p className="text-cream/40 max-w-sm">
+                {loading ? "Fetching your portfolio data" : "Choose a project from the dropdown above to manage its gallery images and layout."}
+              </p>
+              {loading && <Loader2 className="h-6 w-6 text-gold animate-spin mt-6" />}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 };
