@@ -62,10 +62,38 @@ const ImageGalleryManager = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>(categories[0]);
   const { projects, loading } = useProjectsByCategory(selectedCategory);
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [authChecked, setAuthChecked] = useState<boolean>(false);
 
   const activeProject = projects.find(p => p.id === selectedProject);
 
   const [localImages, setLocalImages] = useState<ProjectImage[]>([]);
+
+  // Check admin status on mount
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        setIsAdmin(false);
+        setAuthChecked(true);
+        return;
+      }
+
+      // Check if user has admin role
+      const { data: adminCheck } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', user.id)
+        .eq('role', 'admin')
+        .maybeSingle();
+
+      setIsAdmin(!!adminCheck);
+      setAuthChecked(true);
+    };
+
+    checkAdminStatus();
+  }, []);
 
   useEffect(() => {
     if (activeProject?.images) {
@@ -76,7 +104,7 @@ const ImageGalleryManager = () => {
         title: activeProject.title,
         description: null,
         display_order: img.display_order,
-        is_before: false, // Default
+        is_before: false,
         is_after: false
       }));
       setLocalImages(mappedImages);
@@ -85,10 +113,19 @@ const ImageGalleryManager = () => {
 
   const [uploading, setUploading] = useState(false);
 
-  // ... (existing code)
+  // Helper to verify admin before operations
+  const verifyAdmin = (): boolean => {
+    if (!isAdmin) {
+      toast.error("Admin access required for this operation");
+      return false;
+    }
+    return true;
+  };
 
   const handleUpload = async (file: File) => {
     if (!selectedProject) return;
+    if (!verifyAdmin()) return;
+    
     setUploading(true);
 
     try {
@@ -116,6 +153,7 @@ const ImageGalleryManager = () => {
 
   const handleUrlAdd = async (url: string, title: string) => {
     if (!selectedProject) return;
+    if (!verifyAdmin()) return;
     
     // Validate URL before processing
     const validation = validateImageUrl(url);
@@ -161,6 +199,7 @@ const ImageGalleryManager = () => {
   };
 
   const handleDelete = async (image: ProjectImage) => {
+    if (!verifyAdmin()) return;
     if (!confirm("Are you sure you want to delete this image?")) return;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -176,6 +215,8 @@ const ImageGalleryManager = () => {
   };
 
   const handleReorder = async (newOrder: ProjectImage[]) => {
+    if (!verifyAdmin()) return;
+    
     // Optimistic update
     setLocalImages(newOrder);
 
@@ -218,6 +259,8 @@ const ImageGalleryManager = () => {
   };
 
   const handleToggle = async (image: ProjectImage, field: 'is_before' | 'is_after') => {
+    if (!verifyAdmin()) return;
+    
     const newValue = !image[field];
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -236,6 +279,34 @@ const ImageGalleryManager = () => {
       toast.success(`${field === 'is_before' ? 'Before' : 'After'} status updated`);
     }
   };
+
+  // Show loading while checking auth
+  if (!authChecked) {
+    return (
+      <div className="container mx-auto py-8 text-center">
+        <p className="text-muted-foreground">Checking permissions...</p>
+      </div>
+    );
+  }
+
+  // Show access denied if not admin
+  if (!isAdmin) {
+    return (
+      <div className="container mx-auto py-8 text-center">
+        <h1 className="text-3xl font-serif text-destructive mb-4">Access Denied</h1>
+        <p className="text-muted-foreground">You need admin privileges to access the Gallery Manager.</p>
+        <Button
+          variant="outline"
+          className="mt-4"
+          onClick={async () => {
+            await supabase.auth.signOut();
+          }}
+        >
+          Sign Out
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto py-8 space-y-8">
