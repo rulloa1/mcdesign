@@ -14,7 +14,35 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const [isSignUp, setIsSignUp] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+    const [configCheck, setConfigCheck] = useState<{ status: 'ok' | 'error' | 'checking'; message?: string }>({ status: 'checking' });
+
+    useEffect(() => {
+        // Diagnostic check
+        const checkConfig = async () => {
+            try {
+                // Check if keys are present (basic check)
+                const url = import.meta.env.VITE_SUPABASE_URL;
+                const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+
+                if (!url || !key) {
+                    setConfigCheck({ status: 'error', message: 'Missing VITE_SUPABASE_URL or VITE_SUPABASE_PUBLISHABLE_KEY variables.' });
+                    return;
+                }
+
+                // Simple ping to check connection (optional, just checking auth endpoint availability)
+                const { error } = await supabase.auth.getSession();
+                if (error) throw error;
+
+                setConfigCheck({ status: 'ok' });
+            } catch (err: any) {
+                console.error("Config check failed:", err);
+                setConfigCheck({ status: 'error', message: `Supabase connection failed: ${err.message}` });
+            }
+        };
+        checkConfig();
+    }, []);
 
     useEffect(() => {
         if (location.state?.message) {
@@ -22,29 +50,34 @@ const Login = () => {
         }
     }, [location.state]);
 
-    const handleLogin = async (e: React.FormEvent) => {
+    const handleAuth = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
         setErrorMessage("");
 
         try {
-            const { error, data } = await supabase.auth.signInWithPassword({
-                email,
-                password,
-            });
+            if (isSignUp) {
+                const { error, data } = await supabase.auth.signUp({
+                    email,
+                    password,
+                });
+                if (error) throw error;
+                toast.success("Account created! Please check your email for verification.");
+                setIsSignUp(false); // Switch back to login
+            } else {
+                const { error, data } = await supabase.auth.signInWithPassword({
+                    email,
+                    password,
+                });
+                if (error) throw error;
 
-            if (error) {
-                // Check for specific error types if needed
-                console.error("Supabase auth error:", error);
-                throw error;
+                console.log("Login successful", data);
+                toast.success("Logged in successfully");
+                navigate("/admin/gallery");
             }
-
-            console.log("Login successful", data);
-            toast.success("Logged in successfully");
-            navigate("/admin/gallery");
         } catch (error: any) {
-            console.error("Login error:", error);
-            const msg = error.message || "Failed to login";
+            console.error("Auth error:", error);
+            const msg = error.message || "Authentication failed";
             setErrorMessage(msg);
             toast.error(msg);
         } finally {
@@ -56,11 +89,19 @@ const Login = () => {
         <div className="container mx-auto flex h-screen items-center justify-center">
             <Card className="w-full max-w-md">
                 <CardHeader>
-                    <CardTitle>Admin Login</CardTitle>
-                    <CardDescription>Enter your credentials to access the dashboard</CardDescription>
+                    <CardTitle>Admin {isSignUp ? "Sign Up" : "Login"}</CardTitle>
+                    <CardDescription>{isSignUp ? "Create a new account" : "Enter your credentials to access the dashboard"}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form onSubmit={handleLogin} className="space-y-4">
+                    {configCheck.status === 'error' && (
+                        <Alert variant="destructive" className="mb-4">
+                            <AlertCircle className="h-4 w-4" />
+                            <AlertTitle>Configuration Error</AlertTitle>
+                            <AlertDescription>{configCheck.message}</AlertDescription>
+                        </Alert>
+                    )}
+
+                    <form onSubmit={handleAuth} className="space-y-4">
                         {errorMessage && (
                             <Alert variant={errorMessage.includes("successfully") ? "default" : "destructive"}>
                                 <AlertCircle className="h-4 w-4" />
@@ -87,9 +128,22 @@ const Login = () => {
                                 required
                             />
                         </div>
-                        <Button type="submit" className="w-full" disabled={loading}>
-                            {loading ? "Logging in..." : "Login"}
+                        <Button type="submit" className="w-full" disabled={loading || configCheck.status === 'error'}>
+                            {loading ? (isSignUp ? "Signing up..." : "Logging in...") : (isSignUp ? "Sign Up" : "Login")}
                         </Button>
+                        <div className="text-center text-sm text-gray-500">
+                            {isSignUp ? "Already have an account? " : "Don't have an account? "}
+                            <button
+                                type="button"
+                                className="text-primary hover:underline"
+                                onClick={() => {
+                                    setIsSignUp(!isSignUp);
+                                    setErrorMessage("");
+                                }}
+                            >
+                                {isSignUp ? "Login" : "Sign Up"}
+                            </button>
+                        </div>
                     </form>
                 </CardContent>
             </Card>
