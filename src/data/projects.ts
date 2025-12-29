@@ -86,3 +86,5 @@ export const projects: Project[] = [
 export const getProjectById = (id: string) => {
   return projects.find((project) => project.id === id);
 };
+
+export const categories = ["All", ...new Set(projects.map((project) => project.category))];
