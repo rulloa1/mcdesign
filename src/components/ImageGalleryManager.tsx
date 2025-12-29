@@ -9,6 +9,54 @@ import { categories } from "@/data/projects";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
+import { z } from "zod";
+
+// URL validation schema - only allow http/https URLs that look like images
+const imageUrlSchema = z.string()
+  .trim()
+  .url({ message: "Invalid URL format" })
+  .refine((url) => {
+    try {
+      const parsed = new URL(url);
+      // Only allow http and https protocols
+      if (!['http:', 'https:'].includes(parsed.protocol)) {
+        return false;
+      }
+      // Block javascript: and data: protocols
+      if (url.toLowerCase().startsWith('javascript:') || url.toLowerCase().startsWith('data:')) {
+        return false;
+      }
+      return true;
+    } catch {
+      return false;
+    }
+  }, { message: "URL must use http or https protocol" })
+  .refine((url) => {
+    // Check for common image extensions or known image hosting patterns
+    const imageExtensions = /\.(jpg|jpeg|png|gif|webp|svg|bmp|ico|avif|heic|heif)(\?.*)?$/i;
+    const imageHostingPatterns = [
+      /supabase\.co\/storage/i,
+      /cloudinary\.com/i,
+      /imgur\.com/i,
+      /unsplash\.com/i,
+      /pexels\.com/i,
+      /googleusercontent\.com/i,
+    ];
+    
+    // Allow if it has image extension OR is from known image hosting
+    const hasImageExtension = imageExtensions.test(url);
+    const isFromImageHost = imageHostingPatterns.some(pattern => pattern.test(url));
+    
+    return hasImageExtension || isFromImageHost;
+  }, { message: "URL must point to an image file (jpg, png, gif, webp, etc.)" });
+
+const validateImageUrl = (url: string): { valid: boolean; error?: string } => {
+  const result = imageUrlSchema.safeParse(url);
+  if (result.success) {
+    return { valid: true };
+  }
+  return { valid: false, error: result.error.errors[0]?.message || "Invalid URL" };
+};
 
 const ImageGalleryManager = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>(categories[0]);
@@ -68,6 +116,14 @@ const ImageGalleryManager = () => {
 
   const handleUrlAdd = async (url: string, title: string) => {
     if (!selectedProject) return;
+    
+    // Validate URL before processing
+    const validation = validateImageUrl(url);
+    if (!validation.valid) {
+      toast.error(validation.error || "Invalid image URL");
+      return;
+    }
+    
     setUploading(true);
 
     const newOrder = localImages.length;
