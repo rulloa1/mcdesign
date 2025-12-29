@@ -1,3 +1,4 @@
+import { designAlbums } from "./design-albums";
 
 export const categories = ["All", "Residential", "Commercial", "Exterior", "Interior", "Design"];
 
