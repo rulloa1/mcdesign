@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { categories } from "@/data/projects";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
 
 const ImageGalleryManager = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>(categories[0]);
@@ -185,6 +186,14 @@ const ImageGalleryManager = () => {
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-serif">Gallery Manager</h1>
         <div className="flex gap-4">
+          <Button
+            variant="outline"
+            onClick={async () => {
+              await supabase.auth.signOut();
+            }}
+          >
+            Sign Out
+          </Button>
           <Select value={selectedCategory} onValueChange={setSelectedCategory}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Category" />

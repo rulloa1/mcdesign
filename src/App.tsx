@@ -15,6 +15,8 @@ import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
 import ImageGalleryManager from "./components/ImageGalleryManager";
 import ScrollToTop from "./components/layout/ScrollToTop";
+import Login from "./pages/Login";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -35,7 +37,12 @@ const App = () => (
           <Route path="/contact" element={<Contact />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
-          <Route path="/admin/gallery" element={<ImageGalleryManager />} />
+          <Route path="/login" element={<Login />} />
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="/admin/gallery" element={<ImageGalleryManager />} />
+          </Route>
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
