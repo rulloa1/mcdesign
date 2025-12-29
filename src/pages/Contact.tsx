@@ -34,7 +34,7 @@ const Contact = () => {
         description: "Michael will get back to you personally within 24 hours.",
       });
       setFormData({ name: "", email: "", phone: "", message: "", project_type: "" });
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error submitting form:", error);
       toast({
         title: "Submission Failed",

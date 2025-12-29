@@ -36,7 +36,7 @@ const Login = () => {
                 if (error) throw error;
 
                 setConfigCheck({ status: 'ok' });
-            } catch (err: any) {
+            } catch (err) {
                 console.error("Config check failed:", err);
                 setConfigCheck({ status: 'error', message: `Supabase connection failed: ${err.message}` });
             }
@@ -75,7 +75,7 @@ const Login = () => {
                 toast.success("Logged in successfully");
                 navigate("/admin/gallery");
             }
-        } catch (error: any) {
+        } catch (error) {
             console.error("Auth error:", error);
             const msg = error.message || "Authentication failed";
             setErrorMessage(msg);
