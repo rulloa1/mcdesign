@@ -2,28 +2,14 @@
 > vite_react_shadcn_ts@0.0.0 build
 > vite build
 
-[36mvite v5.4.21 [32mbuilding for production...[36m[39m
-transforming...
-[32mΓ£ô[39m 2213 modules transformed.
-x Build failed in 18.18s
+failed to load config from C:\Users\roryu\my-tipler-dream-5\vite.config.ts
 error during build:
-src/pages/Portfolio.tsx (6:19): "categories" is not exported by "src/data/projects.ts", imported by "src/pages/Portfolio.tsx".
-file: C:/Users/roryu/constructiondesignnew-e33525f5/src/pages/Portfolio.tsx:6:19
-
-4: import { Button } from "@/components/ui/button";
-5: import { useState, useEffect, useRef } from "react";
-6: import { projects, categories } from "@/data/projects";
-                      ^
-7: import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-8: import { cn } from "@/lib/utils";
-
-    at getRollupError (file:///C:/Users/roryu/constructiondesignnew-e33525f5/node_modules/rollup/dist/es/shared/parseAst.js:401:41)
-    at error (file:///C:/Users/roryu/constructiondesignnew-e33525f5/node_modules/rollup/dist/es/shared/parseAst.js:397:42)
-    at Module.error (file:///C:/Users/roryu/constructiondesignnew-e33525f5/node_modules/rollup/dist/es/shared/node-entry.js:17022:16)
-    at Module.traceVariable (file:///C:/Users/roryu/constructiondesignnew-e33525f5/node_modules/rollup/dist/es/shared/node-entry.js:17478:29)
-    at ModuleScope.findVariable (file:///C:/Users/roryu/constructiondesignnew-e33525f5/node_modules/rollup/dist/es/shared/node-entry.js:15141:39)
-    at ReturnValueScope.findVariable (file:///C:/Users/roryu/constructiondesignnew-e33525f5/node_modules/rollup/dist/es/shared/node-entry.js:5688:38)
-    at FunctionBodyScope.findVariable (file:///C:/Users/roryu/constructiondesignnew-e33525f5/node_modules/rollup/dist/es/shared/node-entry.js:5688:38)
-    at ReturnValueScope.findVariable (file:///C:/Users/roryu/constructiondesignnew-e33525f5/node_modules/rollup/dist/es/shared/node-entry.js:5688:38)
-    at FunctionBodyScope.findVariable (file:///C:/Users/roryu/constructiondesignnew-e33525f5/node_modules/rollup/dist/es/shared/node-entry.js:5688:38)
-    at MemberExpression.bind (file:///C:/Users/roryu/constructiondesignnew-e33525f5/node_modules/rollup/dist/es/shared/node-entry.js:7406:49)
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@vitejs/plugin-react-swc' imported from C:\Users\roryu\node_modules\.vite-temp\vite.config.ts.timestamp-1767075666994-012f34d35b289.mjs
+    at packageResolve (node:internal/modules/esm/resolve:873:9)
+    at moduleResolve (node:internal/modules/esm/resolve:946:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1188:11)
+    at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:708:12)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:657:25)
+    at ModuleLoader.resolve (node:internal/modules/esm/loader:640:38)
+    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:264:38)
+    at ModuleJob._link (node:internal/modules/esm/module_job:168:49)
