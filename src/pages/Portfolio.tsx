@@ -36,144 +36,58 @@ const Portfolio = () => {
 
   return (
     <Layout>
-      {/* Hero - Full Split Layout */}
-      <section ref={heroRef} className="min-h-screen flex flex-col lg:flex-row">
-        {/* Left - Dark Hero */}
-        <div className="relative flex-1 bg-charcoal flex items-center justify-center overflow-hidden min-h-[60vh] lg:min-h-screen">
-          {/* Parallax Project Photo Collage Background */}
+      {/* Cinematic Hero Section */}
+      <section ref={heroRef} className="relative h-[80vh] flex flex-col justify-end bg-charcoal overflow-hidden">
+        {/* Parallax Background */}
+        <motion.div
+          className="absolute inset-0 z-0"
+          style={{ y: backgroundY, scale: backgroundScale }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-charcoal/30 via-charcoal/60 to-charcoal z-10" />
+          <img
+            src="/design/exterior/cover.png"
+            alt="Portfolio Cover"
+            className="w-full h-full object-cover opacity-60"
+          />
+        </motion.div>
+
+        {/* Content */}
+        <div className="container mx-auto px-12 lg:px-20 relative z-20 pb-20">
           <motion.div
-            className="absolute inset-0"
-            style={{ y: backgroundY, scale: backgroundScale }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="max-w-4xl"
           >
-            <div className="grid h-full w-full grid-cols-3 grid-rows-3">
-              {projects.slice(0, 9).map((p, i) => (
-                <img
-                  key={p.id}
-                  src={p.coverImage}
-                  alt=""
-                  aria-hidden="true"
-                  loading={i < 3 ? "eager" : "lazy"}
-                  decoding="async"
-                  className="h-full w-full object-cover opacity-25 grayscale"
-                />
-              ))}
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-[1px] bg-gold" />
+              <span className="text-gold tracking-[0.4em] uppercase text-xs font-medium">
+                Our Work
+              </span>
             </div>
-          </motion.div>
-          <div className="absolute inset-0 bg-charcoal/70" />
+            
+            <h1 className="text-6xl md:text-8xl font-serif text-cream mb-8 leading-none">
+              The Portfolio <br />
+              <span className="italic text-white/40 font-light">Collection</span>
+            </h1>
 
-
-          {/* Subtle Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-charcoal/50 via-transparent to-charcoal/80 z-0" />
-
-          {/* MC Logo */}
-          <div className="absolute top-12 left-12 z-20">
-            <div className="w-10 h-10 border border-gold/50 flex items-center justify-center">
-              <span className="font-serif text-sm font-medium text-gold">MC</span>
-            </div>
-          </div>
-
-          {/* Vertical Side Text */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2, duration: 0.6 }}
-            className="absolute bottom-16 left-12 hidden lg:block z-20"
-          >
-            <p
-              className="text-[9px] tracking-[0.35em] text-cream/30 font-light uppercase"
-              style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
-            >
-              Design & Construction
+            <p className="text-lg text-cream/60 max-w-xl leading-relaxed font-light">
+              A curated selection of residential, commercial, and hospitality projects
+              showcasing 37 years of design excellence and meticulous craftsmanship.
             </p>
           </motion.div>
         </div>
 
-        {/* Right - Content Section */}
-        <div className="relative flex-1 bg-background flex flex-col">
-          {/* Minimal Corner Accent */}
-          <div className="absolute top-16 right-16 w-20 h-20 border-t border-r border-border hidden lg:block" />
-
-          {/* Header Area */}
-          <div className="flex justify-between items-center px-12 lg:px-20 py-12">
-            <div className="w-8 h-8 bg-gold flex items-center justify-center">
-              <span className="font-serif text-[10px] font-medium text-charcoal">MC</span>
-            </div>
-            <span className="text-[10px] tracking-[0.25em] text-muted-foreground font-light uppercase">
-              Est. 1987
-            </span>
-          </div>
-
-          {/* Main Content */}
-          <div className="flex-1 flex flex-col justify-center px-12 lg:px-20 py-16">
-            {/* Back Button */}
-            <motion.button
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3 }}
-              onClick={() => navigate(-1)}
-              className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-all mb-16 self-start group text-[11px] tracking-[0.15em] uppercase font-light"
-            >
-              <span className="text-sm group-hover:-translate-x-1 transition-transform">←</span>
-              Back
-            </motion.button>
-
-            {/* Title */}
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-serif font-light text-foreground mb-8 tracking-tight leading-[1.1]"
-            >
-              Project<br />Collection
-            </motion.h2>
-
-            {/* Subtle Gold Line */}
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: 40 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-              className="h-[1px] bg-gold mb-10"
-            />
-
-            {/* Description */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.6 }}
-              className="text-sm leading-relaxed text-muted-foreground max-w-md mb-20 font-light"
-            >
-              A curated selection of residential, commercial, and hospitality projects
-              showcasing 37 years of design excellence and meticulous craftsmanship.
-            </motion.p>
-
-            {/* Stats Section - Refined */}
-            <div className="grid grid-cols-2 gap-16 mt-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 0.6 }}
-              >
-                <span className="block font-serif text-6xl md:text-7xl font-light text-gold leading-none mb-4">
-                  19
-                </span>
-                <span className="text-[10px] tracking-[0.2em] text-muted-foreground font-light uppercase">
-                  Signature Projects
-                </span>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9, duration: 0.6 }}
-              >
-                <span className="block font-serif text-6xl md:text-7xl font-light text-gold leading-none mb-4">
-                  37
-                </span>
-                <span className="text-[10px] tracking-[0.2em] text-muted-foreground font-light uppercase">
-                  Years of Excellence
-                </span>
-              </motion.div>
-            </div>
-          </div>
+        {/* Vertical Text Decoration */}
+        <div className="absolute right-12 top-1/2 -translate-y-1/2 hidden lg:block z-20">
+           <div className="h-32 w-[1px] bg-white/10 mx-auto mb-8" />
+           <p 
+            className="text-[10px] tracking-[0.4em] text-white/30 font-light uppercase"
+            style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
+           >
+             Est. 1987
+           </p>
+           <div className="h-32 w-[1px] bg-white/10 mx-auto mt-8" />
         </div>
       </section>
 

@@ -141,6 +141,89 @@ export const projects: Project[] = [
     sqft: "4,800",
     role: "Designer, Builder, Project Manager, Civil Engineering Contractor",
   },
+  {
+    id: "pacific-grove",
+    title: "Pacific Grove Design Build",
+    category: "Design Build",
+    location: "Pacific Grove, CA",
+    description: "A comprehensive design-build project in Pacific Grove, transforming a coastal property with modern amenities while respecting the local architectural character.",
+    coverImage: "/design/pacific-grove/001 COVER.JPG",
+    gallery: [
+      "/design/pacific-grove/001 COVER.JPG",
+      "/design/pacific-grove/002.JPG",
+      "/design/pacific-grove/003.png",
+      "/design/pacific-grove/004.png",
+      "/design/pacific-grove/005.JPG",
+      "/design/pacific-grove/006.JPG",
+      "/design/pacific-grove/007.JPG",
+      "/design/pacific-grove/008.JPG",
+      "/design/pacific-grove/009.JPG",
+      "/design/pacific-grove/0010.JPG",
+      "/design/pacific-grove/0011.JPG"
+    ],
+    role: "Design Build"
+  },
+  {
+    id: "coastal-hillside-restoration",
+    title: "Coastal Hillside Restoration",
+    category: "Restoration",
+    location: "Coastal CA",
+    description: "A delicate restoration project on a coastal hillside, focusing on structural integrity, erosion control, and seamless integration with the natural landscape.",
+    coverImage: "/design/coastal-hillside-restoration/001 COVER.JPG",
+    gallery: [
+      "/design/coastal-hillside-restoration/001 COVER.JPG",
+      "/design/coastal-hillside-restoration/002.JPG",
+      "/design/coastal-hillside-restoration/003.JPG",
+      "/design/coastal-hillside-restoration/004.JPG",
+      "/design/coastal-hillside-restoration/005.JPG",
+      "/design/coastal-hillside-restoration/006.JPG",
+      "/design/coastal-hillside-restoration/007.JPG",
+      "/design/coastal-hillside-restoration/008.JPG",
+      "/design/coastal-hillside-restoration/009.JPG",
+      "/design/coastal-hillside-restoration/0010.JPG",
+      "/design/coastal-hillside-restoration/0011.JPG",
+      "/design/coastal-hillside-restoration/0012.JPG",
+      "/design/coastal-hillside-restoration/0013.JPG",
+      "/design/coastal-hillside-restoration/0014.JPG",
+      "/design/coastal-hillside-restoration/0015.jpg",
+      "/design/coastal-hillside-restoration/0016.jpg"
+    ],
+    role: "Restoration Specialist"
+  },
+  {
+    id: "laguna-grande",
+    title: "Laguna Grande Design Build",
+    category: "Design Build",
+    location: "Laguna Grande",
+    description: "An elegant design-build project at Laguna Grande, featuring custom architectural details and high-end finishes.",
+    coverImage: "/design/laguna-grande/001 COVER.png",
+    gallery: [
+      "/design/laguna-grande/001 COVER.png",
+      "/design/laguna-grande/002 (2).png",
+      "/design/laguna-grande/003.png",
+      "/design/laguna-grande/004.png",
+      "/design/laguna-grande/004.100.png",
+      "/design/laguna-grande/005.png",
+      "/design/laguna-grande/006.png"
+    ],
+    role: "Design Build"
+  },
+  {
+    id: "car-vlly-house",
+    title: "Car. Vlly. House",
+    category: "Design Build",
+    location: "Carmel Valley, CA",
+    description: "A bespoke residence in Carmel Valley, designed to maximize views and outdoor living spaces.",
+    coverImage: "/design/car.-vlly.-house/001 COVER.png",
+    gallery: [
+      "/design/car.-vlly.-house/001 COVER.png",
+      "/design/car.-vlly.-house/002.png",
+      "/design/car.-vlly.-house/003.JPG",
+      "/design/car.-vlly.-house/004.png",
+      "/design/car.-vlly.-house/005.png"
+    ],
+    role: "Design Build"
+  },
   // Map other design albums to projects to populate the site
   ...designAlbums.map(album => ({
     id: album.id,
