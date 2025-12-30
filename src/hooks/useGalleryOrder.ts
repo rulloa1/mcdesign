@@ -31,18 +31,29 @@ export const useGalleryOrder = (projectId: string, defaultImages: string[]) => {
   useEffect(() => {
     const loadGalleryOrder = async () => {
       setIsLoading(true);
-      const { data, error } = await supabase
+
+      // 1. Try to load from project_images (structured table)
+      const { data: imagesData, error: imagesError } = await supabase
+        .from("project_images")
+        .select("id, image_url, display_order, is_before, is_after")
+        .eq("project_id", projectId)
+        .order("display_order");
+
+      if (!imagesError && imagesData && imagesData.length > 0) {
+        setImages(imagesData.map(img => (img as { image_url: string }).image_url));
+        setIsLoading(false);
+        return;
+      }
+
+      // 2. Fallback to project_gallery_orders (JSON blob)
+      const { data: orderData, error: orderError } = await supabase
         .from("project_gallery_orders")
         .select("image_order")
         .eq("project_id", projectId)
         .maybeSingle();
 
-      if (error) {
-        console.error("Error loading gallery order:", error);
-        setImages(defaultImages);
-      } else if (data?.image_order) {
-        // Merge saved order with default images
-        const savedOrder = data.image_order as string[];
+      if (!orderError && orderData?.image_order) {
+        const savedOrder = orderData.image_order as string[];
         const newImages = defaultImages.filter(img => !savedOrder.includes(img));
         setImages([...savedOrder.filter(img => defaultImages.includes(img)), ...newImages]);
       } else {

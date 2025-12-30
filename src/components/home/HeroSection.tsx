@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ChevronDown, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { PremiumButton } from "@/components/ui/PremiumButton";
 
 const heroImages = [
-  "/hero-pool.png",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/southcoast-cover.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-1.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/alpine-ranch-cover.webp",
+  "/projects/S. Florida High Rise Luxe/Miami001 COVER.jpg",
+  "/projects/High Alpine Mtn. Ranch/High001 COVER.JPG",
+  "/design/southcoast-kitchen/36 AFTER.JPG",
+  "/projects/hospitality-pool-cover.jpg"
 ];
 
 const HeroSection = () => {
@@ -16,7 +17,7 @@ const HeroSection = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroImages.length);
-    }, 6000);
+    }, 8000);
     return () => clearInterval(timer);
   }, []);
 
@@ -24,102 +25,123 @@ const HeroSection = () => {
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + heroImages.length) % heroImages.length);
 
   return (
-    <section className="relative h-screen overflow-hidden">
-      {/* Background Images */}
-      {heroImages.map((image, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? "opacity-100" : "opacity-0"
-            }`}
+    <section className="relative h-screen overflow-hidden bg-charcoal">
+      {/* Background Images with Zoom Effect */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentSlide}
+          initial={{ opacity: 0, scale: 1.1 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 2, ease: "easeOut" }}
+          className="absolute inset-0"
         >
           <img
-            src={image}
-            alt={`Luxury home ${index + 1}`}
+            src={heroImages[currentSlide]}
+            alt="Luxury architecture"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-charcoal/50" />
-        </div>
-      ))}
+          <div className="absolute inset-0 bg-gradient-to-b from-charcoal/40 via-transparent to-charcoal/70" />
+        </motion.div>
+      </AnimatePresence>
 
-      {/* Content */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
-        <div className="animate-fade-in-up">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-cream mb-4 tracking-wide">
-            Michael Chandler
+      {/* Content Overlay */}
+      <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="max-w-5xl"
+        >
+          <p className="text-primary tracking-[0.5em] uppercase text-xs mb-6 font-semibold">Master Builder & Designer</p>
+
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif text-cream mb-8 tracking-tighter leading-[0.95] md:leading-[0.9]">
+            Michael <br />
+            <span className="italic font-light">Chandler</span>
           </h1>
-          <p className="text-lg md:text-xl text-primary tracking-[0.4em] uppercase mb-8">
-            Design • Build • Develop
-          </p>
 
-          {/* Stats Container */}
-          <div className="grid grid-cols-2 gap-12 md:gap-20 mb-10">
-            <div className="text-center">
-              <span className="block text-6xl md:text-7xl lg:text-8xl font-light text-primary leading-none">
+          <div className="w-24 h-[1px] bg-gold mx-auto mb-12 opacity-50" />
+
+          {/* Refined Stats Container */}
+          <div className="grid grid-cols-2 gap-12 md:gap-32 mb-16 max-w-2xl mx-auto">
+            <div className="text-center group">
+              <span className="block text-5xl md:text-7xl font-light text-primary leading-none mb-3 group-hover:scale-110 transition-transform duration-500">
                 19
               </span>
-              <span className="block text-xs md:text-sm tracking-[2px] text-cream/80 mt-2 uppercase">
+              <span className="block text-[10px] tracking-[0.3em] text-cream/60 uppercase font-medium">
                 Signature Projects
               </span>
             </div>
-            <div className="text-center">
-              <span className="block text-6xl md:text-7xl lg:text-8xl font-light text-primary leading-none">
+            <div className="text-center group">
+              <span className="block text-5xl md:text-7xl font-light text-primary leading-none mb-3 group-hover:scale-110 transition-transform duration-500">
                 37
               </span>
-              <span className="block text-xs md:text-sm tracking-[2px] text-cream/80 mt-2 uppercase">
-                Years of Excellence
+              <span className="block text-[10px] tracking-[0.3em] text-cream/60 uppercase font-medium">
+                Years of Legacy
               </span>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <Link to="/portfolio">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-gold-dark px-8 py-6 text-sm tracking-widest uppercase">
-                View My Work
-              </Button>
+              <PremiumButton size="lg" className="bg-primary text-charcoal hover:bg-gold-dark px-12 py-8 min-w-[240px]">
+                Explore Portfolio
+              </PremiumButton>
             </Link>
             <Link to="/contact">
-              <Button
+              <PremiumButton
                 size="lg"
                 variant="outline"
-                className="border-cream bg-cream/10 text-cream hover:bg-cream hover:text-charcoal px-8 py-6 text-sm tracking-widest uppercase"
+                className="border-cream/20 bg-white/5 backdrop-blur-md text-cream hover:bg-cream hover:text-charcoal px-12 py-8 min-w-[240px]"
               >
-                Start Your Project
-              </Button>
+                Start Inquiry
+                <ArrowRight className="w-4 h-4 ml-3" />
+              </PremiumButton>
             </Link>
           </div>
-        </div>
+        </motion.div>
       </div>
 
-      {/* Slide Navigation */}
-      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+      {/* Slide Navigation - Refined Dots */}
+      <div className="absolute bottom-12 left-12 z-30 hidden md:flex flex-col gap-4">
         {heroImages.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`w-12 h-1 transition-all ${index === currentSlide ? "bg-primary" : "bg-cream/40"
-              }`}
-          />
+            className="group flex items-center gap-4"
+          >
+            <div className={`h-[1px] transition-all duration-500 ${index === currentSlide ? "w-12 bg-primary" : "w-6 bg-cream/20 group-hover:w-12 group-hover:bg-cream/40"}`} />
+            <span className={`text-[10px] tracking-widest transition-opacity duration-500 ${index === currentSlide ? "opacity-100 text-primary" : "opacity-0 group-hover:opacity-100 text-cream/40"}`}>
+              0{index + 1}
+            </span>
+          </button>
         ))}
       </div>
 
-      {/* Arrow Controls */}
-      <button
-        onClick={prevSlide}
-        className="absolute left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-charcoal/50 hover:bg-primary transition-colors flex items-center justify-center"
-      >
-        <ChevronLeft className="w-6 h-6 text-cream" />
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-charcoal/50 hover:bg-primary transition-colors flex items-center justify-center"
-      >
-        <ChevronRight className="w-6 h-6 text-cream" />
-      </button>
+      {/* Arrow Controls - Minimal */}
+      <div className="absolute bottom-12 right-12 z-30 flex gap-4">
+        <button
+          onClick={prevSlide}
+          className="w-14 h-14 border border-white/10 flex items-center justify-center text-cream/40 hover:text-primary hover:border-primary transition-all duration-300 backdrop-blur-sm"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="w-14 h-14 border border-white/10 flex items-center justify-center text-cream/40 hover:text-primary hover:border-primary transition-all duration-300 backdrop-blur-sm"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+      </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 animate-bounce">
-        <ChevronDown className="w-8 h-8 text-cream/60" />
-      </div>
+      <motion.div
+        animate={{ y: [0, 10, 0] }}
+        transition={{ repeat: Infinity, duration: 2 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30"
+      >
+        <div className="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent mx-auto opacity-50" />
+      </motion.div>
     </section>
   );
 };

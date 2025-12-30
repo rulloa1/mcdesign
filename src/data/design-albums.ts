@@ -18,6 +18,7 @@ export const designAlbums: DesignAlbum[] = [
             "/design/pools/A6B04D66-07E6-4175-A5DE-53B5AEAE10D7.JPEG",
             "/design/pools/B51D7E23-55DF-4786-B213-AFF2E14D2C4C.jpg",
             "/design/pools/B5BC2910-FB6E-4C2B-9D67-F6DD6DB3DF47.JPG",
+            "special://smelek-letter",
             "/design/pools/DACD2091-90E3-4F85-A4FF-21D26671BF8C (1).jpg",
             "/design/pools/E34A13CE-EEB5-4924-9D48-38E6AFB0D626.JPEG",
             "/design/pools/E67504A4-615C-4D44-944F-862A6840FA98.JPEG",
@@ -108,5 +109,33 @@ export const designAlbums: DesignAlbum[] = [
             "/design/finishes/IMG_4430.jpg"
         ]
     },
+    {
+        id: "architectural-renderings",
+        title: "Architectural Renderings",
+        description: "High-fidelity visualizations of conceptual designs and future projects.",
+        coverImage: "/design/renderings/cover.png",
+        images: ["/design/renderings/1.png", "/design/renderings/2.png"]
+    },
+    {
+        id: "custom-furniture",
+        title: "Custom Furniture",
+        description: "Bespoke furniture pieces designed and crafted for specific spaces.",
+        coverImage: "/design/furniture/cover.png",
+        images: ["/design/furniture/1.png", "/design/furniture/2.png"]
+    },
+    {
+        id: "exterior-spaces",
+        title: "Exterior Spaces & Landscape",
+        description: "Outdoor living environments, landscapes, and hardscapes.",
+        coverImage: "/design/exterior/cover.png",
+        images: ["/design/exterior/1.png", "/design/exterior/2.png"]
+    },
+    {
+        id: "interiors",
+        title: "Interiors",
+        description: "Elegant residential interiors showcasing timeless design and craftsmanship.",
+        coverImage: "/design/interiors/cover.png",
+        images: ["/design/interiors/1.png", "/design/interiors/2.png"]
+    }
     // Future albums can be added here
 ];

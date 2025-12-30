@@ -1,18 +1,29 @@
 import { useParams, Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { designAlbums } from "@/data/design-albums";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NumberedGallery } from "@/components/gallery/NumberedGallery";
+import { useState, useMemo } from "react";
+import { SmelekLetterCard } from "@/components/gallery/SmelekLetterCard";
+import { Settings2 } from "lucide-react";
+import { useGalleryOrder } from "@/hooks/useGalleryOrder";
+import CTASection from "@/components/home/CTASection";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const DesignDetail = () => {
     const { id } = useParams<{ id: string }>();
-    // Use a mock ID if undefined, or handle error
     const album = designAlbums.find((a) => a.id === id);
     const [selectedImage, setSelectedImage] = useState<number | null>(null);
+
+    const defaultImages = useMemo(() => album?.images || [], [album?.images]);
+    const {
+        images: galleryImages,
+        isLoading,
+        isEditable,
+        toggleEditMode,
+        saveGalleryOrder
+    } = useGalleryOrder(id || "design", defaultImages);
 
     if (!album) {
         return (
@@ -42,6 +53,10 @@ const DesignDetail = () => {
         }
     };
 
+    const albumIndex = designAlbums.findIndex((a) => a.id === id);
+    const nextAlbum = designAlbums[(albumIndex + 1) % designAlbums.length];
+    const prevAlbum = designAlbums[(albumIndex - 1 + designAlbums.length) % designAlbums.length];
+
     return (
         <Layout>
             <section className="pt-32 pb-16 bg-cream">
@@ -65,13 +80,30 @@ const DesignDetail = () => {
 
             <section className="py-16 bg-background">
                 <div className="container mx-auto px-6">
-                    <NumberedGallery
-                        images={album.images}
-                        projectTitle={album.title}
-                        onImageClick={openLightbox}
-                        onOrderChange={() => { }} // No reordering for now
-                        isEditable={false} // No admin reordering for these
-                    />
+                    {isLoading ? (
+                        <div className="text-center py-20 text-muted-foreground">Loading gallery...</div>
+                    ) : (
+                        <>
+                            <NumberedGallery
+                                images={galleryImages}
+                                projectTitle={album.title}
+                                onImageClick={openLightbox}
+                                onOrderChange={saveGalleryOrder}
+                                isEditable={isEditable}
+                            />
+
+                            <div className="mt-8 flex justify-end">
+                                <Button
+                                    variant="ghost"
+                                    onClick={toggleEditMode}
+                                    className="text-charcoal/40 hover:text-primary hover:bg-transparent text-xs flex items-center gap-2"
+                                >
+                                    <Settings2 className="w-3 h-3" />
+                                    {isEditable ? "Disable Editing" : "Enable Editing"}
+                                </Button>
+                            </div>
+                        </>
+                    )}
                 </div>
             </section>
 
@@ -101,19 +133,43 @@ const DesignDetail = () => {
                             <ChevronLeft className="w-12 h-12" />
                         </button>
 
-                        <motion.img
-                            key={selectedImage}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.3 }}
-                            src={album.images[selectedImage]}
-                            alt={`${album.title} - Image ${selectedImage + 1}`}
-                            className="max-h-[85vh] max-w-[85vw] object-contain"
-                        />
+                        {galleryImages[selectedImage] === "special://smelek-letter" ? (
+                            <div className="max-w-[85vw] max-h-[85vh] bg-cream shadow-2xl overflow-y-auto w-full">
+                                <SmelekLetterCard />
+                            </div>
+                        ) : galleryImages[selectedImage].match(/\.(mp4|webm|ogg)$/i) ? (
+                            <video
+                                src={galleryImages[selectedImage]}
+                                controls
+                                autoPlay
+                                className="max-h-[85vh] max-w-[85vw] shadow-2xl"
+                            />
+                        ) : galleryImages[selectedImage].includes('youtube.com') || galleryImages[selectedImage].includes('youtu.be') ? (
+                            <iframe
+                                width="560"
+                                height="315"
+                                src={`https://www.youtube.com/embed/${galleryImages[selectedImage].includes('v=') ? galleryImages[selectedImage].split('v=')[1].split('&')[0] : galleryImages[selectedImage].split('/').pop()}`}
+                                title="YouTube video player"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowFullScreen
+                                className="max-h-[85vh] max-w-[85vw] w-full aspect-video shadow-2xl"
+                            ></iframe>
+                        ) : (
+                            <motion.img
+                                key={selectedImage}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.3 }}
+                                src={galleryImages[selectedImage]}
+                                alt={`${album.title} - Item ${selectedImage + 1}`}
+                                className="max-h-[85vh] max-w-[85vw] object-contain"
+                            />
+                        )}
 
                         <button
                             onClick={nextImage}
-                            disabled={selectedImage === album.images.length - 1}
+                            disabled={selectedImage === galleryImages.length - 1}
                             className="absolute right-6 text-cream hover:text-primary transition-colors disabled:opacity-30"
                             aria-label="Next image"
                         >
@@ -121,11 +177,45 @@ const DesignDetail = () => {
                         </button>
 
                         <div className="absolute bottom-6 text-cream/60 text-sm">
-                            {selectedImage + 1} / {album.images.length}
+                            {selectedImage + 1} / {galleryImages.length}
                         </div>
                     </motion.div>
                 )}
             </AnimatePresence>
+            {/* Navigation between albums */}
+            <section className="py-24 border-t border-border bg-cream">
+                <div className="container mx-auto px-6">
+                    <div className="flex flex-col md:flex-row justify-between items-center gap-12">
+                        <Link to={`/design/${prevAlbum.id}`} className="group flex items-center gap-6 text-left">
+                            <div className="w-16 h-16 overflow-hidden relative border border-gold/20 flex-shrink-0">
+                                <img src={prevAlbum.coverImage} className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" alt="" />
+                            </div>
+                            <div>
+                                <p className="text-[10px] tracking-widest uppercase text-gold font-bold mb-1 flex items-center gap-2">
+                                    <ArrowLeft className="w-3 h-3 group-hover:-translate-x-1 transition-transform" /> Previous
+                                </p>
+                                <p className="font-serif text-xl text-charcoal group-hover:text-gold transition-colors">{prevAlbum.title}</p>
+                            </div>
+                        </Link>
+
+                        <div className="h-[1px] w-12 bg-gold/20 hidden md:block" />
+
+                        <Link to={`/design/${nextAlbum.id}`} className="group flex items-center gap-6 text-right">
+                            <div>
+                                <p className="text-[10px] tracking-widest uppercase text-gold font-bold mb-1 flex items-center gap-2 justify-end">
+                                    Next <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                                </p>
+                                <p className="font-serif text-xl text-charcoal group-hover:text-gold transition-colors">{nextAlbum.title}</p>
+                            </div>
+                            <div className="w-16 h-16 overflow-hidden relative border border-gold/20 flex-shrink-0">
+                                <img src={nextAlbum.coverImage} className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" alt="" />
+                            </div>
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            <CTASection />
         </Layout>
     );
 };
