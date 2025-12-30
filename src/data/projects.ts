@@ -23,41 +23,20 @@ export interface Project {
   };
 }
 
-// Recovered pool images from previous file version
+// Pool images from local design folder
 const poolImages = [
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-5.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-6.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-7.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-8.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-9.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-10.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-11.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-12.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-13.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-14.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-15.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-16.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-17.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-18.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-19.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-20.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-21.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-22.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-23.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-24.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-25.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-26.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-27.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-28.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-29.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-30.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-31.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-32.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-33.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-34.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-35.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-36.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-37.webp",
+  "/design/pools/29088D41-20ED-451A-9478-B3F6A71E9EEF.JPG",
+  "/design/pools/02DCFE45-E4A3-4045-A7A0-A35D00E2D661.JPG",
+  "/design/pools/A6B04D66-07E6-4175-A5DE-53B5AEAE10D7.JPEG",
+  "/design/pools/B51D7E23-55DF-4786-B213-AFF2E14D2C4C.jpg",
+  "/design/pools/B5BC2910-FB6E-4C2B-9D67-F6DD6DB3DF47.JPG",
+  "/design/pools/DACD2091-90E3-4F85-A4FF-21D26671BF8C (1).jpg",
+  "/design/pools/E34A13CE-EEB5-4924-9D48-38E6AFB0D626.JPEG",
+  "/design/pools/E67504A4-615C-4D44-944F-862A6840FA98.JPEG",
+  "/design/pools/F5BFD0E6-840F-4048-870D-5C9056A45059.JPG",
+  "/design/pools/F9AA058C-A210-4A58-92A1-6FE599C5EE18.JPG",
+  "/design/pools/IMG_0163.JPG",
+  "/design/pools/IMG_0166 2.JPG"
 ];
 
 export const projects: Project[] = [
