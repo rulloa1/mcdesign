@@ -32,20 +32,7 @@ export const useGalleryOrder = (projectId: string, defaultImages: string[]) => {
     const loadGalleryOrder = async () => {
       setIsLoading(true);
 
-      // 1. Try to load from project_images (structured table)
-      const { data: imagesData, error: imagesError } = await supabase
-        .from("project_images")
-        .select("id, image_url, display_order, is_before, is_after")
-        .eq("project_id", projectId)
-        .order("display_order");
-
-      if (!imagesError && imagesData && imagesData.length > 0) {
-        setImages(imagesData.map(img => (img as { image_url: string }).image_url));
-        setIsLoading(false);
-        return;
-      }
-
-      // 2. Fallback to project_gallery_orders (JSON blob)
+      // Load from project_gallery_orders
       const { data: orderData, error: orderError } = await supabase
         .from("project_gallery_orders")
         .select("image_order")
