@@ -726,7 +726,7 @@ export const projects: Project[] = [
     ]
   },
   {
-    id: "pacific-grove",
+    id: "pacific-grove-design-build",
     title: "Pacific Grove Design Build",
     category: "Design Build",
     location: "Pacific Grove, CA",
