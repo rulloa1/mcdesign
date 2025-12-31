@@ -52,6 +52,7 @@ export const DetailLayout = ({
   isAdmin,
   hero,
   content,
+  afterGallery,
   backLink,
   prevItem,
   nextItem,
