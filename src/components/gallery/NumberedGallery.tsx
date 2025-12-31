@@ -399,12 +399,12 @@ export const NumberedGallery = ({
             {isEditable && (
               <div
                 onClick={handleAddClick}
-                className="aspect-square border-2 border-dashed border-primary/30 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-primary hover:bg-primary/5 transition-all group"
+                className="aspect-square border-2 border-dashed border-gold/30 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-gold hover:bg-gold/5 transition-all group"
               >
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-2 group-hover:bg-primary group-hover:text-charcoal transition-colors text-primary">
+                <div className="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center mb-2 group-hover:bg-gold group-hover:text-charcoal transition-colors text-gold">
                   <Plus className="w-6 h-6" />
                 </div>
-                <span className="text-cream/60 font-medium group-hover:text-primary">Add Image</span>
+                <span className="text-cream/60 font-medium group-hover:text-gold">Add Image</span>
                 <input
                   type="file"
                   accept="image/*"

@@ -28,13 +28,13 @@ const CTASection = () => {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link to="/contact">
-            <Button size="lg" className="bg-primary text-primary-foreground hover:bg-gold-dark px-10 py-6 text-sm tracking-widest uppercase">
+            <Button size="lg" className="bg-gold text-charcoal hover:bg-white px-10 py-6 text-sm tracking-widest uppercase font-bold transition-all duration-300">
               Start Your Project
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </Link>
           <Link to="/portfolio">
-            <Button size="lg" variant="outline" className="border-cream text-cream hover:bg-cream hover:text-charcoal px-10 py-6 text-sm tracking-widest uppercase">
+            <Button size="lg" variant="outline" className="border-cream text-cream hover:bg-cream hover:text-charcoal px-10 py-6 text-sm tracking-widest uppercase font-bold transition-all duration-300">
               View My Portfolio
             </Button>
           </Link>

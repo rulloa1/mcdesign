@@ -212,11 +212,11 @@ export const DetailLayout = ({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 bg-charcoal/95 flex items-center justify-center"
+              className="fixed inset-0 z-50 bg-charcoal/95 backdrop-blur-xl flex items-center justify-center"
             >
               <button 
                 onClick={closeLightbox} 
-                className="absolute top-6 right-6 text-cream hover:text-primary transition-colors z-50" 
+                className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-50 p-2 bg-black/20 hover:bg-black/40 rounded-full backdrop-blur-md" 
                 aria-label="Close lightbox"
               >
                 <X className="w-8 h-8" />
@@ -225,10 +225,10 @@ export const DetailLayout = ({
               <button 
                 onClick={prevImage} 
                 disabled={selectedImage === 0} 
-                className="absolute left-6 text-cream hover:text-primary transition-colors disabled:opacity-30 z-50" 
+                className="absolute left-6 text-white/70 hover:text-white transition-colors disabled:opacity-30 z-50 p-3 bg-black/20 hover:bg-black/40 rounded-full backdrop-blur-md hidden md:block" 
                 aria-label="Previous image"
               >
-                <ChevronLeft className="w-12 h-12" />
+                <ChevronLeft className="w-10 h-10" />
               </button>
 
               {/* Content Switcher */}
