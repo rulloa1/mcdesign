@@ -379,7 +379,7 @@ export const NumberedGallery = ({
           strategy={rectSortingStrategy}
           disabled={!isEditable}
         >
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
             {items.map((item, index) => (
               <SortableImage
                 key={item.id} // Stable ID as key

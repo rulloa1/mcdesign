@@ -168,7 +168,7 @@ const ProjectDetail = () => {
                     <p className="text-gold tracking-[0.4em] uppercase text-xs font-medium">{project.category}</p>
                   </div>
 
-                  <h1 className="text-5xl md:text-8xl font-serif text-cream mb-4 leading-tight tracking-tight">
+                  <h1 className="text-4xl md:text-8xl font-serif text-cream mb-4 leading-tight tracking-tight">
                     {project.title.split(' ').slice(0, -1).join(' ')} <br />
                     <span className="italic font-light text-primary">{project.title.split(' ').slice(-1)}</span>
                   </h1>
