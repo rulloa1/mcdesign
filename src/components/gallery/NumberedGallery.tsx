@@ -38,6 +38,7 @@ interface NumberedGalleryProps {
 
 // Sortable Image Component
 function SortableImage({
+  id,
   image,
   index,
   projectTitle,
@@ -47,6 +48,7 @@ function SortableImage({
   onReplace,
   onEdit,
 }: {
+  id: string;
   image: string;
   index: number;
   projectTitle: string;
@@ -63,7 +65,7 @@ function SortableImage({
     transform,
     transition,
     isDragging,
-  } = useSortable({ id: image });
+  } = useSortable({ id: id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -218,7 +220,9 @@ export const NumberedGallery = ({
   const { toast } = useToast();
   const fileInputRefs = useRef<{ [key: number]: HTMLInputElement | null }>({});
   const addInputRef = useRef<HTMLInputElement>(null);
-  const [images, setImages] = useState(externalImages);
+  
+  // Internal state with unique IDs
+  const [items, setItems] = useState<{ id: string; url: string }[]>([]);
   const [isCopied, setIsCopied] = useState(false);
 
   // DnD Sensors
@@ -235,26 +239,43 @@ export const NumberedGallery = ({
 
   // Sync with external images
   useEffect(() => {
-    setImages(externalImages);
-  }, [externalImages]);
+    // Check if external images match current items by URL to avoid re-generating IDs unnecessarily
+    const currentUrls = items.map(i => i.url);
+    const isSame = externalImages.length === currentUrls.length && 
+                   externalImages.every((url, i) => url === currentUrls[i]);
+    
+    if (!isSame) {
+      // Map to new items with unique IDs
+      // Try to preserve IDs for URLs that haven't moved or are same? 
+      // For simplicity and robustness against duplicates, we generate new IDs if the list changed.
+      // But this might kill drag if parent updates during drag.
+      // Assuming parent updates happen only after drag end.
+      setItems(externalImages.map(url => ({ 
+        id: crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2), 
+        url 
+      })));
+    }
+  }, [externalImages]); // We don't include items in dependency to avoid loop, logic relies on functional update or careful check
 
   const handleDragEnd = async (event: DragEndEvent) => {
     const { active, over } = event;
 
     if (over && active.id !== over.id) {
-      const oldIndex = images.indexOf(active.id as string);
-      const newIndex = images.indexOf(over.id as string);
+      const oldIndex = items.findIndex(i => i.id === active.id);
+      const newIndex = items.findIndex(i => i.id === over.id);
 
       if (oldIndex !== -1 && newIndex !== -1) {
-        const newImages = arrayMove(images, oldIndex, newIndex);
-        setImages(newImages); // Optimistic UI update
-        await onOrderChange?.(newImages);
+        const newItems = arrayMove(items, oldIndex, newIndex);
+        setItems(newItems); // Optimistic UI update
+        
+        const newUrls = newItems.map(i => i.url);
+        await onOrderChange?.(newUrls);
       }
     }
   };
 
   const handleCopyConfig = () => {
-    const config = JSON.stringify(images, null, 2);
+    const config = JSON.stringify(items.map(i => i.url), null, 2);
     navigator.clipboard.writeText(config);
     setIsCopied(true);
     toast({
@@ -285,7 +306,7 @@ export const NumberedGallery = ({
       if (index === null) {
         await onAddImage?.(file);
       } else {
-        // Replace logic (duplicated from original for brevity, ideal to refactor)
+        // Replace logic
         let publicUrl;
         if (projectId && supabase) {
           try {
@@ -300,11 +321,12 @@ export const NumberedGallery = ({
         }
         if (!publicUrl) publicUrl = URL.createObjectURL(file);
 
-        const newImages = [...images];
-        newImages[index] = publicUrl;
+        // Optimistic update
+        const newItems = [...items];
+        newItems[index] = { ...newItems[index], url: publicUrl };
+        setItems(newItems);
 
-        await onOrderChange?.(newImages);
-        setImages(newImages);
+        await onOrderChange?.(newItems.map(i => i.url));
         toast({ title: "Image replaced" });
       }
     } catch (err) {
@@ -336,9 +358,9 @@ export const NumberedGallery = ({
       )}
 
       {/* Hidden inputs for replacement - mapped by index */}
-      {images.map((_, index) => (
+      {items.map((item, index) => (
         <input
-          key={`input-${index}`}
+          key={`input-${item.id}`} // Use ID for key
           type="file"
           accept="image/*"
           ref={(el) => { fileInputRefs.current[index] = el; }}
@@ -353,15 +375,16 @@ export const NumberedGallery = ({
         onDragEnd={handleDragEnd}
       >
         <SortableContext
-          items={images}
+          items={items.map(i => i.id)} // Pass IDs, not URLs
           strategy={rectSortingStrategy}
           disabled={!isEditable}
         >
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {images.map((image, index) => (
+            {items.map((item, index) => (
               <SortableImage
-                key={image} // Image URL as ID - ensure unique or fallback to index based ID if URLs duplicate
-                image={image}
+                key={item.id} // Stable ID as key
+                id={item.id}  // Pass ID to sortable
+                image={item.url}
                 index={index}
                 projectTitle={projectTitle}
                 isEditable={isEditable}
