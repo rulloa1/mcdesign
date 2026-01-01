@@ -161,7 +161,7 @@ const Services = () => {
             transition={{ duration: 0.8 }}
           >
             <h2 className="text-4xl md:text-6xl font-serif font-light mb-8">
-              Let's Build specific to your vision.
+              Let's Build to Your Vision.
             </h2>
             <p className="text-cream/60 max-w-2xl mx-auto mb-12 font-light text-lg">
               Whether it's a custom home, a commercial development, or a luxury renovation, we bring 37 years of experience to every project.
