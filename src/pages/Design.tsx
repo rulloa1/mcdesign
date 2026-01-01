@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useRef } from "react";
+import { designAlbums } from "@/data/design-albums";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 import timberBeamsImg from "@/assets/detail-timber-beams.jpg";
@@ -11,7 +12,43 @@ import marbleBathImg from "@/assets/detail-marble-bath.jpg";
 import proRangeImg from "@/assets/detail-pro-range.jpg";
 import limestoneFireplaceImg from "@/assets/detail-limestone-fireplace.jpg";
 import leatherCabinetryImg from "@/assets/detail-leather-cabinetry.jpg";
-import { designAlbums } from "@/data/design-albums";
+
+const interiorCategories = [
+  {
+    title: "Great Rooms",
+    image: spaVanityImg,
+    link: "/portfolio?category=Residential+Construction",
+  },
+  {
+    title: "Primary Suites",
+    image: marbleBathImg,
+    link: "/portfolio?category=Design+Build",
+  },
+  {
+    title: "Chef's Kitchens",
+    image: proRangeImg,
+    link: "/portfolio?category=Hospitality",
+  },
+];
+
+const developmentConcepts = [
+  {
+    title: "Land Development",
+    tags: ["Entitlements", "Infrastructure", "Planning"],
+  },
+  {
+    title: "Residential Communities",
+    tags: ["Master Plan", "Amenities", "HOA"],
+  },
+  {
+    title: "Resort & Hospitality",
+    tags: ["Mixed-Use", "Golf", "Private Clubs"],
+  },
+  {
+    title: "Renovation & Repositioning",
+    tags: ["Historic", "Adaptive Reuse", "Restoration"],
+  },
+];
 
 const Design = () => {
   const navigate = useNavigate();
@@ -27,298 +64,401 @@ const Design = () => {
 
   return (
     <Layout>
-      {/* Hero Section */}
+      {/* Hero - Full Split Layout (matching Portfolio) */}
       <section ref={heroRef} className="min-h-screen flex flex-col lg:flex-row">
-        {/* Left - Hero Image */}
-        <div className="relative flex-1 bg-charcoal flex items-center justify-center overflow-hidden min-h-[50vh] lg:min-h-screen">
-          <motion.div
+        {/* Left - Dark Hero with Parallax Background */}
+        <div className="relative flex-1 bg-charcoal flex items-center justify-center overflow-hidden min-h-[60vh] lg:min-h-screen">
+          {/* Parallax Background Images */}
+          <motion.div 
             className="absolute inset-0"
             style={{ y: backgroundY, scale: backgroundScale }}
           >
-            <img
-              src={timberBeamsImg}
-              alt="Architecture Detail"
-              className="h-full w-full object-cover opacity-80"
-            />
+            <div className="grid h-full w-full grid-cols-2 grid-rows-3">
+              {[timberBeamsImg, spaVanityImg, marbleBathImg, proRangeImg, limestoneFireplaceImg, leatherCabinetryImg].map((img, i) => (
+                <img
+                  key={i}
+                  src={img}
+                  alt=""
+                  aria-hidden="true"
+                  loading={i < 2 ? "eager" : "lazy"}
+                  decoding="async"
+                  className="h-full w-full object-cover opacity-25 grayscale"
+                />
+              ))}
+            </div>
           </motion.div>
-          <div className="absolute inset-0 bg-charcoal/20" />
+          <div className="absolute inset-0 bg-charcoal/70" />
+
+          {/* Subtle Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-charcoal/50 via-transparent to-charcoal/80 z-0" />
+
+          {/* MC Logo */}
+          <div className="absolute top-12 left-12 z-20">
+            <div className="w-10 h-10 border border-gold/50 flex items-center justify-center">
+              <span className="font-serif text-sm font-medium text-gold">MC</span>
+            </div>
+          </div>
 
           {/* Vertical Side Text */}
-          <div className="absolute bottom-12 left-12 hidden lg:block z-20">
-            <p className="text-[10px] tracking-[0.35em] text-cream/80 font-light uppercase" style={{ writingMode: 'vertical-rl' }}>
-              Est. 1987
-            </p>
-          </div>
-        </div>
-
-        {/* Right - Content */}
-        <div className="relative flex-1 bg-background flex flex-col justify-center px-8 lg:px-24 py-16 lg:py-0">
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2, duration: 0.6 }}
+            className="absolute bottom-16 left-12 hidden lg:block z-20"
           >
-            <div className="flex items-center gap-4 mb-12">
-              <div className="w-12 h-[1px] bg-gold" />
-              <span className="text-xs tracking-[0.2em] text-muted-foreground uppercase">Michael Chandler</span>
-            </div>
-
-            <h1 className="text-4xl md:text-6xl font-serif font-light text-foreground mb-8 leading-tight">
-              Design<br />
-              <span className="text-muted-foreground">Build</span><br />
-              Develop
-            </h1>
-
-            <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-md mb-12 font-light">
-              37 years of creating exceptional residential environments through thoughtful design and meticulous craftsmanship.
+            <p
+              className="text-[9px] tracking-[0.35em] text-cream/30 font-light uppercase"
+              style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
+            >
+              Architecture & Interiors
             </p>
-
-            <div className="flex flex-col sm:flex-row gap-6">
-              <Link to="/portfolio">
-                <Button className="bg-charcoal text-cream hover:bg-gold hover:text-charcoal transition-all text-xs tracking-[0.2em] uppercase px-8 py-6 rounded-none">
-                  View Portfolio
-                </Button>
-              </Link>
-            </div>
           </motion.div>
-
-          {/* Vertical PORTFOLIO text */}
-          <div className="absolute top-0 right-0 h-full w-24 border-l border-border hidden lg:flex items-center justify-center">
-            <p className="text-[10px] tracking-[0.4em] text-muted-foreground/30 font-light uppercase rotate-90 whitespace-nowrap">
-              Portfolio
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 01 DESIGN CONCEPTS */}
-      <section className="py-24 bg-background relative overflow-hidden">
-        {/* Large Background Number */}
-        <div className="absolute top-0 left-0 text-[20rem] font-serif text-muted/20 -translate-y-1/4 -translate-x-1/4 select-none pointer-events-none">
-          01
         </div>
 
-        <div className="container mx-auto px-6 lg:px-12 relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-            <div>
-              <span className="text-gold text-xs tracking-[0.2em] uppercase block mb-4">01 Design Concepts</span>
-              <h2 className="text-4xl font-serif font-light text-foreground">Mood Board</h2>
+        {/* Right - Content Section */}
+        <div className="relative flex-1 bg-background flex flex-col">
+          {/* Minimal Corner Accent */}
+          <div className="absolute top-16 right-16 w-20 h-20 border-t border-r border-border hidden lg:block" />
+
+          {/* Header Area */}
+          <div className="flex justify-between items-center px-12 lg:px-20 py-12">
+            <div className="w-8 h-8 bg-gold flex items-center justify-center">
+              <span className="font-serif text-[10px] font-medium text-charcoal">MC</span>
             </div>
-            <p className="text-muted-foreground text-sm max-w-md font-light">
-              Texture, light, and material warmth form the foundation of our aesthetic language.
-            </p>
+            <span className="text-[10px] tracking-[0.25em] text-muted-foreground font-light uppercase">
+              Est. 1987
+            </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              { img: spaVanityImg, title: "Primary Suites", desc: "Spa-inspired serenity" },
-              { img: leatherCabinetryImg, title: "Custom Details", desc: "Handcrafted millwork" },
-              { img: marbleBathImg, title: "Natural Stone", desc: "Timeless elegance" },
-              { img: proRangeImg, title: "Chef's Kitchens", desc: "Culinary excellence" },
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group relative h-[400px] overflow-hidden"
-              >
-                <img src={item.img} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
-                <div className="absolute bottom-6 left-6 text-cream">
-                  <h3 className="text-lg font-serif mb-1">{item.title}</h3>
-                  <p className="text-[10px] tracking-widest uppercase opacity-80">{item.desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          {/* Main Content */}
+          <div className="flex-1 flex flex-col justify-center px-12 lg:px-20 py-16">
+            {/* Back Button */}
+            <motion.button
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              onClick={() => navigate(-1)}
+              className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-all mb-16 self-start group text-[11px] tracking-[0.15em] uppercase font-light"
+            >
+              <span className="text-sm group-hover:-translate-x-1 transition-transform">←</span>
+              Back
+            </motion.button>
 
-          {/* Styles List */}
-          <div className="mt-24 pt-12 border-t border-border">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {[
-                { id: "01", name: "Coastal Modern", desc: "Oceanfront living" },
-                { id: "02", name: "Hill Country", desc: "Native limestone" },
-                { id: "03", name: "Mountain Lodge", desc: "Heavy timber" },
-                { id: "04", name: "Resort Living", desc: "Hospitality-inspired" },
-              ].map((style) => (
-                <div key={style.id} className="group cursor-default">
-                  <span className="text-xs text-gold/60 mb-2 block">{style.id}</span>
-                  <h4 className="text-xl font-serif text-foreground mb-1 group-hover:text-gold transition-colors">{style.name}</h4>
-                  <p className="text-xs text-muted-foreground uppercase tracking-wider">{style.desc}</p>
-                </div>
+            {/* Title */}
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-serif font-light text-foreground mb-8 tracking-tight leading-[1.1]"
+            >
+              Interior<br />Design
+            </motion.h1>
+
+            {/* Subtle Gold Line */}
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: 40 }}
+              transition={{ delay: 0.6, duration: 0.6 }}
+              className="h-[1px] bg-gold mb-10"
+            />
+
+            {/* Description */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.6 }}
+              className="text-sm leading-relaxed text-muted-foreground max-w-md mb-20 font-light"
+            >
+              Architecture, interiors, and custom environments crafted with 
+              meticulous attention to detail and timeless elegance.
+            </motion.p>
+
+            {/* Stats Section */}
+            <div className="grid grid-cols-3 gap-8 mt-auto">
+              {["Architecture", "Interiors", "Custom"].map((label, i) => (
+                <motion.div
+                  key={label}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8 + i * 0.1, duration: 0.6 }}
+                >
+                  <span className="text-[10px] tracking-[0.2em] text-gold font-light uppercase">
+                    {label}
+                  </span>
+                </motion.div>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* 02 DESIGN COLLECTIONS */}
-      <section className="py-24 bg-cream relative overflow-hidden">
-        <div className="absolute right-0 top-0 text-[15rem] font-serif text-charcoal/5 -translate-y-1/4 translate-x-1/4 select-none pointer-events-none">
-          02
-        </div>
+      {/* Architecture + Interiors Section */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-12 lg:px-20">
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
+            {/* Left: Large Architecture Image */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative"
+            >
+              <div className="relative">
+                <div className="absolute top-6 left-6 w-16 h-16 border-l border-t border-gold/30 z-10" />
+                <img
+                  src={timberBeamsImg}
+                  alt="Architecture - Timber beams detail"
+                  className="w-full h-[600px] lg:h-[700px] object-cover"
+                />
+              </div>
+              <p className="mt-6 text-[11px] tracking-[0.15em] text-muted-foreground font-light uppercase">
+                Site-responsive design, structural coordination, smart home integration
+              </p>
+              <h2 className="text-2xl font-serif text-foreground mt-3 font-light">Architecture</h2>
+            </motion.div>
 
-        <div className="container mx-auto px-6 lg:px-12 relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-            <div>
-              <span className="text-gold text-xs tracking-[0.2em] uppercase block mb-4">02 Collections</span>
-              <h2 className="text-4xl font-serif font-light text-foreground">Design Albums</h2>
-            </div>
-            <p className="text-muted-foreground text-sm max-w-md font-light">
-              Explore our curated collections of luxury environments and specialty finishes.
-            </p>
+            {/* Right: Interiors Stack */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <h3 className="text-[11px] tracking-[0.2em] text-gold font-light uppercase mb-8">Interiors</h3>
+              <div className="space-y-8">
+                {interiorCategories.map((category, index) => (
+                  <Link
+                    to={category.link}
+                    key={index}
+                    className="group relative overflow-hidden cursor-pointer block"
+                  >
+                    <div className="relative overflow-hidden">
+                      <img
+                        src={category.image}
+                        alt={category.title}
+                        className="w-full h-56 object-cover transition-all duration-700 group-hover:scale-[1.03]"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-charcoal/10 to-transparent" />
+                      <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/20 transition-all duration-500" />
+                      <div className="absolute bottom-6 left-6 right-6">
+                        <h4 className="text-xl font-serif text-cream font-light group-hover:text-gold transition-colors duration-300">
+                          {category.title}
+                        </h4>
+                      </div>
+                      <div className="absolute bottom-4 right-4 w-8 h-8 border-r border-b border-gold/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
           </div>
+        </div>
+      </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {designAlbums.map((album, i) => (
+      {/* Exterior Spaces Section */}
+      <section className="py-24 bg-cream">
+        <div className="container mx-auto px-12 lg:px-20">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="group relative overflow-hidden"
+            >
+              <img
+                src={limestoneFireplaceImg}
+                alt="Exterior spaces"
+                className="w-full h-96 object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+              />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <h2 className="text-3xl md:text-4xl font-serif text-foreground mb-6 font-light">
+                Exterior Spaces<br />& Landscape
+              </h2>
+              <div className="w-10 h-[1px] bg-gold mb-8" />
+              <p className="text-sm text-muted-foreground font-light leading-relaxed">
+                Outdoor Living • Pool & Spa • Motor Courts • Native Landscape
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Custom Furniture Section */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-12 lg:px-20">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="order-2 lg:order-1"
+            >
+              <h2 className="text-3xl md:text-4xl font-serif text-foreground mb-6 font-light">
+                Custom<br />Furniture
+              </h2>
+              <div className="w-10 h-[1px] bg-gold mb-8" />
+              <p className="text-sm text-muted-foreground font-light leading-relaxed">
+                Statement Tables • Built-Ins • Vanities • Specialty Storage
+              </p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="group relative overflow-hidden order-1 lg:order-2"
+            >
+              <img
+                src={leatherCabinetryImg}
+                alt="Custom furniture"
+                className="w-full h-96 object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Development & Concepts Section */}
+      <section className="py-24 bg-cream">
+        <div className="container mx-auto px-12 lg:px-20">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-20"
+          >
+            <p className="text-[10px] tracking-[0.3em] text-gold uppercase mb-4">Expertise</p>
+            <h2 className="text-3xl md:text-4xl font-serif text-foreground font-light mb-6">
+              Development & Concepts
+            </h2>
+            <div className="w-12 h-[1px] bg-gold mx-auto" />
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {developmentConcepts.map((concept, index) => (
               <motion.div
-                key={album.id}
-                initial={{ opacity: 0, y: 20 }}
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group cursor-pointer"
-                onClick={() => navigate(`/design/${album.id}`)}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="bg-background p-10 border border-border hover:border-gold/30 transition-all duration-500 text-center group"
               >
-                <div className="relative aspect-[16/10] overflow-hidden mb-6">
+                <h3 className="text-lg font-serif text-foreground mb-6 font-light group-hover:text-gold transition-colors">
+                  {concept.title}
+                </h3>
+                <div className="space-y-2">
+                  {concept.tags.map((tag, i) => (
+                    <span
+                      key={i}
+                      className="inline-block text-[10px] tracking-[0.1em] text-muted-foreground bg-cream px-4 py-2 m-1 font-light uppercase"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Curated Collections */}
+      <section className="py-24 bg-background border-t border-border/30">
+        <div className="container mx-auto px-12 lg:px-20">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-20"
+          >
+            <p className="text-[10px] tracking-[0.3em] text-gold uppercase mb-4">Collections</p>
+            <h2 className="text-3xl md:text-4xl font-serif text-foreground font-light mb-4">
+              Curated Collections
+            </h2>
+            <p className="text-sm text-muted-foreground font-light">
+              Explore our specific design focuses
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-12">
+            {designAlbums.map((album, index) => (
+              <motion.div
+                key={album.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group"
+              >
+                <div className="overflow-hidden mb-6 aspect-[4/3] relative">
                   <img
                     src={album.coverImage}
                     alt={album.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-charcoal/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="text-cream text-[10px] tracking-[0.3em] uppercase border border-cream/30 px-6 py-3 backdrop-blur-sm">
-                      View Collection
-                    </span>
-                  </div>
+                  <div className="absolute inset-0 bg-charcoal/10 group-hover:bg-charcoal/0 transition-colors duration-500" />
                 </div>
-                <h3 className="text-xl font-serif text-charcoal mb-2 group-hover:text-gold transition-colors">
+                <h3 className="text-2xl font-serif text-foreground mb-3 font-light group-hover:text-gold transition-colors">
                   {album.title}
                 </h3>
-                <p className="text-xs text-muted-foreground uppercase tracking-wider font-light">
-                  {album.images.length} Images
-                </p>
+                <p className="text-sm text-muted-foreground mb-6 font-light">{album.description}</p>
+                <Link to={`/design/${album.id}`}>
+                  <Button 
+                    variant="outline" 
+                    className="border-charcoal text-charcoal hover:bg-charcoal hover:text-cream text-[11px] tracking-[0.15em] uppercase font-light px-8 py-5"
+                  >
+                    View Collection
+                  </Button>
+                </Link>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 03 CAPABILITIES */}
-      <section className="py-24 bg-background relative overflow-hidden">
-        <div className="absolute left-0 top-1/2 text-[20rem] font-serif text-charcoal/5 -translate-y-1/2 -translate-x-1/4 select-none pointer-events-none">
-          03
-        </div>
-
-        <div className="container mx-auto px-6 lg:px-12 relative z-10">
-          <div className="mb-20">
-            <span className="text-gold text-xs tracking-[0.2em] uppercase block mb-4">03 Capabilities</span>
-            <h2 className="text-4xl font-serif font-light text-foreground">Skills & Services</h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-12 lg:gap-24">
-            {[
-              {
-                title: "Architecture",
-                items: ["Site-Responsive Design", "Structural Coordination", "Smart Home Integration"]
-              },
-              {
-                title: "Interiors",
-                items: ["Custom Millwork", "Lighting Design", "Curated Materials"]
-              },
-              {
-                title: "Development",
-                items: ["Feasibility Analysis", "Entitlement Processing", "Construction Management"]
-              }
-            ].map((service, i) => (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.2 }}
-              >
-                <h3 className="text-2xl font-serif mb-8 text-charcoal">{service.title}</h3>
-                <ul className="space-y-4">
-                  {service.items.map((item) => (
-                    <li key={item} className="flex items-center text-sm text-muted-foreground font-light border-b border-charcoal/10 pb-4">
-                      <span className="w-1.5 h-1.5 bg-gold rounded-full mr-4" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 04 PHILOSOPHY */}
-      <section className="py-32 bg-foreground text-cream relative">
-        <div className="absolute left-12 top-12 text-[10rem] font-serif text-cream/5 select-none font-light">
-          04
-        </div>
-
-        <div className="container mx-auto px-6 lg:px-24 relative z-10 flex flex-col md:flex-row items-center gap-16">
-          <div className="flex-1">
-            <span className="text-gold text-xs tracking-[0.2em] uppercase block mb-8">03 Philosophy</span>
-            <blockquote className="text-3xl md:text-5xl font-serif font-light leading-snug mb-8">
-              "We don't simply build structures—we craft environments that enhance how people live, work, and experience their world."
-            </blockquote>
-          </div>
-          <div className="flex-1 w-full relative">
-            <div className="aspect-[3/4] max-w-md mx-auto relative transform md:translate-y-12">
-              <div className="absolute top-0 right-0 w-24 h-24 border-t border-r border-gold/30 -translate-y-4 translate-x-4 mb-4" />
-              <img src={limestoneFireplaceImg} alt="Philosophy" className="w-full h-full object-cover grayscale opacity-80" />
+      {/* CTA Section */}
+      <section className="py-24 bg-charcoal">
+        <div className="container mx-auto px-12 lg:px-20">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <p className="text-[10px] tracking-[0.3em] text-gold uppercase mb-6">Begin Your Journey</p>
+            <h2 className="text-3xl md:text-5xl font-serif text-cream mb-10 font-light">
+              Ready to Discuss Your Vision?
+            </h2>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Link to="/contact">
+                <Button className="bg-gold hover:bg-gold/90 text-charcoal text-[11px] tracking-[0.15em] uppercase font-light px-10 py-6">
+                  Schedule Consultation
+                </Button>
+              </Link>
+              <Link to="/portfolio">
+                <Button 
+                  variant="outline" 
+                  className="border-cream/30 text-cream hover:bg-cream/10 text-[11px] tracking-[0.15em] uppercase font-light px-10 py-6"
+                >
+                  View Portfolio
+                  <ArrowRight className="w-4 h-4 ml-3" />
+                </Button>
+              </Link>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 05 PROCESS */}
-      <section className="py-24 bg-background border-t border-border">
-        <div className="container mx-auto px-6 lg:px-12">
-          <span className="text-gold text-xs tracking-[0.2em] uppercase block mb-12">05 Our Approach</span>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {[
-              { step: "01", title: "Discovery", desc: "Understanding vision, site conditions, and project requirements." },
-              { step: "02", title: "Design", desc: "Collaborative development with architects and interior designers." },
-              { step: "03", title: "Development", desc: "Detailed planning, budgeting, and construction scheduling." },
-              { step: "04", title: "Delivery", desc: "Meticulous construction execution and quality assurance." },
-            ].map((phase, i) => (
-              <div key={phase.step} className="relative pt-8 border-t border-border hover:border-gold transition-colors duration-500 group">
-                <span className="absolute top-0 left-0 -translate-y-1/2 bg-background pr-4 text-4xl font-serif text-muted-foreground/20 group-hover:text-gold/40 transition-colors">
-                  {phase.step}
-                </span>
-                <h3 className="text-xl font-serif mb-4 mt-4">{phase.title}</h3>
-                <p className="text-sm text-muted-foreground font-light leading-relaxed">
-                  {phase.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="h-[60vh] relative flex items-center justify-center bg-charcoal">
-        <div className="absolute inset-0">
-          <img src={proRangeImg} alt="Contact Background" className="w-full h-full object-cover opacity-20" />
-          <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/50 to-charcoal/80" />
-        </div>
-
-        <div className="relative z-10 text-center px-4">
-          <h2 className="text-4xl md:text-6xl font-serif text-cream mb-8 font-light">Ready to Begin?</h2>
-          <p className="text-muted-foreground mb-12 max-w-md mx-auto font-light">
-            Every exceptional project starts with a conversation. Let's discuss your vision.
-          </p>
-          <Link to="/contact">
-            <Button className="bg-gold text-charcoal hover:bg-cream hover:text-charcoal transition-all text-xs tracking-[0.2em] uppercase px-10 py-6">
-              Schedule Consultation
-            </Button>
-          </Link>
+          </motion.div>
         </div>
       </section>
     </Layout>

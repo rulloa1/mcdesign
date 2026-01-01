@@ -1,32 +1,15 @@
 import Layout from "@/components/layout/Layout";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { ArrowRight, Loader2 } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect, useRef } from "react";
-// REMOVED: import { projects, categories } from "@/data/projects"; 
-import { supabase } from "@/integrations/supabase/client"; // Ensure you have this client
+import { projects, categories } from "@/data/projects";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { cn } from "@/lib/utils";
-
-// Define the Project type matches your DB
-interface Project {
-  id: string;
-  title: string;
-  category: string;
-  location: string;
-  cover_image: string; // Note: Supabase usually returns snake_case
-}
 
 const Portfolio = () => {
   const [searchParams] = useSearchParams();
   const categoryFromUrl = searchParams.get("category");
   const [activeFilter, setActiveFilter] = useState(categoryFromUrl || "All");
-  
-  // New State for Data
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [categories, setCategories] = useState<string[]>(["All"]);
-  const [loading, setLoading] = useState(true);
-
   const navigate = useNavigate();
   const heroRef = useRef<HTMLDivElement>(null);
 
@@ -38,40 +21,11 @@ const Portfolio = () => {
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const backgroundScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
-  // FETCH DATA FROM SUPABASE
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('projects')
-          .select('*');
-        
-        if (error) throw error;
-
-        if (data) {
-          setProjects(data);
-          
-          // Extract unique categories automatically
-          const uniqueCategories = ["All", ...new Set(data.map(p => p.category))];
-          setCategories(uniqueCategories);
-        }
-      } catch (error) {
-        console.error('Error fetching projects:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProjects();
-  }, []);
-
   useEffect(() => {
     if (categoryFromUrl && categories.includes(categoryFromUrl)) {
       setActiveFilter(categoryFromUrl);
-    } else if (!categoryFromUrl) {
-      setActiveFilter("All");
     }
-  }, [categoryFromUrl, categories]);
+  }, [categoryFromUrl]);
 
   const filteredProjects = activeFilter === "All"
     ? projects
@@ -79,191 +33,221 @@ const Portfolio = () => {
 
   return (
     <Layout>
-      {/* Cinematic Hero Section */}
-      <section ref={heroRef} className="relative h-[80vh] flex flex-col justify-end bg-charcoal overflow-hidden">
-        {/* Parallax Background */}
-        <motion.div
-          className="absolute inset-0 z-0"
-          style={{ y: backgroundY, scale: backgroundScale }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-charcoal/30 via-charcoal/60 to-charcoal z-10" />
-          <img
-            src="/design/exterior/cover.jpg"
-            alt="Portfolio Cover"
-            className="w-full h-full object-cover opacity-60"
-          />
-        </motion.div>
-
-        {/* Content */}
-        <div className="container mx-auto px-12 lg:px-20 relative z-20 pb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="max-w-4xl"
+      {/* Hero - Full Split Layout */}
+      <section ref={heroRef} className="min-h-screen flex flex-col lg:flex-row">
+        {/* Left - Dark Hero */}
+        <div className="relative flex-1 bg-charcoal flex items-center justify-center overflow-hidden min-h-[60vh] lg:min-h-screen">
+          {/* Parallax Project Photo Collage Background */}
+          <motion.div 
+            className="absolute inset-0"
+            style={{ y: backgroundY, scale: backgroundScale }}
           >
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-12 h-[1px] bg-gold" />
-              <span className="text-gold tracking-[0.4em] uppercase text-xs font-medium">
-                Our Work
-              </span>
+            <div className="grid h-full w-full grid-cols-3 grid-rows-3">
+              {projects.slice(0, 9).map((p, i) => (
+                <img
+                  key={p.id}
+                  src={p.coverImage}
+                  alt=""
+                  aria-hidden="true"
+                  loading={i < 3 ? "eager" : "lazy"}
+                  decoding="async"
+                  className="h-full w-full object-cover opacity-25 grayscale"
+                />
+              ))}
             </div>
-            
-            <h1 className="text-6xl md:text-8xl font-serif text-cream mb-8 leading-none">
-              The Portfolio <br />
-              <span className="italic text-white/40 font-light">Collection</span>
-            </h1>
+          </motion.div>
+          <div className="absolute inset-0 bg-charcoal/70" />
 
-            <p className="text-lg text-cream/60 max-w-xl leading-relaxed font-light">
-              A curated selection of residential, commercial, and hospitality projects
-              showcasing 37 years of design excellence and meticulous craftsmanship.
+
+          {/* Subtle Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-charcoal/50 via-transparent to-charcoal/80 z-0" />
+
+          {/* MC Logo */}
+          <div className="absolute top-12 left-12 z-20">
+            <div className="w-10 h-10 border border-gold/50 flex items-center justify-center">
+              <span className="font-serif text-sm font-medium text-gold">MC</span>
+            </div>
+          </div>
+
+          {/* Vertical Side Text */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2, duration: 0.6 }}
+            className="absolute bottom-16 left-12 hidden lg:block z-20"
+          >
+            <p
+              className="text-[9px] tracking-[0.35em] text-cream/30 font-light uppercase"
+              style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
+            >
+              Design & Construction
             </p>
           </motion.div>
         </div>
 
-        {/* Vertical Text Decoration */}
-        <div className="absolute right-12 top-1/2 -translate-y-1/2 hidden lg:block z-20">
-           <div className="h-32 w-[1px] bg-white/10 mx-auto mb-8" />
-           <p 
-            className="text-[10px] tracking-[0.4em] text-white/30 font-light uppercase"
-            style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
-           >
-             Est. 1987
-           </p>
-           <div className="h-32 w-[1px] bg-white/10 mx-auto mt-8" />
-        </div>
-      </section>
+        {/* Right - Content Section */}
+        <div className="relative flex-1 bg-background flex flex-col">
+          {/* Minimal Corner Accent */}
+          <div className="absolute top-16 right-16 w-20 h-20 border-t border-r border-border hidden lg:block" />
 
-      {/* Filters - Sticky bar with Mobile Scroll Fix */}
-      <section className="bg-background/80 py-8 border-b border-border sticky top-[72px] z-40 backdrop-blur-xl transition-all duration-300">
-        <div className="container mx-auto px-12 lg:px-20">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-            
-            {/* ADDED: overflow-x-auto and no-scrollbar for better mobile experience */}
-            <div className="flex overflow-x-auto pb-2 md:pb-0 gap-x-10 gap-y-4 no-scrollbar items-center mask-linear-fade">
-              {loading ? (
-                 <span className="text-xs text-muted-foreground">Loading categories...</span>
-              ) : (
-                categories.map((cat, index) => (
-                  <motion.button
-                    key={cat}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: (index * 0.05) }}
-                    onClick={() => {
-                      setActiveFilter(cat);
-                      // Optional: Update URL without refresh
-                      // navigate(`?category=${cat}`, { replace: true });
-                    }}
-                    className="relative group py-2 flex-shrink-0"
-                  >
-                    <span className={cn(
-                      "text-[10px] tracking-[0.3em] uppercase transition-all duration-500 block whitespace-nowrap",
-                      activeFilter === cat
-                        ? "text-charcoal font-bold"
-                        : "text-muted-foreground group-hover:text-charcoal font-medium"
-                    )}>
-                      {cat}
-                    </span>
-                    {activeFilter === cat && (
-                      <motion.div
-                        layoutId="activeFilter"
-                        className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gold"
-                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                      />
-                    )}
-                  </motion.button>
-                ))
-              )}
+          {/* Header Area */}
+          <div className="flex justify-between items-center px-12 lg:px-20 py-12">
+            <div className="w-8 h-8 bg-gold flex items-center justify-center">
+              <span className="font-serif text-[10px] font-medium text-charcoal">MC</span>
             </div>
+            <span className="text-[10px] tracking-[0.25em] text-muted-foreground font-light uppercase">
+              Est. 1987
+            </span>
+          </div>
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="hidden md:block"
+          {/* Main Content */}
+          <div className="flex-1 flex flex-col justify-center px-12 lg:px-20 py-16">
+            {/* Back Button */}
+            <motion.button
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              onClick={() => navigate(-1)}
+              className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-all mb-16 self-start group text-[11px] tracking-[0.15em] uppercase font-light"
             >
-              <p className="text-[10px] tracking-widest text-muted-foreground uppercase opacity-50">
-                Found {filteredProjects.length} Architectural Artifacts
-              </p>
-            </motion.div>
+              <span className="text-sm group-hover:-translate-x-1 transition-transform">←</span>
+              Back
+            </motion.button>
+
+            {/* Title */}
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-serif font-light text-foreground mb-8 tracking-tight leading-[1.1]"
+            >
+              Project<br />Collection
+            </motion.h2>
+
+            {/* Subtle Gold Line */}
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: 40 }}
+              transition={{ delay: 0.6, duration: 0.6 }}
+              className="h-[1px] bg-gold mb-10"
+            />
+
+            {/* Description */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.6 }}
+              className="text-sm leading-relaxed text-muted-foreground max-w-md mb-20 font-light"
+            >
+              A curated selection of residential, commercial, and hospitality projects 
+              showcasing 37 years of design excellence and meticulous craftsmanship.
+            </motion.p>
+
+            {/* Stats Section - Refined */}
+            <div className="grid grid-cols-2 gap-16 mt-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8, duration: 0.6 }}
+              >
+                <span className="block font-serif text-6xl md:text-7xl font-light text-gold leading-none mb-4">
+                  19
+                </span>
+                <span className="text-[10px] tracking-[0.2em] text-muted-foreground font-light uppercase">
+                  Signature Projects
+                </span>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9, duration: 0.6 }}
+              >
+                <span className="block font-serif text-6xl md:text-7xl font-light text-gold leading-none mb-4">
+                  37
+                </span>
+                <span className="text-[10px] tracking-[0.2em] text-muted-foreground font-light uppercase">
+                  Years of Excellence
+                </span>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Projects Grid */}
+      {/* Filters - Minimal & Clean */}
+      <section className="bg-background py-10 border-b border-border sticky top-0 z-10 backdrop-blur-sm bg-background/95">
+        <div className="container mx-auto px-12 lg:px-20">
+          <div className="flex flex-wrap gap-6">
+            {categories.map((cat, index) => (
+              <motion.button
+                key={cat}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1 + (index * 0.1) }}
+                onClick={() => setActiveFilter(cat)}
+                className={`text-[11px] tracking-[0.2em] uppercase font-light transition-all duration-300 pb-2 border-b ${
+                  activeFilter === cat
+                    ? "text-foreground border-gold"
+                    : "text-muted-foreground border-transparent hover:text-foreground hover:border-border"
+                }`}
+              >
+                {cat}
+              </motion.button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Projects Grid - Clean & Aligned */}
       <section className="py-24 bg-background min-h-screen">
         <div className="container mx-auto px-12 lg:px-20">
-          
-          {loading ? (
-             <div className="flex justify-center py-20">
-                <Loader2 className="animate-spin w-8 h-8 text-gold" />
-             </div>
-          ) : (
-            <motion.div
-              layout
-              className="grid md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16"
-            >
-              <AnimatePresence mode="popLayout">
-                {filteredProjects.map((project, index) => (
-                  <motion.div
-                    layout
-                    initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
-                    transition={{
-                      duration: 0.7,
-                      ease: [0.16, 1, 0.3, 1],
-                      delay: (index % 3) * 0.1
-                    }}
-                    key={project.id}
+          <motion.div
+            layout
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
+          >
+            <AnimatePresence mode="popLayout">
+              {filteredProjects.map((project, index) => (
+                <motion.div
+                  layout
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  key={project.id}
+                >
+                  <Link
+                    to={`/project/${project.id}`}
+                    className="group block overflow-hidden"
                   >
-                    <Link
-                      to={`/project/${project.id}`}
-                      className="group block"
-                    >
-                      {/* Perspective Image Container */}
-                      <div className="relative aspect-[4/5] overflow-hidden bg-muted mb-8 shadow-sm group-hover:shadow-2xl transition-all duration-700">
-                        <img
-                          src={project.cover_image} // Changed to match snake_case if using DB
-                          alt={project.title}
-                          className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-charcoal/40 opacity-0 group-hover:opacity-100 transition-all duration-700 backdrop-blur-[2px] flex items-center justify-center">
-                          <div className="px-8 py-4 border border-cream/30 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-700 delay-100">
-                            <span className="text-cream text-[10px] tracking-[0.4em] uppercase font-bold">View Archive</span>
-                          </div>
-                        </div>
-                        <div className="absolute top-6 left-6 inline-block py-1 px-3 bg-charcoal/60 backdrop-blur-md border border-white/10 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                          <p className="text-cream text-[8px] tracking-[0.2em] uppercase font-bold">{project.category}</p>
-                        </div>
-                      </div>
+                    {/* Image Container */}
+                    <div className="relative aspect-[4/3] overflow-hidden bg-muted mb-5">
+                      <img
+                        src={project.coverImage}
+                        alt={project.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/20 transition-colors duration-500" />
+                    </div>
+                    
+                    {/* Text Content */}
+                    <div className="space-y-2">
+                      <p className="text-[10px] tracking-[0.2em] text-gold uppercase font-light">
+                        {project.category}
+                      </p>
+                      <h3 className="font-serif text-xl text-foreground group-hover:text-gold transition-colors duration-300 font-light">
+                        {project.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground font-light">
+                        {project.location}
+                      </p>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
 
-                      {/* Text Content */}
-                      <div className="space-y-3 px-1">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-[1px] bg-gold opacity-30 group-hover:w-16 group-hover:bg-gold transition-all duration-700" />
-                          <span className="text-[10px] tracking-[0.2em] text-gold uppercase font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                            Explore
-                          </span>
-                        </div>
-                        <h3 className="font-serif text-3xl text-charcoal group-hover:text-primary transition-colors duration-500 leading-tight">
-                          {project.title}
-                        </h3>
-                        <div className="flex justify-between items-center pt-2 border-t border-border/50">
-                          <p className="text-xs text-muted-foreground font-light tracking-wide italic">
-                            {project.location}
-                          </p>
-                          <ArrowRight className="w-4 h-4 text-gold opacity-0 group-hover:opacity-100 transition-all duration-500 -translate-x-4 group-hover:translate-x-0" />
-                        </div>
-                      </div>
-                    </Link>
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </motion.div>
-          )}
-
-          {/* CTA */}
+          {/* CTA - Refined */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}

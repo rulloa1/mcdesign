@@ -10,13 +10,7 @@ import Services from "./pages/Services";
 import Design from "./pages/Design";
 import DesignDetail from "./pages/DesignDetail";
 import Contact from "./pages/Contact";
-import Privacy from "./pages/Privacy";
-import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
-import ImageGalleryManager from "./components/ImageGalleryManager";
-import ScrollToTop from "./components/layout/ScrollToTop";
-import Login from "./pages/Login";
-import { ProtectedRoute } from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -26,7 +20,6 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/portfolio" element={<Portfolio />} />
@@ -35,14 +28,6 @@ const App = () => (
           <Route path="/design" element={<Design />} />
           <Route path="/design/:id" element={<DesignDetail />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/login" element={<Login />} />
-
-          <Route element={<ProtectedRoute />}>
-            <Route path="/admin/gallery" element={<ImageGalleryManager />} />
-          </Route>
-
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

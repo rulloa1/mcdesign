@@ -3,8 +3,11 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import { z } from 'https://deno.land/x/zod@v3.22.4/mod.ts';
 
+// Get allowed origin from environment variable, default to production domain
+const ALLOWED_ORIGIN = Deno.env.get('ALLOWED_ORIGIN') || 'https://mike-construction.lovable.app';
+
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
@@ -108,26 +111,26 @@ serve(async (req) => {
 
     const { imageBase64, style } = validationResult.data;
     
-    const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
-    if (!LOVABLE_API_KEY) {
-      console.error('LOVABLE_API_KEY is not configured');
+    const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY');
+    if (!OPENAI_API_KEY) {
+      console.error('OPENAI_API_KEY is not configured');
       return new Response(
-        JSON.stringify({ error: 'Lovable AI API key not configured' }),
+        JSON.stringify({ error: 'OpenAI API key not configured' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    console.log('Analyzing room structure with Lovable AI Vision...');
+    console.log('Analyzing room structure with Vision API...');
 
-    // Step 1: Vision API - Analyze the room structure using Gemini
-    const visionResponse = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
+    // Step 1: Vision API - Analyze the room structure
+    const visionResponse = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${LOVABLE_API_KEY}`,
+        'Authorization': `Bearer ${OPENAI_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'google/gemini-2.5-flash',
+        model: 'gpt-4o',
         messages: [
           {
             role: 'user',
@@ -148,21 +151,7 @@ serve(async (req) => {
 
     if (!visionResponse.ok) {
       const errorText = await visionResponse.text();
-      console.error('Vision API error:', visionResponse.status, errorText);
-      
-      if (visionResponse.status === 429) {
-        return new Response(
-          JSON.stringify({ error: 'Rate limit exceeded. Please try again later.' }),
-          { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-        );
-      }
-      if (visionResponse.status === 402) {
-        return new Response(
-          JSON.stringify({ error: 'AI credits exhausted. Please add funds to continue.' }),
-          { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-        );
-      }
-      
+      console.error('Vision API error:', errorText);
       return new Response(
         JSON.stringify({ error: 'Failed to analyze image' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -173,6 +162,7 @@ serve(async (req) => {
     const rawDescription = visionData.choices?.[0]?.message?.content || 'A room interior';
     
     // Sanitize Vision API output to prevent prompt injection
+    // Limit length and remove special characters that could affect DALL-E prompts
     const description = rawDescription
       .substring(0, 500)
       .replace(/[^a-zA-Z0-9\s,.'\\-]/g, '')
@@ -180,45 +170,26 @@ serve(async (req) => {
     
     console.log('Vision Analysis complete (sanitized):', description.substring(0, 100) + '...');
 
-    // Step 2: Generate new style image using Gemini image generation
-    console.log('Generating redesigned image with Lovable AI...');
+    // Step 2: DALL-E 3 - Generate new style
+    console.log('Generating redesigned image with DALL-E 3...');
     
-    const imagePrompt = `A photorealistic, architectural digest quality photograph of a room with this structure: ${description}. The room is designed in a ${style} style. High end, professional interior design photography, 8k resolution.`;
-    
-    const imageResponse = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
+    const imageResponse = await fetch('https://api.openai.com/v1/images/generations', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${LOVABLE_API_KEY}`,
+        'Authorization': `Bearer ${OPENAI_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'google/gemini-3-pro-image-preview',
-        messages: [
-          {
-            role: 'user',
-            content: imagePrompt,
-          },
-        ],
+        model: 'dall-e-3',
+        prompt: `A photorealistic, architectural digest quality photograph of a room with this structure: ${description}. The room is designed in a ${style} style. High end, professional interior design photography, 8k resolution.`,
+        n: 1,
+        size: '1024x1024',
       }),
     });
 
     if (!imageResponse.ok) {
       const errorText = await imageResponse.text();
-      console.error('Image generation API error:', imageResponse.status, errorText);
-      
-      if (imageResponse.status === 429) {
-        return new Response(
-          JSON.stringify({ error: 'Rate limit exceeded. Please try again later.' }),
-          { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-        );
-      }
-      if (imageResponse.status === 402) {
-        return new Response(
-          JSON.stringify({ error: 'AI credits exhausted. Please add funds to continue.' }),
-          { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-        );
-      }
-      
+      console.error('DALL-E API error:', errorText);
       return new Response(
         JSON.stringify({ error: 'Failed to generate image' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -226,29 +197,12 @@ serve(async (req) => {
     }
 
     const imageData = await imageResponse.json();
-    console.log('Image generation response:', JSON.stringify(imageData).substring(0, 500));
-    
-    // Extract image from response - Gemini returns images inline in the content
-    const content = imageData.choices?.[0]?.message?.content;
-    let generatedUrl = null;
-    
-    // Check if content is an array (multimodal response)
-    if (Array.isArray(content)) {
-      for (const part of content) {
-        if (part.type === 'image_url' && part.image_url?.url) {
-          generatedUrl = part.image_url.url;
-          break;
-        }
-      }
-    } else if (typeof content === 'string' && content.startsWith('data:image')) {
-      // Direct base64 image
-      generatedUrl = content;
-    }
+    const generatedUrl = imageData.data?.[0]?.url;
 
     if (!generatedUrl) {
-      console.error('No image in response. Full response:', JSON.stringify(imageData));
+      console.error('No image URL in response');
       return new Response(
-        JSON.stringify({ error: 'No image generated. The AI may have returned text instead.' }),
+        JSON.stringify({ error: 'No image generated' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
