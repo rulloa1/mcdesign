@@ -609,5 +609,5 @@ export const projects: Project[] = [
 ];
 
 export const getProjectById = (id: string | number) => {
-  return projects.find((project) => project.id == id);
+  return projects.find((project) => project.id === id);
 };
