@@ -1,6 +1,6 @@
 // Base URL for project images from GitHub
 const GITHUB_RAW_BASE =
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects";
+  "https://raw.githubusercontent.com/rulloa1/mcdesign/main/public/projects";
 
 // Import local assets
 import woodPanelingDetail from "@/assets/detail-wood-paneling.png";
