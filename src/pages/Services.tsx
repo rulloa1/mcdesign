@@ -40,6 +40,26 @@ const Services = () => {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Process/CTA Section */}
+      <section className="py-32 bg-charcoal text-cream relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-charcoal-light/10 -skew-x-12 transform translate-x-1/4" />
+
+        <div className="container mx-auto px-6 relative z-10 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl md:text-6xl font-serif font-light mb-8">
+              Let's Build to Your Vision.
+            </h2>
+            <p className="text-cream/60 max-w-2xl mx-auto mb-12 font-light text-lg">
+              Whether it's a custom home, a commercial development, or a luxury renovation, we bring 37 years of experience to every project.
+            </p>
 
           <div className="text-center mt-16">
             <Link to="/contact">
