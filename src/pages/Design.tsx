@@ -21,15 +21,30 @@ const Design = () => {
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center text-4xl md:text-5xl lg:text-6xl font-serif font-light tracking-[0.4em] text-foreground mb-16 uppercase"
             transition={{ duration: 0.6 }}
             className="text-center text-4xl md:text-5xl lg:text-6xl font-serif font-light tracking-[0.4em] text-cream mb-16 uppercase underline underline-offset-8 decoration-1"
           >
             Design
           </motion.h1>
 
+          {/* Main Grid Layout - Collage Style */}
+          <div className="max-w-6xl mx-auto space-y-1">
           {/* Main Grid Layout - Black background with cream/gold text */}
           <div className="space-y-1 max-w-7xl mx-auto">
 
+            {/* Top Section: Hero + 4 Squares (Left) + 3 Spanning Slivers (Right) */}
+            <div className="grid grid-cols-12 gap-1 px-1">
+              {/* Left Column Group: Hero on top of 4 Squares */}
+              <div className="col-span-8 space-y-1">
+                {/* Hero Image */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <div className="relative aspect-[16/9] border-[0.5px] border-foreground/30 overflow-hidden">
             {/* Row 1: Large Hero Image (16:10) + 3 vertical slivers */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-1">
               {/* Left: Large Hero Image (8/12) */}
@@ -45,11 +60,28 @@ const Design = () => {
                       src={timberBeamsImg}
                       alt="Luxury Residential"
                       className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                      alt="Luxury Residential"
+                      className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                     />
                   </div>
-                </Link>
-              </motion.div>
+                </motion.div>
 
+                {/* 4 Small Squares */}
+                <div className="grid grid-cols-4 gap-1">
+                  <div className="relative aspect-square border-[0.5px] border-foreground/30 overflow-hidden">
+                    <img src={limestoneFireplaceImg} alt="Detail" className="w-full h-full object-cover" />
+                  </div>
+                  <div className="relative aspect-square border-[0.5px] border-foreground/30 overflow-hidden">
+                    <img src={leatherCabinetryImg} alt="Detail" className="w-full h-full object-cover" />
+                  </div>
+                  <div className="relative aspect-square border-[0.5px] border-foreground/30 overflow-hidden">
+                    <img src={timberBeamsImg} alt="Detail" className="w-full h-full object-cover" />
+                  </div>
+                  {/* Gray Placeholder with X */}
+                  <div className="relative aspect-square border-[0.5px] border-foreground/30 bg-charcoal/5 flex items-center justify-center opacity-30">
+                    <div className="absolute inset-0">
+                      <div className="w-full h-px bg-foreground rotate-45 absolute top-1/2" />
+                      <div className="w-full h-px bg-foreground -rotate-45 absolute top-1/2" />
               {/* Right: 3 vertical slivers (4/12) */}
               <motion.div
                 className="lg:col-span-4 grid grid-cols-3 gap-1"
@@ -95,8 +127,12 @@ const Design = () => {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
 
+              {/* Right Column Group: 3 Spanning Vertical Slivers */}
+              <div className="col-span-4 grid grid-cols-3 gap-1 h-full">
+                <div className="relative h-full border-[0.5px] border-foreground/30 overflow-hidden bg-charcoal/5">
+                  <img src={spaVanityImg} alt="Vertical Sliver" className="w-full h-full object-cover grayscale-[0.3] hover:grayscale-0 transition-all duration-700" />
               {/* Right: 3 vertical slivers (8/12) */}
               <motion.div
                 className="lg:col-span-8 grid grid-cols-3 gap-1"
@@ -107,15 +143,25 @@ const Design = () => {
                 <div className="relative aspect-[1/2.5] border border-cream/20 overflow-hidden">
                   <img src={spaVanityImg} alt="Detail" className="w-full h-full object-cover" />
                 </div>
+                <div className="relative h-full border-[0.5px] border-foreground/30 overflow-hidden bg-charcoal/5">
+                  <img src={marbleBathImg} alt="Vertical Sliver" className="w-full h-full object-cover grayscale-[0.3] hover:grayscale-0 transition-all duration-700" />
                 <div className="relative aspect-[1/2.5] border border-cream/20 overflow-hidden">
                   <img src={marbleBathImg} alt="Detail" className="w-full h-full object-cover" />
                 </div>
+                <div className="relative h-full border-[0.5px] border-foreground/30 overflow-hidden bg-charcoal/5">
+                  <img src={proRangeImg} alt="Vertical Sliver" className="w-full h-full object-cover grayscale-[0.3] hover:grayscale-0 transition-all duration-700" />
                 <div className="relative aspect-[1/2.5] border border-cream/20 overflow-hidden">
                   <img src={proRangeImg} alt="Detail" className="w-full h-full object-cover" />
                 </div>
               </motion.div>
             </div>
 
+            {/* Middle Section: Tall Architecture + Complex Architecture Grid */}
+            <div className="grid grid-cols-12 gap-1 px-1 pt-1">
+              {/* Left Group: Tall Vertical (Stairs) + Logo Square below */}
+              <div className="col-span-3 space-y-1 flex flex-col">
+                <div className="relative aspect-[3/5] border-[0.5px] border-foreground/30 overflow-hidden">
+                  <img src={spaVanityImg} alt="Interior Architecture" className="w-full h-full object-cover" />
             {/* Row 3: Two medium-tall vertical images side by side */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-1">
               <motion.div
@@ -126,6 +172,14 @@ const Design = () => {
                 <div className="relative aspect-[3/4] border border-cream/20 overflow-hidden">
                   <img src={spaVanityImg} alt="Stairs Detail" className="w-full h-full object-cover" />
                 </div>
+                {/* Logo Section */}
+                <div className="relative aspect-square border-[0.5px] border-foreground/30 flex items-center justify-center bg-charcoal/5 mt-auto">
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="w-full h-px bg-foreground rotate-45 absolute top-1/2" />
+                    <div className="w-full h-px bg-foreground -rotate-45 absolute top-1/2" />
+                  </div>
+                  <img src={mcLogo} alt="MC Logo" className="w-16 h-16 object-contain z-10 opacity-60" />
+                  <span className="absolute bottom-2 text-[8px] tracking-[0.4em] uppercase opacity-40">Logo</span>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0 }}
@@ -135,9 +189,19 @@ const Design = () => {
                 <div className="relative aspect-[3/4] border border-cream/20 overflow-hidden">
                   <img src={limestoneFireplaceImg} alt="Architecture Detail" className="w-full h-full object-cover" />
                 </div>
-              </motion.div>
-            </div>
+              </div>
 
+              {/* Middle: Large Modern Architecture Image */}
+              <div className="col-span-5 relative aspect-[2/3] border-[0.5px] border-foreground/30 overflow-hidden">
+                <img src={limestoneFireplaceImg} alt="Modern Exterior" className="w-full h-full object-cover" />
+              </div>
+
+              {/* Right: Complex Architecture Sub-Grid */}
+              <div className="col-span-4 flex flex-col gap-1">
+                {/* Top of this group: Single vertical sliver + Horizontal image */}
+                <div className="grid grid-cols-4 gap-1 h-3/5">
+                  <div className="col-span-1 relative h-full border-[0.5px] border-foreground/30 overflow-hidden">
+                    <img src={proRangeImg} alt="Detail" className="w-full h-full object-cover" />
             {/* Row 4: Complex Architecture Grid - Left small + Right large */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-1">
               {/* Left: 2 small vertical slivers (2/12) */}
@@ -167,10 +231,17 @@ const Design = () => {
                   <div className="relative aspect-[4/3] border border-cream/20 overflow-hidden flex-1">
                     <img src={timberBeamsImg} alt="Ext" className="w-full h-full object-cover" />
                   </div>
+                  <div className="col-span-3 relative h-full border-[0.5px] border-foreground/30 overflow-hidden">
+                    <img src={timberBeamsImg} alt="Exterior" className="w-full h-full object-cover" />
                   <div className="relative aspect-[4/3] border border-cream/20 overflow-hidden flex-1">
                     <img src={limestoneFireplaceImg} alt="Ext" className="w-full h-full object-cover" />
                   </div>
                 </div>
+                {/* Bottom of this group: Large horizontal image */}
+                <div className="relative flex-grow border-[0.5px] border-foreground/30 overflow-hidden aspect-[4/3] mt-auto">
+                  <img src={marbleBathImg} alt="Exterior Evening" className="w-full h-full object-cover" />
+                </div>
+              </div>
 
                 {/* Middle column - 1 tall + 2 small */}
                 <div className="flex flex-col gap-1">
@@ -204,6 +275,15 @@ const Design = () => {
               </motion.div>
             </div>
 
+            {/* Bottom Row Continued: The horizontal ones next to the evening house */}
+            <div className="grid grid-cols-12 gap-1 px-1 pt-1">
+              <div className="col-span-8"></div> {/* Spacer for alignment */}
+              <div className="col-span-4 grid grid-cols-2 gap-1">
+                <div className="relative aspect-square border-[0.5px] border-foreground/30 overflow-hidden">
+                  <img src={spaVanityImg} alt="Detail" className="w-full h-full object-cover" />
+                </div>
+                <div className="relative aspect-square border-[0.5px] border-foreground/30 overflow-hidden">
+                  <img src={proRangeImg} alt="Detail" className="w-full h-full object-cover" />
             {/* Row 5: LOGO + CUSTOM FURNITURE */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-1 pt-2">
               {/* Logo Box - Small square (2/12) */}
@@ -220,6 +300,17 @@ const Design = () => {
                   </div>
                   <img src={mcLogo} alt="MC Logo" className="w-12 h-12 object-contain z-10 opacity-50" />
                 </div>
+              </div>
+            </div>
+
+            {/* Footer Banner: Custom Furniture */}
+            <div className="px-1 pt-4">
+              <div className="relative aspect-[16/3] border-[0.5px] border-foreground/30 overflow-hidden group">
+                <img src={leatherCabinetryImg} alt="Custom Furniture banner" className="w-full h-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105" />
+                <div className="absolute inset-x-0 bottom-0 p-4 flex justify-end items-center bg-gradient-to-t from-charcoal/20 to-transparent">
+                  <span className="text-[10px] md:text-xs tracking-[1em] uppercase text-white/90 font-light">
+                    Custom Furniture
+                  </span>
               </motion.div>
 
               {/* Custom Furniture Sliver - Wide horizontal (10/12) */}
@@ -240,11 +331,13 @@ const Design = () => {
           </div>
 
           {/* Curated Collections Section */}
+          {/* Curated Collections Section */}
           <motion.section
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
+            className="mt-32 pt-16 border-t border-border/20"
             className="mt-24 pt-16 border-t border-cream/20"
           >
             <div className="text-center mb-16">
