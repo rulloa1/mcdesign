@@ -1,3 +1,4 @@
+// Design page layout refined to match reference image
 import Layout from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -28,7 +29,7 @@ const Design = () => {
 
           {/* Main Grid Layout */}
           <div className="space-y-4 max-w-6xl mx-auto">
-            
+
             {/* Row 1: Large Hero + 3 vertical slivers */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-1 px-1">
               {/* Left: Large Hero Image (approx 7/12) */}
@@ -138,26 +139,26 @@ const Design = () => {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-1 px-1">
               {/* Left small vertical slivers next to large ones */}
               <div className="lg:col-span-3 grid grid-cols-2 gap-1">
-                 <div className="relative aspect-[1/2] border-[0.5px] border-foreground/40 overflow-hidden">
-                    <img src={proRangeImg} alt="Detail" className="w-full h-full object-cover" />
-                 </div>
-                 <div className="relative aspect-[1/2] border-[0.5px] border-foreground/40 overflow-hidden">
-                    <img src={leatherCabinetryImg} alt="Detail" className="w-full h-full object-cover" />
-                 </div>
+                <div className="relative aspect-[1/2] border-[0.5px] border-foreground/40 overflow-hidden">
+                  <img src={proRangeImg} alt="Detail" className="w-full h-full object-cover" />
+                </div>
+                <div className="relative aspect-[1/2] border-[0.5px] border-foreground/40 overflow-hidden">
+                  <img src={leatherCabinetryImg} alt="Detail" className="w-full h-full object-cover" />
+                </div>
               </div>
               {/* Right: Architectural shots */}
               <div className="lg:col-span-9 grid grid-cols-2 gap-1">
                 <div className="flex flex-col gap-1">
                   <div className="relative aspect-[16/9] border-[0.5px] border-foreground/40 overflow-hidden flex-1">
-                      <img src={timberBeamsImg} alt="Ext" className="w-full h-full object-cover" />
+                    <img src={timberBeamsImg} alt="Ext" className="w-full h-full object-cover" />
                   </div>
                   <div className="relative aspect-[16/9] border-[0.5px] border-foreground/40 overflow-hidden flex-1">
-                      <img src={limestoneFireplaceImg} alt="Ext" className="w-full h-full object-cover" />
+                    <img src={limestoneFireplaceImg} alt="Ext" className="w-full h-full object-cover" />
                   </div>
                 </div>
                 <div className="flex flex-col gap-1">
                   <div className="relative aspect-[4/3] border-[0.5px] border-foreground/40 overflow-hidden flex-1">
-                      <img src={marbleBathImg} alt="Ext" className="w-full h-full object-cover" />
+                    <img src={marbleBathImg} alt="Ext" className="w-full h-full object-cover" />
                   </div>
                   <div className="grid grid-cols-2 gap-1">
                     <div className="relative aspect-square border-[0.5px] border-foreground/40 overflow-hidden">
@@ -177,8 +178,8 @@ const Design = () => {
               <div className="lg:col-span-3">
                 <div className="relative aspect-square border-[0.5px] border-foreground/40 flex items-center justify-center group overflow-hidden">
                   <div className="absolute inset-0 opacity-10">
-                      <div className="w-full h-px bg-foreground rotate-45 absolute top-1/2" />
-                      <div className="w-full h-px bg-foreground -rotate-45 absolute top-1/2" />
+                    <div className="w-full h-px bg-foreground rotate-45 absolute top-1/2" />
+                    <div className="w-full h-px bg-foreground -rotate-45 absolute top-1/2" />
                   </div>
                   <img src={mcLogo} alt="MC Logo" className="w-16 h-16 object-contain z-10 opacity-60" />
                   <span className="absolute bottom-2 text-[8px] tracking-[0.3em] uppercase opacity-40">Logo</span>
@@ -187,10 +188,10 @@ const Design = () => {
               {/* Custom Furniture Sliver */}
               <div className="lg:col-span-9 flex flex-col justify-end">
                 <div className="relative aspect-[4/1] border-[0.5px] border-foreground/40 overflow-hidden">
-                   <img src={leatherCabinetryImg} alt="Custom Furniture" className="w-full h-full object-cover opacity-90" />
-                   <div className="absolute inset-x-0 bottom-0 p-4 flex justify-between items-end">
-                      <span className="text-[10px] tracking-[0.5em] uppercase text-white/70">Custom Furniture</span>
-                   </div>
+                  <img src={leatherCabinetryImg} alt="Custom Furniture" className="w-full h-full object-cover opacity-90" />
+                  <div className="absolute inset-x-0 bottom-0 p-4 flex justify-between items-end">
+                    <span className="text-[10px] tracking-[0.5em] uppercase text-white/70">Custom Furniture</span>
+                  </div>
                 </div>
               </div>
             </div>
