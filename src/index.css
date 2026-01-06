@@ -1,118 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Monarch-Inspired Luxury Design System - Dark, Elegant, Refined */
+/* Luxury Builder Design System - Refined Gold, Cream, Charcoal */
 
 @layer base {
   :root {
-    /* Dark navy/charcoal backgrounds - Monarch style */
-    --background: 220 25% 10%;
-    --foreground: 40 15% 95%;
+    /* Refined off-white backgrounds */
+    --background: 30 15% 98%;
+    --foreground: 0 0% 12%;
 
-    /* Card surfaces */
-    --card: 220 20% 13%;
-    --card-foreground: 40 15% 95%;
+    /* Subtle warm card */
+    --card: 30 10% 96%;
+    --card-foreground: 0 0% 12%;
 
-    --popover: 220 20% 13%;
-    --popover-foreground: 40 15% 95%;
+    --popover: 30 10% 96%;
+    --popover-foreground: 0 0% 12%;
 
-    /* Refined gold primary */
-    --primary: 38 55% 55%;
-    --primary-foreground: 220 25% 10%;
+    /* Muted gold primary - sophisticated */
+    --primary: 40 35% 52%;
+    --primary-foreground: 30 15% 98%;
 
-    /* Subtle secondary */
-    --secondary: 220 15% 18%;
-    --secondary-foreground: 40 15% 95%;
+    /* Cool gray secondary */
+    --secondary: 30 8% 92%;
+    --secondary-foreground: 0 0% 12%;
 
-    /* Muted tones */
-    --muted: 220 15% 16%;
-    --muted-foreground: 220 10% 55%;
+    /* Refined muted tones */
+    --muted: 30 6% 94%;
+    --muted-foreground: 0 0% 45%;
 
-    /* Gold accent */
-    --accent: 38 45% 65%;
-    --accent-foreground: 220 25% 10%;
+    /* Subtle gold accent */
+    --accent: 40 30% 68%;
+    --accent-foreground: 0 0% 12%;
 
     --destructive: 0 65% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 20%;
-    --input: 220 15% 20%;
-    --ring: 38 55% 55%;
+    --border: 30 10% 88%;
+    --input: 30 10% 88%;
+    --ring: 40 35% 52%;
 
     --radius: 0rem;
 
-    /* Monarch-inspired palette */
-    --gold: 38 55% 55%;
-    --gold-light: 38 45% 70%;
-    --gold-dark: 38 60% 42%;
-    --charcoal: 220 25% 10%;
-    --charcoal-light: 220 20% 15%;
-    --cream: 40 15% 95%;
-    --cream-dark: 40 10% 85%;
-    --warm-gray: 220 10% 55%;
-    --navy: 220 30% 8%;
-    --navy-light: 220 25% 12%;
+    /* High-end architectural palette */
+    --gold: 40 35% 52%;
+    --gold-light: 40 30% 68%;
+    --gold-dark: 40 40% 40%;
+    --charcoal: 0 0% 8%;
+    --charcoal-light: 0 0% 14%;
+    --cream: 30 15% 98%;
+    --cream-dark: 30 10% 93%;
+    --warm-gray: 0 0% 50%;
 
-    --sidebar-background: 220 30% 8%;
-    --sidebar-foreground: 40 15% 95%;
-    --sidebar-primary: 38 55% 55%;
-    --sidebar-primary-foreground: 220 25% 10%;
-    --sidebar-accent: 220 20% 15%;
-    --sidebar-accent-foreground: 40 15% 95%;
-    --sidebar-border: 220 20% 18%;
-    --sidebar-ring: 38 55% 55%;
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 30 15% 98%;
+    --sidebar-primary: 40 35% 52%;
+    --sidebar-primary-foreground: 30 15% 98%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 30 15% 98%;
+    --sidebar-border: 0 0% 14%;
+    --sidebar-ring: 40 35% 52%;
   }
 
   .dark {
-    /* Same as root - dark by default */
-    --background: 220 25% 10%;
-    --foreground: 40 15% 95%;
+    /* Deep charcoal backgrounds */
+    --background: 0 0% 6%;
+    --foreground: 30 10% 94%;
 
-    --card: 220 20% 13%;
-    --card-foreground: 40 15% 95%;
+    --card: 0 0% 9%;
+    --card-foreground: 30 10% 94%;
 
-    --popover: 220 20% 13%;
-    --popover-foreground: 40 15% 95%;
+    --popover: 0 0% 9%;
+    --popover-foreground: 30 10% 94%;
 
-    --primary: 38 55% 55%;
-    --primary-foreground: 220 25% 10%;
+    /* Muted gold for dark mode */
+    --primary: 40 35% 52%;
+    --primary-foreground: 0 0% 6%;
 
-    --secondary: 220 15% 18%;
-    --secondary-foreground: 40 15% 95%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 30 10% 94%;
 
-    --muted: 220 15% 16%;
-    --muted-foreground: 220 10% 55%;
+    --muted: 0 0% 11%;
+    --muted-foreground: 0 0% 55%;
 
-    --accent: 38 45% 65%;
-    --accent-foreground: 220 25% 10%;
+    /* Subtle gold accent */
+    --accent: 40 30% 68%;
+    --accent-foreground: 0 0% 6%;
 
     --destructive: 0 65% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 20%;
-    --input: 220 15% 20%;
-    --ring: 38 55% 55%;
+    --border: 0 0% 14%;
+    --input: 0 0% 14%;
+    --ring: 40 35% 52%;
 
-    --gold: 38 55% 55%;
-    --gold-light: 38 45% 70%;
-    --gold-dark: 38 60% 42%;
-    --charcoal: 220 25% 10%;
-    --charcoal-light: 220 20% 15%;
-    --cream: 40 15% 95%;
-    --cream-dark: 40 10% 85%;
-    --warm-gray: 220 10% 55%;
-    --navy: 220 30% 8%;
-    --navy-light: 220 25% 12%;
+    --gold: 40 35% 52%;
+    --gold-light: 40 30% 68%;
+    --gold-dark: 40 40% 40%;
+    --charcoal: 0 0% 6%;
+    --charcoal-light: 0 0% 14%;
+    --cream: 30 10% 94%;
+    --cream-dark: 30 8% 85%;
+    --warm-gray: 0 0% 50%;
 
-    --sidebar-background: 220 30% 8%;
-    --sidebar-foreground: 40 15% 95%;
-    --sidebar-primary: 38 55% 55%;
-    --sidebar-primary-foreground: 220 25% 10%;
-    --sidebar-accent: 220 20% 15%;
-    --sidebar-accent-foreground: 40 15% 95%;
-    --sidebar-border: 220 20% 18%;
-    --sidebar-ring: 38 55% 55%;
+    --sidebar-background: 0 0% 5%;
+    --sidebar-foreground: 30 10% 94%;
+    --sidebar-primary: 40 35% 52%;
+    --sidebar-primary-foreground: 0 0% 6%;
+    --sidebar-accent: 0 0% 10%;
+    --sidebar-accent-foreground: 30 10% 94%;
+    --sidebar-border: 0 0% 12%;
+    --sidebar-ring: 40 35% 52%;
   }
 }
 
@@ -123,35 +123,27 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-weight: 300;
-    letter-spacing: 0.02em;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: 0.01em;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: 'Cormorant Garamond', Georgia, serif;
     font-weight: 400;
-    letter-spacing: -0.01em;
   }
 }
 
 @layer components {
   .luxury-heading {
-    @apply font-serif;
-    font-family: 'Playfair Display', Georgia, serif;
+    @apply font-serif tracking-tight;
+    font-family: 'Cormorant Garamond', Georgia, serif;
     font-weight: 400;
-    letter-spacing: -0.01em;
   }
 
   .luxury-body {
     @apply font-sans;
-    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-weight: 300;
-    letter-spacing: 0.02em;
-  }
-  
-  .monarch-label {
-    @apply text-xs tracking-[0.3em] uppercase text-primary font-light;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: 0.01em;
   }
 
   .gold-gradient {
