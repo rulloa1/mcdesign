@@ -25,27 +25,26 @@ const Design = () => {
             Design
           </motion.h1>
 
-          {/* Asymmetrical Grid Layout */}
-          <div className="grid grid-cols-12 gap-4 lg:gap-6">
+          {/* Asymmetrical Grid Layout - Mobile-first approach */}
+          <div className="flex flex-col gap-4 md:grid md:grid-cols-12 md:gap-5 lg:gap-6">
             
-            {/* Row 1: Large Architecture Block + Interiors Stack */}
-            {/* Architecture - Large Left Block (spans 2 rows) */}
+            {/* Architecture - Large Hero Block */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="col-span-12 lg:col-span-7 lg:row-span-2"
+              className="md:col-span-7 md:row-span-2"
             >
               <Link to="/portfolio?category=Design+Build" className="group block h-full">
-                <div className="relative h-[400px] lg:h-full min-h-[500px] lg:min-h-[700px] border border-border overflow-hidden">
+                <div className="relative h-[350px] sm:h-[400px] md:h-full md:min-h-[500px] lg:min-h-[700px] border border-border overflow-hidden">
                   <img
                     src={timberBeamsImg}
                     alt="Architecture"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/20 to-transparent" />
-                  <div className="absolute bottom-0 left-0 p-6 lg:p-8">
-                    <h2 className="text-2xl md:text-3xl font-serif text-cream tracking-[0.15em] uppercase font-light group-hover:text-gold transition-colors">
+                  <div className="absolute bottom-0 left-0 p-5 sm:p-6 lg:p-8">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-serif text-cream tracking-[0.15em] uppercase font-light group-hover:text-gold transition-colors">
                       Architecture
                     </h2>
                   </div>
@@ -58,18 +57,18 @@ const Design = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="col-span-12 lg:col-span-5"
+              className="md:col-span-5"
             >
               <Link to="/portfolio?category=Residential+Construction" className="group block">
-                <div className="relative h-[280px] lg:h-[340px] border border-border overflow-hidden">
+                <div className="relative h-[280px] sm:h-[300px] md:h-[240px] lg:h-[340px] border border-border overflow-hidden">
                   <img
                     src={spaVanityImg}
                     alt="Interiors"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/20 to-transparent" />
-                  <div className="absolute bottom-0 right-0 p-6 lg:p-8">
-                    <h2 className="text-xl md:text-2xl font-serif text-cream tracking-[0.15em] uppercase font-light group-hover:text-gold transition-colors">
+                  <div className="absolute bottom-0 right-0 p-5 sm:p-6 lg:p-8">
+                    <h2 className="text-lg sm:text-xl md:text-2xl font-serif text-cream tracking-[0.15em] uppercase font-light group-hover:text-gold transition-colors">
                       Interiors
                     </h2>
                   </div>
@@ -82,18 +81,18 @@ const Design = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="col-span-12 lg:col-span-5"
+              className="md:col-span-5"
             >
               <Link to="/design/pools-exterior" className="group block">
-                <div className="relative h-[280px] lg:h-[340px] border border-border overflow-hidden">
+                <div className="relative h-[280px] sm:h-[300px] md:h-[240px] lg:h-[340px] border border-border overflow-hidden">
                   <img
                     src={limestoneFireplaceImg}
                     alt="Pools & Landscape"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/20 to-transparent" />
-                  <div className="absolute bottom-0 right-0 p-6 lg:p-8">
-                    <h2 className="text-xl md:text-2xl font-serif text-cream tracking-[0.15em] uppercase font-light group-hover:text-gold transition-colors">
+                  <div className="absolute bottom-0 right-0 p-5 sm:p-6 lg:p-8">
+                    <h2 className="text-lg sm:text-xl md:text-2xl font-serif text-cream tracking-[0.15em] uppercase font-light group-hover:text-gold transition-colors">
                       Pools & Landscape
                     </h2>
                   </div>
@@ -101,24 +100,23 @@ const Design = () => {
               </Link>
             </motion.div>
 
-            {/* Row 2: Reimagined + Concepts */}
             {/* Reimagined - Left/Center */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="col-span-12 lg:col-span-7"
+              className="md:col-span-7"
             >
               <Link to="/portfolio" className="group block">
-                <div className="relative h-[350px] lg:h-[400px] border border-border overflow-hidden">
+                <div className="relative h-[300px] sm:h-[350px] lg:h-[400px] border border-border overflow-hidden">
                   <img
                     src={marbleBathImg}
                     alt="Reimagined"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/20 to-transparent" />
-                  <div className="absolute bottom-0 left-0 p-6 lg:p-8">
-                    <h2 className="text-2xl md:text-3xl font-serif text-cream tracking-[0.15em] uppercase font-light group-hover:text-gold transition-colors">
+                  <div className="absolute bottom-0 left-0 p-5 sm:p-6 lg:p-8">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-serif text-cream tracking-[0.15em] uppercase font-light group-hover:text-gold transition-colors">
                       Reimagined
                     </h2>
                   </div>
@@ -131,18 +129,18 @@ const Design = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="col-span-12 lg:col-span-5"
+              className="md:col-span-5"
             >
               <Link to="/services" className="group block">
-                <div className="relative h-[350px] lg:h-[400px] border border-border overflow-hidden">
+                <div className="relative h-[300px] sm:h-[350px] lg:h-[400px] border border-border overflow-hidden">
                   <img
                     src={proRangeImg}
                     alt="Concepts"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/20 to-transparent" />
-                  <div className="absolute bottom-0 right-0 p-6 lg:p-8">
-                    <h2 className="text-xl md:text-2xl font-serif text-cream tracking-[0.15em] uppercase font-light group-hover:text-gold transition-colors">
+                  <div className="absolute bottom-0 right-0 p-5 sm:p-6 lg:p-8">
+                    <h2 className="text-lg sm:text-xl md:text-2xl font-serif text-cream tracking-[0.15em] uppercase font-light group-hover:text-gold transition-colors">
                       Concepts
                     </h2>
                   </div>
@@ -150,16 +148,15 @@ const Design = () => {
               </Link>
             </motion.div>
 
-            {/* Row 3: Development + Custom Furniture */}
-            {/* Development - Left with X pattern overlay */}
+            {/* Bottom Row: Development + Custom Furniture - Side by side on mobile */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="col-span-6 lg:col-span-4"
+              className="col-span-1 md:col-span-4"
             >
               <Link to="/services" className="group block">
-                <div className="relative h-[300px] lg:h-[350px] border border-border overflow-hidden bg-charcoal">
+                <div className="relative h-[200px] sm:h-[250px] lg:h-[350px] border border-border overflow-hidden bg-charcoal">
                   {/* X Pattern Overlay */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <svg className="w-full h-full opacity-30" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -167,8 +164,8 @@ const Design = () => {
                       <line x1="100" y1="0" x2="0" y2="100" stroke="currentColor" strokeWidth="0.5" className="text-gold" />
                     </svg>
                   </div>
-                  <div className="absolute bottom-0 left-0 p-6 lg:p-8">
-                    <h2 className="text-xl md:text-2xl font-serif text-cream tracking-[0.15em] uppercase font-light group-hover:text-gold transition-colors">
+                  <div className="absolute bottom-0 left-0 p-4 sm:p-5 lg:p-8">
+                    <h2 className="text-lg sm:text-xl md:text-2xl font-serif text-cream tracking-[0.1em] sm:tracking-[0.15em] uppercase font-light group-hover:text-gold transition-colors">
                       Development
                     </h2>
                   </div>
@@ -181,18 +178,18 @@ const Design = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
-              className="col-span-6 lg:col-span-8"
+              className="col-span-1 md:col-span-8"
             >
               <Link to="/design/finishes" className="group block">
-                <div className="relative h-[300px] lg:h-[350px] border border-border overflow-hidden">
+                <div className="relative h-[200px] sm:h-[250px] lg:h-[350px] border border-border overflow-hidden">
                   <img
                     src={leatherCabinetryImg}
                     alt="Custom Furniture"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/20 to-transparent" />
-                  <div className="absolute bottom-0 right-0 p-6 lg:p-8">
-                    <h2 className="text-xl md:text-2xl font-serif text-cream tracking-[0.15em] uppercase font-light group-hover:text-gold transition-colors">
+                  <div className="absolute bottom-0 right-0 p-4 sm:p-5 lg:p-8">
+                    <h2 className="text-lg sm:text-xl md:text-2xl font-serif text-cream tracking-[0.1em] sm:tracking-[0.15em] uppercase font-light group-hover:text-gold transition-colors">
                       Custom Furniture
                     </h2>
                   </div>
