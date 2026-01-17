@@ -30,9 +30,10 @@ const Design = () => {
             
             {/* Architecture - Large Hero Block */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
               className="md:col-span-7 md:row-span-2"
             >
               <Link to="/portfolio?category=Design+Build" className="group block h-full">
@@ -54,9 +55,10 @@ const Design = () => {
 
             {/* Interiors - Top Right */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
               className="md:col-span-5"
             >
               <Link to="/portfolio?category=Residential+Construction" className="group block">
@@ -78,9 +80,10 @@ const Design = () => {
 
             {/* Pools & Landscape - Right Side */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
               className="md:col-span-5"
             >
               <Link to="/design/pools-exterior" className="group block">
@@ -102,9 +105,10 @@ const Design = () => {
 
             {/* Reimagined - Left/Center */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
               className="md:col-span-7"
             >
               <Link to="/portfolio" className="group block">
@@ -126,9 +130,10 @@ const Design = () => {
 
             {/* Concepts - Right */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
               className="md:col-span-5"
             >
               <Link to="/services" className="group block">
@@ -150,9 +155,10 @@ const Design = () => {
 
             {/* Bottom Row: Development + Custom Furniture - Side by side on mobile */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
               className="col-span-1 md:col-span-4"
             >
               <Link to="/services" className="group block">
@@ -175,9 +181,10 @@ const Design = () => {
 
             {/* Custom Furniture - Right */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
               className="col-span-1 md:col-span-8"
             >
               <Link to="/design/finishes" className="group block">
