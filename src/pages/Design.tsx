@@ -1,7 +1,8 @@
 import Layout from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { designAlbums } from "@/data/design-albums";
+import { useRef } from "react";
 
 import timberBeamsImg from "@/assets/detail-timber-beams.jpg";
 import spaVanityImg from "@/assets/detail-spa-vanity.jpg";
@@ -9,6 +10,36 @@ import marbleBathImg from "@/assets/detail-marble-bath.jpg";
 import proRangeImg from "@/assets/detail-pro-range.jpg";
 import limestoneFireplaceImg from "@/assets/detail-limestone-fireplace.jpg";
 import leatherCabinetryImg from "@/assets/detail-leather-cabinetry.jpg";
+
+// Parallax image component
+const ParallaxImage = ({ 
+  src, 
+  alt, 
+  parallaxStrength = 20 
+}: { 
+  src: string; 
+  alt: string; 
+  parallaxStrength?: number;
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+  
+  const y = useTransform(scrollYProgress, [0, 1], [parallaxStrength, -parallaxStrength]);
+  
+  return (
+    <div ref={ref} className="absolute inset-0 overflow-hidden">
+      <motion.img
+        src={src}
+        alt={alt}
+        style={{ y }}
+        className="w-full h-[120%] object-cover absolute -top-[10%] transition-transform duration-700 group-hover:scale-105"
+      />
+    </div>
+  );
+};
 
 const Design = () => {
   return (
@@ -38,11 +69,7 @@ const Design = () => {
             >
               <Link to="/portfolio?category=Design+Build" className="group block h-full">
                 <div className="relative h-[350px] sm:h-[400px] md:h-full md:min-h-[500px] lg:min-h-[700px] border border-border overflow-hidden">
-                  <img
-                    src={timberBeamsImg}
-                    alt="Architecture"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                  <ParallaxImage src={timberBeamsImg} alt="Architecture" parallaxStrength={30} />
                   <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/20 to-transparent" />
                   <div className="absolute bottom-0 left-0 p-5 sm:p-6 lg:p-8">
                     <h2 className="text-xl sm:text-2xl md:text-3xl font-serif text-cream tracking-[0.15em] uppercase font-light group-hover:text-gold transition-colors">
@@ -63,11 +90,7 @@ const Design = () => {
             >
               <Link to="/portfolio?category=Residential+Construction" className="group block">
                 <div className="relative h-[280px] sm:h-[300px] md:h-[240px] lg:h-[340px] border border-border overflow-hidden">
-                  <img
-                    src={spaVanityImg}
-                    alt="Interiors"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                  <ParallaxImage src={spaVanityImg} alt="Interiors" parallaxStrength={15} />
                   <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/20 to-transparent" />
                   <div className="absolute bottom-0 right-0 p-5 sm:p-6 lg:p-8">
                     <h2 className="text-lg sm:text-xl md:text-2xl font-serif text-cream tracking-[0.15em] uppercase font-light group-hover:text-gold transition-colors">
@@ -88,11 +111,7 @@ const Design = () => {
             >
               <Link to="/design/pools-exterior" className="group block">
                 <div className="relative h-[280px] sm:h-[300px] md:h-[240px] lg:h-[340px] border border-border overflow-hidden">
-                  <img
-                    src={limestoneFireplaceImg}
-                    alt="Pools & Landscape"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                  <ParallaxImage src={limestoneFireplaceImg} alt="Pools & Landscape" parallaxStrength={15} />
                   <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/20 to-transparent" />
                   <div className="absolute bottom-0 right-0 p-5 sm:p-6 lg:p-8">
                     <h2 className="text-lg sm:text-xl md:text-2xl font-serif text-cream tracking-[0.15em] uppercase font-light group-hover:text-gold transition-colors">
@@ -113,11 +132,7 @@ const Design = () => {
             >
               <Link to="/portfolio" className="group block">
                 <div className="relative h-[300px] sm:h-[350px] lg:h-[400px] border border-border overflow-hidden">
-                  <img
-                    src={marbleBathImg}
-                    alt="Reimagined"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                  <ParallaxImage src={marbleBathImg} alt="Reimagined" parallaxStrength={20} />
                   <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/20 to-transparent" />
                   <div className="absolute bottom-0 left-0 p-5 sm:p-6 lg:p-8">
                     <h2 className="text-xl sm:text-2xl md:text-3xl font-serif text-cream tracking-[0.15em] uppercase font-light group-hover:text-gold transition-colors">
@@ -138,11 +153,7 @@ const Design = () => {
             >
               <Link to="/services" className="group block">
                 <div className="relative h-[300px] sm:h-[350px] lg:h-[400px] border border-border overflow-hidden">
-                  <img
-                    src={proRangeImg}
-                    alt="Concepts"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                  <ParallaxImage src={proRangeImg} alt="Concepts" parallaxStrength={20} />
                   <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/20 to-transparent" />
                   <div className="absolute bottom-0 right-0 p-5 sm:p-6 lg:p-8">
                     <h2 className="text-lg sm:text-xl md:text-2xl font-serif text-cream tracking-[0.15em] uppercase font-light group-hover:text-gold transition-colors">
@@ -189,11 +200,7 @@ const Design = () => {
             >
               <Link to="/design/finishes" className="group block">
                 <div className="relative h-[200px] sm:h-[250px] lg:h-[350px] border border-border overflow-hidden">
-                  <img
-                    src={leatherCabinetryImg}
-                    alt="Custom Furniture"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                  <ParallaxImage src={leatherCabinetryImg} alt="Custom Furniture" parallaxStrength={15} />
                   <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/20 to-transparent" />
                   <div className="absolute bottom-0 right-0 p-4 sm:p-5 lg:p-8">
                     <h2 className="text-lg sm:text-xl md:text-2xl font-serif text-cream tracking-[0.1em] sm:tracking-[0.15em] uppercase font-light group-hover:text-gold transition-colors">
