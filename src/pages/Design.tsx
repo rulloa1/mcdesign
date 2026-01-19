@@ -11,7 +11,7 @@ import proRangeImg from "@/assets/detail-pro-range.jpg";
 import limestoneFireplaceImg from "@/assets/detail-limestone-fireplace.jpg";
 import leatherCabinetryImg from "@/assets/detail-leather-cabinetry.jpg";
 
-// Parallax image component
+// Cinematic parallax image with blur/fade as it scrolls out of view
 const ParallaxImage = ({ 
   src, 
   alt, 
@@ -27,14 +27,32 @@ const ParallaxImage = ({
     offset: ["start end", "end start"]
   });
   
+  // Parallax movement
   const y = useTransform(scrollYProgress, [0, 1], [parallaxStrength, -parallaxStrength]);
+  
+  // Cinematic blur effect - blur as image exits viewport edges
+  const blur = useTransform(
+    scrollYProgress, 
+    [0, 0.15, 0.85, 1], 
+    [6, 0, 0, 6]
+  );
+  
+  // Fade effect - subtle fade at viewport edges
+  const opacity = useTransform(
+    scrollYProgress, 
+    [0, 0.12, 0.88, 1], 
+    [0.4, 1, 1, 0.4]
+  );
   
   return (
     <div ref={ref} className="absolute inset-0 overflow-hidden">
       <motion.img
         src={src}
         alt={alt}
-        style={{ y }}
+        style={{ 
+          y,
+          opacity
+        }}
         className="w-full h-[120%] object-cover absolute -top-[10%] transition-transform duration-700 group-hover:scale-105"
       />
     </div>
