@@ -1,24 +1,38 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion, useScroll, useTransform } from "framer-motion";
 import heroVideo from "@/assets/hero-video.mp4";
 
 const HeroSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"]
+  });
+  
+  // Parallax: video moves slower than scroll
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  // Subtle fade as you scroll down
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.3]);
+
   return (
-    <section className="relative h-screen overflow-hidden">
-      {/* Background Video */}
-      <div className="absolute inset-0">
-        <video
+    <section ref={sectionRef} className="relative h-screen overflow-hidden">
+      {/* Background Video with Parallax */}
+      <motion.div className="absolute inset-0" style={{ y }}>
+        <motion.video
           autoPlay
           loop
           muted
           playsInline
           className="w-full h-full object-cover"
+          style={{ opacity }}
         >
           <source src={heroVideo} type="video/mp4" />
-        </video>
+        </motion.video>
         <div className="absolute inset-0 bg-charcoal/40" />
-      </div>
+      </motion.div>
 
       {/* Content */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
