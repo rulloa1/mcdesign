@@ -1,38 +1,45 @@
-import { useRef } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion, useScroll, useTransform } from "framer-motion";
-import heroVideo from "@/assets/hero-video.mp4";
+
+const heroImages = [
+  "/hero-pool.png",
+  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/southcoast-cover.webp",
+  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-1.webp",
+  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/alpine-ranch-cover.webp",
+];
 
 const HeroSection = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"]
-  });
-  
-  // Parallax: video moves slower than scroll
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  // Subtle fade as you scroll down
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.3]);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + heroImages.length) % heroImages.length);
 
   return (
-    <section ref={sectionRef} className="relative h-screen overflow-hidden">
-      {/* Background Video with Parallax */}
-      <motion.div className="absolute inset-0" style={{ y }}>
-        <motion.video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover"
-          style={{ opacity }}
+    <section className="relative h-screen overflow-hidden">
+      {/* Background Images */}
+      {heroImages.map((image, index) => (
+        <div
+          key={index}
+          className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? "opacity-100" : "opacity-0"
+            }`}
         >
-          <source src={heroVideo} type="video/mp4" />
-        </motion.video>
-        <div className="absolute inset-0 bg-charcoal/40" />
-      </motion.div>
+          <img
+            src={image}
+            alt={`Luxury home ${index + 1}`}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-charcoal/50" />
+        </div>
+      ))}
 
       {/* Content */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
@@ -82,6 +89,32 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Slide Navigation */}
+      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+        {heroImages.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`w-12 h-1 transition-all ${index === currentSlide ? "bg-primary" : "bg-cream/40"
+              }`}
+          />
+        ))}
+      </div>
+
+      {/* Arrow Controls */}
+      <button
+        onClick={prevSlide}
+        className="absolute left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-charcoal/50 hover:bg-primary transition-colors flex items-center justify-center"
+      >
+        <ChevronLeft className="w-6 h-6 text-cream" />
+      </button>
+      <button
+        onClick={nextSlide}
+        className="absolute right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-charcoal/50 hover:bg-primary transition-colors flex items-center justify-center"
+      >
+        <ChevronRight className="w-6 h-6 text-cream" />
+      </button>
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 animate-bounce">

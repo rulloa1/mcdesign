@@ -230,6 +230,52 @@ const Design = () => {
             </motion.div>
           </div>
 
+          {/* Curated Collections - Below Grid */}
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="mt-24 pt-16 border-t border-border/30"
+          >
+            <div className="text-center mb-16">
+              <p className="text-[10px] tracking-[0.3em] text-gold uppercase mb-4">Collections</p>
+              <h2 className="text-3xl md:text-4xl font-serif text-foreground font-light mb-4 tracking-wide">
+                Curated Collections
+              </h2>
+              <p className="text-sm text-muted-foreground font-light">
+                Explore our specific design focuses
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {designAlbums.map((album, index) => (
+                <motion.div
+                  key={album.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="group"
+                >
+                  <Link to={`/design/${album.id}`}>
+                    <div className="overflow-hidden mb-4 aspect-[4/3] relative border border-border">
+                      <img
+                        src={album.coverImage}
+                        alt={album.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-charcoal/10 group-hover:bg-charcoal/0 transition-colors duration-500" />
+                    </div>
+                    <h3 className="text-lg font-serif text-foreground mb-2 font-light group-hover:text-gold transition-colors tracking-wide">
+                      {album.title}
+                    </h3>
+                    <p className="text-xs text-muted-foreground font-light line-clamp-2">{album.description}</p>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </motion.section>
         </div>
       </div>
     </Layout>
