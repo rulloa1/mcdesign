@@ -9,6 +9,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useGalleryOrder } from "@/hooks/useGalleryOrder";
 
 import { AIRedesignDialog } from "@/components/gallery/AIRedesignDialog";
+import { PinDialog } from "@/components/gallery/PinDialog";
+
 const ProjectDetail = () => {
   const {
     id
@@ -20,6 +22,7 @@ const ProjectDetail = () => {
   const navigate = useNavigate();
   const project = getProjectById(id || "");
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const [isPinDialogOpen, setIsPinDialogOpen] = useState(false);
 
   // AI Redesign State
   const [isRedesignOpen, setIsRedesignOpen] = useState(false);
@@ -262,7 +265,13 @@ const ProjectDetail = () => {
             <div className="mt-8 flex justify-end">
               <Button
                 variant="ghost"
-                onClick={toggleEditMode}
+                onClick={() => {
+                  if (isEditable) {
+                    toggleEditMode();
+                  } else {
+                    setIsPinDialogOpen(true);
+                  }
+                }}
                 className="text-cream/40 hover:text-primary hover:bg-transparent text-xs flex items-center gap-2"
               >
                 <Settings2 className="w-3 h-3" />
@@ -342,6 +351,13 @@ const ProjectDetail = () => {
         onClose={() => setIsRedesignOpen(false)}
         imageUrl={redesignImage}
         onSave={handleSaveRedesign}
+      />
+
+      {/* PIN Gate Dialog */}
+      <PinDialog
+        isOpen={isPinDialogOpen}
+        onClose={() => setIsPinDialogOpen(false)}
+        onSuccess={toggleEditMode}
       />
     </motion.div>
   </Layout>;
