@@ -22,6 +22,7 @@ const ProjectDetail = () => {
   const navigate = useNavigate();
   const project = getProjectById(id || "");
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const [isPinDialogOpen, setIsPinDialogOpen] = useState(false);
 
   // AI Redesign State
   const [isRedesignOpen, setIsRedesignOpen] = useState(false);
