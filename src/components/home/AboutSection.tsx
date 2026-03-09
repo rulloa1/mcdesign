@@ -58,18 +58,18 @@ const AboutSection = () => {
           <div className={cn("grid grid-cols-2 gap-4 transition-all duration-700 delay-200", isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8")}>
             <div className="space-y-4">
               <div className="aspect-[4/5] overflow-hidden">
-                <img src="https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/miami-beach-cover.webp" alt="S. Florida High Rise Luxe Condo" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                <img src="/projects/syracuse-cover.png" alt="Syracuse House in N. Utah" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="aspect-square overflow-hidden">
-                <img src="https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/alpine-ranch-cover.webp" alt="High Alpine Ranch Montana" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                <img src="/projects/coastal-mountain/001 COVER.JPG" alt="Coastal Mountain residence" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
               </div>
             </div>
             <div className="space-y-4 pt-8">
               <div className="aspect-square overflow-hidden">
-                <img src="https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/southcoast-cover.webp" alt="South Coast Renovation Big Sur" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                <img src="/projects/carmel-valley-new/carmel_valley_new1 cover.png" alt="Carmel Valley custom residence" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="aspect-[4/5] overflow-hidden">
-                <img src="https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-1.webp" alt="Ultra Luxe Private Club Pool" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                <img src="/projects/hospitality-pool-cover-v2.jpg" alt="Ultra Luxe Private Club Pool" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
               </div>
             </div>
           </div>
