@@ -352,6 +352,13 @@ const ProjectDetail = () => {
         imageUrl={redesignImage}
         onSave={handleSaveRedesign}
       />
+
+      {/* PIN Gate Dialog */}
+      <PinDialog
+        isOpen={isPinDialogOpen}
+        onClose={() => setIsPinDialogOpen(false)}
+        onSuccess={toggleEditMode}
+      />
     </motion.div>
   </Layout>;
 };
