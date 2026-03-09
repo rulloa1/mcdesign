@@ -265,7 +265,13 @@ const ProjectDetail = () => {
             <div className="mt-8 flex justify-end">
               <Button
                 variant="ghost"
-                onClick={toggleEditMode}
+                onClick={() => {
+                  if (isEditable) {
+                    toggleEditMode();
+                  } else {
+                    setIsPinDialogOpen(true);
+                  }
+                }}
                 className="text-cream/40 hover:text-primary hover:bg-transparent text-xs flex items-center gap-2"
               >
                 <Settings2 className="w-3 h-3" />
