@@ -9,6 +9,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useGalleryOrder } from "@/hooks/useGalleryOrder";
 
 import { AIRedesignDialog } from "@/components/gallery/AIRedesignDialog";
+import { PinDialog } from "@/components/gallery/PinDialog";
+
 const ProjectDetail = () => {
   const {
     id
