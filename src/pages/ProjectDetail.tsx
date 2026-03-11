@@ -268,7 +268,7 @@ const ProjectDetail = () => {
                 variant="ghost"
                 onClick={() => {
                   if (isEditable) {
-                    toggleEditMode();
+                    disableEdit();
                   } else {
                     setIsPinDialogOpen(true);
                   }
