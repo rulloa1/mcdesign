@@ -35,7 +35,8 @@ const ProjectDetail = () => {
     isLoading,
     isAdmin,
     isEditable,
-    toggleEditMode,
+    enableEditWithPin,
+    disableEdit,
     saveGalleryOrder
   } = useGalleryOrder(id || "", defaultGallery);
 
