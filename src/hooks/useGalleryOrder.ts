@@ -6,23 +6,22 @@ export const useGalleryOrder = (projectId: string, defaultImages: string[]) => {
   const [images, setImages] = useState<string[]>(defaultImages);
   const [isLoading, setIsLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [adminPin, setAdminPin] = useState<string | null>(null);
 
   // Check if current user is admin - defaults to false for security
   useEffect(() => {
     const checkAdminStatus = async () => {
-      setIsAdmin(false); // Default to false for security
-
+      setIsAdmin(false);
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return; // No user = definitely not admin
-
+      if (!user) return;
       const { data } = await supabase
         .from("user_roles")
         .select("role")
         .eq("user_id", user.id)
         .eq("role", "admin")
         .maybeSingle();
-
-      setIsAdmin(!!data); // Only true if admin role found
+      setIsAdmin(!!data);
     };
     checkAdminStatus();
   }, []);
@@ -41,7 +40,6 @@ export const useGalleryOrder = (projectId: string, defaultImages: string[]) => {
         console.error("Error loading gallery order:", error);
         setImages(defaultImages);
       } else if (data?.image_order) {
-        // Merge saved order with default images
         const savedOrder = data.image_order as string[];
         const newImages = defaultImages.filter(img => !savedOrder.includes(img));
         setImages([...savedOrder.filter(img => defaultImages.includes(img)), ...newImages]);
@@ -55,47 +53,66 @@ export const useGalleryOrder = (projectId: string, defaultImages: string[]) => {
   }, [projectId, defaultImages]);
 
   const saveGalleryOrder = async (newImages: string[]) => {
-    // Log for developer convenience
     console.log("New Gallery Order (Copy to projects.ts):");
     console.log(JSON.stringify(newImages, null, 2));
 
-    const { data: { user } } = await supabase.auth.getUser();
+    // Update local state immediately
+    setImages(newImages);
 
-    if (!user) {
-      toast.error("You must be logged in to save to Database. Check console for code snippet.");
-      // We still update local state so they can see it working
-      setImages(newImages);
-      return true; // Pretend success for local interaction
-    }
-
-    const { error } = await supabase
-      .from("project_gallery_orders")
-      .upsert({
-        project_id: projectId,
-        image_order: newImages,
-        updated_at: new Date().toISOString(),
-        updated_by: user.id,
-      }, {
-        onConflict: "project_id"
+    // Try saving via edge function with PIN
+    if (adminPin) {
+      const { data, error } = await supabase.functions.invoke("save-gallery-order", {
+        body: { pin: adminPin, project_id: projectId, image_order: newImages },
       });
 
-    if (error) {
-      console.error("Error saving gallery order:", error);
-      toast.error("Failed to save gallery order");
-      return false;
+      if (error || !data?.success) {
+        console.error("Error saving gallery order:", error || data?.error);
+        toast.error("Failed to save to database. Check console for code snippet.");
+        return false;
+      }
+
+      toast.success("Gallery order saved");
+      return true;
     }
 
-    setImages(newImages);
-    toast.success("Gallery order saved");
+    // Fallback: try with Supabase auth
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      const { error } = await supabase
+        .from("project_gallery_orders")
+        .upsert({
+          project_id: projectId,
+          image_order: newImages,
+          updated_at: new Date().toISOString(),
+          updated_by: user.id,
+        }, { onConflict: "project_id" });
+
+      if (error) {
+        console.error("Error saving gallery order:", error);
+        toast.error("Failed to save gallery order");
+        return false;
+      }
+      toast.success("Gallery order saved");
+      return true;
+    }
+
+    toast.error("Changes saved locally only. Check console for code snippet.");
     return true;
   };
 
-  const [isEditMode, setIsEditMode] = useState(false);
-
   const toggleEditMode = () => setIsEditMode(prev => !prev);
 
-  // Allow editing if admin OR manually enabled
+  const enableEditWithPin = (pin: string) => {
+    setAdminPin(pin);
+    setIsEditMode(true);
+  };
+
+  const disableEdit = () => {
+    setAdminPin(null);
+    setIsEditMode(false);
+  };
+
   const isEditable = isAdmin || isEditMode;
 
-  return { images, isLoading, isAdmin, isEditable, toggleEditMode, saveGalleryOrder };
+  return { images, isLoading, isAdmin, isEditable, toggleEditMode, enableEditWithPin, disableEdit, saveGalleryOrder };
 };
