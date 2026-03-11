@@ -42,9 +42,10 @@ export const PinDialog = ({ isOpen, onClose, onSuccess }: PinDialogProps) => {
       }
 
       if (data?.success) {
+        const verifiedPin = pin.trim();
         setPin("");
         setError("");
-        onSuccess();
+        onSuccess(verifiedPin);
         onClose();
       } else {
         setError("Incorrect PIN");
