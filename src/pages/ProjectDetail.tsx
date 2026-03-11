@@ -35,7 +35,8 @@ const ProjectDetail = () => {
     isLoading,
     isAdmin,
     isEditable,
-    toggleEditMode,
+    enableEditWithPin,
+    disableEdit,
     saveGalleryOrder
   } = useGalleryOrder(id || "", defaultGallery);
 
@@ -267,7 +268,7 @@ const ProjectDetail = () => {
                 variant="ghost"
                 onClick={() => {
                   if (isEditable) {
-                    toggleEditMode();
+                    disableEdit();
                   } else {
                     setIsPinDialogOpen(true);
                   }
@@ -357,7 +358,7 @@ const ProjectDetail = () => {
       <PinDialog
         isOpen={isPinDialogOpen}
         onClose={() => setIsPinDialogOpen(false)}
-        onSuccess={toggleEditMode}
+        onSuccess={(pin) => enableEditWithPin(pin)}
       />
     </motion.div>
   </Layout>;
