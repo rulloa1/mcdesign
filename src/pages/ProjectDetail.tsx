@@ -358,7 +358,7 @@ const ProjectDetail = () => {
       <PinDialog
         isOpen={isPinDialogOpen}
         onClose={() => setIsPinDialogOpen(false)}
-        onSuccess={toggleEditMode}
+        onSuccess={(pin) => enableEditWithPin(pin)}
       />
     </motion.div>
   </Layout>;
