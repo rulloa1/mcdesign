@@ -14,7 +14,7 @@ import { supabase } from "@/integrations/supabase/client";
 interface PinDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  onSuccess: () => void;
+  onSuccess: (pin: string) => void;
 }
 
 export const PinDialog = ({ isOpen, onClose, onSuccess }: PinDialogProps) => {
