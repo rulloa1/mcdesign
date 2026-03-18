@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button";
 
 const heroImages = [
   "/hero-pool.png",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/southcoast-cover.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/pool-design-1.webp",
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects/alpine-ranch-cover.webp",
+  "/projects/hospitality-pool-cover-v2.jpg",
+  "/projects/syracuse-cover.png",
+  "/portfolio-hero.png",
 ];
 
 const HeroSection = () => {
