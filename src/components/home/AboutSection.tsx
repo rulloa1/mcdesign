@@ -2,6 +2,7 @@ import { Award, Clock, Users, Building2 } from "lucide-react";
 import mikeProfile from "@/assets/mike-profile.jpeg";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 const stats = [{
   icon: Clock,
   value: "37+",
@@ -77,15 +78,26 @@ const AboutSection = () => {
 
         {/* Stats */}
         <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-16 border-t border-border">
-          {stats.map((stat, index) => <div key={index} className={cn("text-center transition-all duration-700", statsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")} style={{
-          transitionDelay: statsVisible ? `${index * 100}ms` : "0ms"
-        }}>
-              <stat.icon className="w-10 h-10 text-primary mx-auto mb-4" />
+          {stats.map((stat, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              animate={statsVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -5 }}
+              className="text-center group cursor-default"
+            >
+              <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
+                <stat.icon className="w-8 h-8 text-primary" />
+              </div>
               <p className="text-4xl md:text-5xl font-serif text-charcoal mb-2">{stat.value}</p>
               <p className="text-muted-foreground text-sm tracking-wide uppercase">{stat.label}</p>
-            </div>)}
+            </motion.div>
+          ))}
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default AboutSection;

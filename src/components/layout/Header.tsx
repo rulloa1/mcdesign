@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import mcLogo from "@/assets/mc-logo.png";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -75,26 +76,40 @@ const Header = () => {
         </button>
       </div>
 
-      {/* Mobile Menu - Elegant */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden bg-charcoal border-t border-charcoal-light">
-          <nav className="container mx-auto px-8 py-10 flex flex-col gap-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={cn(
-                  "text-cream/70 hover:text-cream transition-colors text-sm tracking-[0.15em] uppercase font-light py-2",
-                  location.pathname === link.path && "text-cream"
-                )}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      )}
+      {/* Mobile Menu - Elegant with Animation */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="lg:hidden bg-charcoal border-t border-charcoal-light overflow-hidden"
+          >
+            <nav className="container mx-auto px-8 py-10 flex flex-col gap-6">
+              {navLinks.map((link, index) => (
+                <motion.div
+                  key={link.path}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <Link
+                    to={link.path}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={cn(
+                      "text-cream/70 hover:text-cream transition-colors text-sm tracking-[0.15em] uppercase font-light py-2 block",
+                      location.pathname === link.path && "text-cream"
+                    )}
+                  >
+                    {link.name}
+                  </Link>
+                </motion.div>
+              ))}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

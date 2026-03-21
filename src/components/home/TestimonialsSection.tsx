@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
 
 const testimonials = [
   {
@@ -29,10 +30,25 @@ const testimonials = [
 
 const TestimonialsSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const { ref, isVisible } = useScrollAnimation();
 
-  const next = () => setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-  const prev = () => setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  const next = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+  }, []);
+
+  const prev = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  }, []);
+
+  // Auto-rotate testimonials
+  useEffect(() => {
+    if (isPaused || !isVisible) return;
+    const timer = setInterval(() => {
+      next();
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [isPaused, isVisible, next]);
 
   return (
     <section ref={ref} className="py-24 bg-charcoal relative overflow-hidden">
@@ -52,39 +68,41 @@ const TestimonialsSection = () => {
           <div className="w-20 h-1 bg-primary mx-auto" />
         </div>
 
-        <div className={cn(
-          "max-w-4xl mx-auto transition-all duration-700 delay-200",
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-        )}>
-          <div className="relative">
-            {testimonials.map((testimonial, index) => (
-              <div
-                key={testimonial.id}
-                className={`transition-all duration-500 ${
-                  index === currentIndex
-                    ? "opacity-100 translate-x-0"
-                    : "opacity-0 absolute inset-0 translate-x-full"
-                }`}
+        <div 
+          className={cn(
+            "max-w-4xl mx-auto transition-all duration-700 delay-200",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          )}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          <div className="relative min-h-[320px]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={testimonials[currentIndex].id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+                className="text-center"
               >
-                <div className="text-center">
-                  <Quote className="w-16 h-16 text-primary mx-auto mb-8 opacity-50" />
-                  <blockquote className="text-xl md:text-2xl text-cream/90 font-light leading-relaxed mb-10 italic">
-                    "{testimonial.quote}"
-                  </blockquote>
-                  <div className="flex items-center justify-center gap-4">
-                    <img
-                      src={testimonial.image}
-                      alt={testimonial.author}
-                      className="w-14 h-14 rounded-full object-cover border-2 border-primary"
-                    />
-                    <div className="text-left">
-                      <p className="text-cream font-serif text-lg">{testimonial.author}</p>
-                      <p className="text-primary text-sm">{testimonial.location}</p>
-                    </div>
+                <Quote className="w-16 h-16 text-primary mx-auto mb-8 opacity-50" />
+                <blockquote className="text-xl md:text-2xl text-cream/90 font-light leading-relaxed mb-10 italic">
+                  "{testimonials[currentIndex].quote}"
+                </blockquote>
+                <div className="flex items-center justify-center gap-4">
+                  <img
+                    src={testimonials[currentIndex].image}
+                    alt={testimonials[currentIndex].author}
+                    className="w-14 h-14 rounded-full object-cover border-2 border-primary"
+                  />
+                  <div className="text-left">
+                    <p className="text-cream font-serif text-lg">{testimonials[currentIndex].author}</p>
+                    <p className="text-primary text-sm">{testimonials[currentIndex].location}</p>
                   </div>
                 </div>
-              </div>
-            ))}
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* Navigation */}

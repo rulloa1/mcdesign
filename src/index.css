@@ -121,6 +121,10 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -130,6 +134,23 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Cormorant Garamond', Georgia, serif;
     font-weight: 400;
+  }
+
+  /* Improved focus styles for accessibility */
+  :focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+  }
+
+  /* Better image rendering */
+  img {
+    image-rendering: -webkit-optimize-contrast;
+  }
+
+  /* Selection color */
+  ::selection {
+    background-color: hsl(var(--primary) / 0.3);
+    color: hsl(var(--foreground));
   }
 }
 
@@ -202,6 +223,42 @@
 
   .animation-delay-600 {
     animation-delay: 600ms;
+  }
+
+  /* Text utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Hover lift effect */
+  .hover-lift {
+    @apply transition-transform duration-300;
+  }
+
+  .hover-lift:hover {
+    @apply -translate-y-1;
+  }
+
+  /* Subtle glow effect for gold elements */
+  .gold-glow {
+    box-shadow: 0 0 20px hsl(var(--gold) / 0.2);
+  }
+
+  /* Smooth image zoom on hover */
+  .img-zoom {
+    @apply overflow-hidden;
+  }
+
+  .img-zoom img {
+    @apply transition-transform duration-700;
+  }
+
+  .img-zoom:hover img {
+    @apply scale-110;
   }
 }
 

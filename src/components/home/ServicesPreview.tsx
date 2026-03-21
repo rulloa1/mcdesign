@@ -3,6 +3,7 @@ import { Compass, PenTool, HardHat, ClipboardCheck, Shield, Leaf, ArrowRight } f
 import { Button } from "@/components/ui/button";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 const services = [
   {
@@ -57,18 +58,25 @@ const ServicesPreview = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <div
+            <motion.div
               key={index}
-              className={cn(
-                "group p-8 bg-charcoal-light/50 hover:bg-charcoal-light border border-cream/10 hover:border-primary/30 transition-all duration-500",
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              )}
-              style={{ transitionDelay: isVisible ? `${index * 100}ms` : "0ms" }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -8 }}
+              className="group p-8 bg-charcoal-light/50 hover:bg-charcoal-light border border-cream/10 hover:border-primary/40 transition-colors duration-500 relative overflow-hidden"
             >
-              <service.icon className="w-12 h-12 text-primary mb-6 group-hover:scale-110 transition-transform" />
-              <h3 className="text-xl font-serif mb-4">{service.title}</h3>
-              <p className="text-cream/60 leading-relaxed">{service.description}</p>
-            </div>
+              {/* Subtle gradient overlay on hover */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              <div className="relative z-10">
+                <div className="w-16 h-16 bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300">
+                  <service.icon className="w-8 h-8 text-primary group-hover:scale-110 transition-transform duration-300" />
+                </div>
+                <h3 className="text-xl font-serif mb-4 text-cream">{service.title}</h3>
+                <p className="text-cream/60 leading-relaxed">{service.description}</p>
+              </div>
+            </motion.div>
           ))}
         </div>
 
