@@ -29,7 +29,8 @@ const AboutSection = () => {
     ref: statsRef,
     isVisible: statsVisible
   } = useScrollAnimation();
-  return <section ref={ref} className="py-24 bg-cream">
+  return (
+    <section ref={ref} className="py-24 bg-cream">
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Content */}
