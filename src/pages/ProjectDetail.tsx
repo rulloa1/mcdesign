@@ -17,8 +17,6 @@ const ProjectDetail = () => {
   } = useParams<{
     id: string;
   }>();
-  // Force a re-render/reset when ID changes
-  const [key, setKey] = useState(0);
   const navigate = useNavigate();
   const project = getProjectById(id || "");
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
@@ -43,7 +41,6 @@ const ProjectDetail = () => {
   // Scroll to top when project changes
   useEffect(() => {
     window.scrollTo(0, 0);
-    setKey(prev => prev + 1); // Trigger animation reset
   }, [id]);
 
   const handleEditImage = (image: string) => {
@@ -58,12 +55,6 @@ const ProjectDetail = () => {
   };
 
   const handleAddImage = async (file: File) => {
-    // Basic implementation - in a real app would upload to S3/Supabase first
-    // utilizing NumberedGallery's logic, but here we just need to pass the file logic
-    // Actually NumberedGallery handles the upload/URL creation, we just need to save the list
-    // Wait, NumberedGallery's onAddImage typically just returns the FILE, we need to process it
-    // But since we built logic into NumberedGallery to fallback to local URL, 
-    // let's just create a local URL here for simplicity if we want to bypass backend
     const localUrl = URL.createObjectURL(file);
     const newGallery = [...galleryImages, localUrl];
     saveGalleryOrder(newGallery);
@@ -103,7 +94,7 @@ const ProjectDetail = () => {
     }
   };
   return <Layout>
-    <motion.div key={project.id} // Ensure animations trigger on route change
+    <motion.div key={project.id}
       initial={{
         opacity: 0
       }} animate={{

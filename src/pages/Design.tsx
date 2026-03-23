@@ -30,13 +30,6 @@ const ParallaxImage = ({
   // Parallax movement
   const y = useTransform(scrollYProgress, [0, 1], [parallaxStrength, -parallaxStrength]);
   
-  // Cinematic blur effect - blur as image exits viewport edges
-  const blur = useTransform(
-    scrollYProgress, 
-    [0, 0.15, 0.85, 1], 
-    [6, 0, 0, 6]
-  );
-  
   // Fade effect - subtle fade at viewport edges
   const opacity = useTransform(
     scrollYProgress, 
