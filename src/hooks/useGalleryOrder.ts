@@ -30,23 +30,29 @@ export const useGalleryOrder = (projectId: string, defaultImages: string[]) => {
   useEffect(() => {
     const loadGalleryOrder = async () => {
       setIsLoading(true);
-      const { data, error } = await supabase
-        .from("project_gallery_orders")
-        .select("image_order")
-        .eq("project_id", projectId)
-        .maybeSingle();
+      try {
+        const { data, error } = await supabase
+          .from("project_gallery_orders")
+          .select("image_order")
+          .eq("project_id", projectId)
+          .maybeSingle();
 
-      if (error) {
-        console.error("Error loading gallery order:", error);
+        if (error) {
+          console.error("Error loading gallery order:", error);
+          setImages(defaultImages);
+        } else if (data?.image_order) {
+          const savedOrder = data.image_order as string[];
+          const newImages = defaultImages.filter(img => !savedOrder.includes(img));
+          setImages([...savedOrder.filter(img => defaultImages.includes(img)), ...newImages]);
+        } else {
+          setImages(defaultImages);
+        }
+      } catch (e) {
+        console.error("Gallery load error:", e);
         setImages(defaultImages);
-      } else if (data?.image_order) {
-        const savedOrder = data.image_order as string[];
-        const newImages = defaultImages.filter(img => !savedOrder.includes(img));
-        setImages([...savedOrder.filter(img => defaultImages.includes(img)), ...newImages]);
-      } else {
-        setImages(defaultImages);
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     };
 
     loadGalleryOrder();
