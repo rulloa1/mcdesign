@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
+
 interface SortableGalleryItemProps {
   id: string;
   image: string;

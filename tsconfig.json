@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
     "allowJs": true,
+    "types": [
+      "vitest/globals"
+    ],
     "noImplicitAny": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,

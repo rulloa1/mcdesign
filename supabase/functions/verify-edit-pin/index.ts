@@ -36,6 +36,7 @@ serve(async (req) => {
       { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   } catch (error) {
+    console.error("Error verifying PIN:", error);
     return new Response(
       JSON.stringify({ success: false, error: 'Invalid request' }),
       { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }

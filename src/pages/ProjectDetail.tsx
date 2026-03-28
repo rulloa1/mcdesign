@@ -18,8 +18,9 @@ const ProjectDetail = () => {
     id: string;
   }>();
   // Force a re-render/reset when ID changes
-  const [key, setKey] = useState(0);
+  const [, setKey] = useState(0);
   const navigate = useNavigate();
+  
   const project = getProjectById(id || "");
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [isPinDialogOpen, setIsPinDialogOpen] = useState(false);
@@ -57,13 +58,13 @@ const ProjectDetail = () => {
     saveGalleryOrder(newGallery);
   };
 
+  const handleSaveRedesign = (newImageUrl: string) => {
+    // Add the new image to the start of the gallery
+    const newGallery = [newImageUrl, ...galleryImages];
+    saveGalleryOrder(newGallery);
+  };
+
   const handleAddImage = async (file: File) => {
-    // Basic implementation - in a real app would upload to S3/Supabase first
-    // utilizing NumberedGallery's logic, but here we just need to pass the file logic
-    // Actually NumberedGallery handles the upload/URL creation, we just need to save the list
-    // Wait, NumberedGallery's onAddImage typically just returns the FILE, we need to process it
-    // But since we built logic into NumberedGallery to fallback to local URL, 
-    // let's just create a local URL here for simplicity if we want to bypass backend
     const localUrl = URL.createObjectURL(file);
     const newGallery = [...galleryImages, localUrl];
     saveGalleryOrder(newGallery);

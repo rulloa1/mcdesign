@@ -14,12 +14,27 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Email functionality will be added with edge function
-    setTimeout(() => {
-      toast({ title: "Message Sent", description: "I'll get back to you shortly!" });
-      setFormData({ name: "", email: "", phone: "", message: "" });
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        toast({ title: "Message Sent", description: "I'll get back to you shortly!" });
+        setFormData({ name: "", email: "", phone: "", message: "" });
+      } else {
+        toast({ title: "Error", description: "Failed to send message. Please try again later." });
+      }
+    } catch (error) {
+      console.error("Failed to send message:", error);
+      toast({ title: "Error", description: "Failed to send message. Please try again later." });
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   return (
