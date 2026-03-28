@@ -1,6 +1,5 @@
-// Base URL for project images from GitHub
-const GITHUB_RAW_BASE =
-  "https://raw.githubusercontent.com/rulloa1/constructiondesignnew-e33525f5/main/src/assets/projects";
+// Base URL for project images - now served locally via Vercel
+const GITHUB_RAW_BASE = "/projects/assets";
 
 // Import local assets
 import woodPanelingDetail from "@/assets/detail-wood-paneling.png";
