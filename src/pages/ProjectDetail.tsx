@@ -1,12 +1,14 @@
 import { useState, useEffect, useMemo } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { getProjectById, projects } from "@/data/projects";
 import { ArrowLeft, ArrowRight, X, ChevronLeft, ChevronRight, Clock, Maximize2, Home, Bath, Settings2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NumberedGallery } from "@/components/gallery/NumberedGallery";
 import { motion, AnimatePresence } from "framer-motion";
+import { useToast } from "@/hooks/use-toast";
 import { useGalleryOrder } from "@/hooks/useGalleryOrder";
+import { supabase } from "@/integrations/supabase/client";
 
 import { AIRedesignDialog } from "@/components/gallery/AIRedesignDialog";
 import { PinDialog } from "@/components/gallery/PinDialog";
@@ -17,9 +19,6 @@ const ProjectDetail = () => {
   } = useParams<{
     id: string;
   }>();
-  // Force a re-render/reset when ID changes
-  const [, setKey] = useState(0);
-  const navigate = useNavigate();
   
   const project = getProjectById(id || "");
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
@@ -44,7 +43,6 @@ const ProjectDetail = () => {
   // Scroll to top when project changes
   useEffect(() => {
     window.scrollTo(0, 0);
-    setKey(prev => prev + 1); // Trigger animation reset
   }, [id]);
 
   const handleEditImage = (image: string) => {
@@ -58,16 +56,38 @@ const ProjectDetail = () => {
     saveGalleryOrder(newGallery);
   };
 
-  const handleSaveRedesign = (newImageUrl: string) => {
-    // Add the new image to the start of the gallery
-    const newGallery = [newImageUrl, ...galleryImages];
-    saveGalleryOrder(newGallery);
-  };
+  const { toast } = useToast();
 
   const handleAddImage = async (file: File) => {
-    const localUrl = URL.createObjectURL(file);
-    const newGallery = [...galleryImages, localUrl];
+    if (!id) return;
+
+    toast({ title: 'Uploading image...', description: 'Please wait.' });
+
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Date.now()}.${fileExt}`;
+    const filePath = `${id}/${fileName}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from('project-galleries')
+      .upload(filePath, file);
+
+    if (uploadError) {
+      toast({ title: 'Upload failed', description: uploadError.message, variant: 'destructive' });
+      return;
+    }
+
+    const { data } = supabase.storage
+      .from('project-galleries')
+      .getPublicUrl(filePath);
+
+    if (!data.publicUrl) {
+        toast({ title: 'Error', description: 'Could not get public URL for the image.', variant: 'destructive' });
+        return;
+    }
+
+    const newGallery = [...galleryImages, data.publicUrl];
     saveGalleryOrder(newGallery);
+    toast({ title: 'Image uploaded!', description: 'The new image has been added to the gallery.' });
   };
 
   const handleRemoveImage = (index: number) => {

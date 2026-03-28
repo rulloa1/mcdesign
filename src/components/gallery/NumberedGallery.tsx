@@ -104,10 +104,10 @@ export const NumberedGallery = ({
           const fileExt = file.name.split(".").pop();
           const fileName = `${projectId}/${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
           const { error: uploadError } = await supabase.storage
-            .from("project-gallery")
+            .from("project-galleries")
             .upload(fileName, file);
           if (!uploadError) {
-            const { data } = supabase.storage.from("project-gallery").getPublicUrl(fileName);
+            const { data } = supabase.storage.from("project-galleries").getPublicUrl(fileName);
             publicUrl = data.publicUrl;
           }
         } catch (err) {

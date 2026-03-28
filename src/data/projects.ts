@@ -135,50 +135,59 @@ export const projects: Project[] = [
     description:
       "This 6,200 sq ft craftsman-style estate is a testament to our integrated design-build approach. Over 18 months, we orchestrated the creation of not just a home, but a complete two-acre landscape. The project's exterior is defined by over 400 tons of decorative stone, professional hardscaping, and dramatic low-voltage evening lighting. The design embraced drought-tolerant native plantings and elegant water features, creating a seamless transition between the built and natural environments. The separate 6 car garage/workshop was for antique restoration, and the two horse stall horse barn + storage rounded out the perfect Home/Estate/Equestrian property.",
     gallery: [
-      "/projects/syracuse-final/syracuse-1.png",
-      "/projects/syracuse-final/syracuse-2.png",
-      "/projects/syracuse-final/syracuse-3.png",
-      "/projects/syracuse-final/syracuse-4.png",
-      "/projects/syracuse-final/syracuse-5.png",
-      "/projects/syracuse-final/syracuse-6.png",
-      "/projects/syracuse-final/syracuse-7.png",
-      "/projects/syracuse-final/syracuse-8.png",
-      "/projects/syracuse-final/syracuse-9.png",
-      "/projects/syracuse-final/syracuse-10.png",
-      "/projects/syracuse-final/syracuse-11.png",
-      "/projects/syracuse-final/syracuse-12.png",
-      "/projects/syracuse-final/syracuse-13.png",
-      "/projects/syracuse-final/syracuse-14.png",
-      "/projects/syracuse-final/syracuse-15.png",
-      "/projects/syracuse-final/syracuse-16.png",
-      "/projects/syracuse-final/syracuse-17.png",
-      "/projects/syracuse-final/syracuse-18.png",
-      "/projects/syracuse-final/syracuse-19.png",
-      "/projects/syracuse-final/syracuse-20.png",
-      "/projects/syracuse-final/syracuse-21.png",
-      "/projects/syracuse-final/syracuse-22.png",
-      "/projects/syracuse-final/syracuse-23.png",
-      "/projects/syracuse-final/syracuse-24.png",
-      "/projects/syracuse-final/syracuse-25.png",
-      "/projects/syracuse-final/syracuse-26.png",
-      "/projects/syracuse-final/syracuse-27.png",
-      "/projects/syracuse-final/syracuse-28.png",
-      "/projects/syracuse-final/syracuse-29.png",
-      "/projects/syracuse-final/syracuse-30.png",
-      "/projects/syracuse-final/syracuse-31.png",
-      "/projects/syracuse-final/syracuse-32.png",
-      "/projects/syracuse-final/syracuse-33.png",
-      "/projects/syracuse-final/syracuse-34.png",
-      "/projects/syracuse-final/syracuse-35.png",
-      "/projects/syracuse-final/syracuse-36.png",
-      "/projects/syracuse-final/syracuse-37.png",
-      "/projects/syracuse-final/syracuse-38.png",
-      "/projects/syracuse-final/syracuse-39.png",
-      "/projects/syracuse-final/syracuse-40.png",
-      "/projects/syracuse-final/syracuse-41.png",
-      "/projects/syracuse-final/syracuse-42.png",
-      "/projects/syracuse-final/syracuse-43.png",
-      "/projects/syracuse-final/syracuse-44.png",
+      // Exterior
+      "/projects/syracuse-final/syracuse-1.png", // Front of house
+      "/projects/syracuse-final/syracuse-2.png", // Closer front of house
+      "/projects/syracuse-final/syracuse-3.png", // Front entrance
+      "/projects/syracuse-final/syracuse-4.png", // Side of house
+      "/projects/syracuse-final/syracuse-5.png", // Back of house
+      "/projects/syracuse-final/syracuse-6.png", // Backyard
+      "/projects/syracuse-final/syracuse-7.png", // Patio
+      "/projects/syracuse-final/syracuse-8.png", // Detached garage
+
+      // Interior - Main Floor
+      "/projects/syracuse-final/syracuse-9.png", // Entryway
+      "/projects/syracuse-final/syracuse-10.png", // Living room
+      "/projects/syracuse-final/syracuse-11.png", // Living room fireplace
+      "/projects/syracuse-final/syracuse-12.png", // Dining room
+      "/projects/syracuse-final/syracuse-13.png", // Kitchen
+      "/projects/syracuse-final/syracuse-14.png", // Kitchen island
+      "/projects/syracuse-final/syracuse-15.png", // Kitchen sink
+      "/projects/syracuse-final/syracuse-16.png", // Pantry
+      "/projects/syracuse-final/syracuse-17.png", // Family room
+      "/projects/syracuse-final/syracuse-18.png", // Office
+      "/projects/syracuse-final/syracuse-19.png", // Half bath
+      "/projects/syracuse-final/syracuse-20.png", // Mudroom
+
+      // Interior - Upper Floor
+      "/projects/syracuse-final/syracuse-21.png", // Stairs
+      "/projects/syracuse-final/syracuse-22.png", // Loft
+      "/projects/syracuse-final/syracuse-23.png", // Master bedroom
+      "/projects/syracuse-final/syracuse-24.png", // Master bedroom sitting area
+      "/projects/syracuse-final/syracuse-25.png", // Master bathroom
+      "/projects/syracuse-final/syracuse-26.png", // Master bathroom shower
+      "/projects/syracuse-final/syracuse-27.png", // Master bathroom tub
+      "/projects/syracuse-final/syracuse-28.png", // Master closet
+      "/projects/syracuse-final/syracuse-29.png", // Bedroom 2
+      "/projects/syracuse-final/syracuse-30.png", // Bedroom 3
+      "/projects/syracuse-final/syracuse-31.png", // Bedroom 4
+      "/projects/syracuse-final/syracuse-32.png", // Bathroom 2
+      "/projects/syracuse-final/syracuse-33.png", // Laundry room
+
+      // Interior - Basement
+      "/projects/syracuse-final/syracuse-34.png", // Basement family room
+      "/projects/syracuse-final/syracuse-35.png", // Basement kitchenette
+      "/projects/syracuse-final/syracuse-36.png", // Basement bedroom
+      "/projects/syracuse-final/syracuse-37.png", // Basement bathroom
+      "/projects/syracuse-final/syracuse-38.png", // Theater room
+
+      // Details
+      "/projects/syracuse-final/syracuse-39.png", // Light fixture
+      "/projects/syracuse-final/syracuse-40.png", // Flooring detail
+      "/projects/syracuse-final/syracuse-41.png", // Tile detail
+      "/projects/syracuse-final/syracuse-42.png", // Cabinetry detail
+      "/projects/syracuse-final/syracuse-43.png", // Countertop detail
+      "/projects/syracuse-final/syracuse-44.png", // Hardware detail
       "/projects/syracuse-final/syracuse-45.png",
       "/projects/syracuse-final/syracuse-46.png",
       "/projects/syracuse-final/syracuse-47.png",

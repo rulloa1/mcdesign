@@ -3,7 +3,6 @@ import { CSS } from "@dnd-kit/utilities";
 import { Upload, X, GripVertical } from "lucide-react";
 import { useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 
 
 interface SortableGalleryItemProps {

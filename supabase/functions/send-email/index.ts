@@ -16,9 +16,18 @@ serve(async (req: Request) => {
   try {
     const { name, email, phone, message } = await req.json();
 
+const toEmail = Deno.env.get('TO_EMAIL_ADDRESS');
+if (!toEmail) {
+  console.error('TO_EMAIL_ADDRESS is not set in Supabase secrets.');
+  return new Response(JSON.stringify({ error: 'Server configuration error.' }), {
+    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    status: 500,
+  });
+}
+
     const { data, error } = await resend.emails.send({
-      from: 'onboarding@resend.dev', // Change to your domain
-      to: Deno.env.get('TO_EMAIL_ADDRESS'), // Change to your email
+      from: Deno.env.get('RESEND_FROM_EMAIL') || 'onboarding@resend.dev', // IMPORTANT: Set RESEND_FROM_EMAIL in Supabase secrets to your verified Resend domain.
+      to: toEmail,
       subject: `New message from ${name}`,
       html: `<p>You have a new message from your website contact form.</p>
              <p><strong>Name:</strong> ${name}</p>
