@@ -23,7 +23,7 @@ export const PinDialog = ({ isOpen, onClose, onSuccess }: PinDialogProps) => {
   const [isVerifying, setIsVerifying] = useState(false);
 
   const handleVerify = async () => {
-    if (!pin.trim() || pin.length < 4) {
+    if (!pin.trim() || pin.trim().length < 4) {
       setError("PIN must be at least 4 characters");
       return;
     }
