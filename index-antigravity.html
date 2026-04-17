@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MC Design | Creative Front-End Developer</title>
+  
+  <!-- Google Fonts: Inter (body) + Poppins (geometric headings) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- GSAP + ScrollTrigger (Animation Engine) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <script>
+    // Tailwind Config Override
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif']
+          },
+          colors: {
+            brand: '#111827'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Scandinavian Studio Aesthetic - Light Mode */
+    * {
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #faf9f6;
+      color: #111827;
+      overflow-x: hidden;
+    }
+
+    /* === CANVAS BACKDROP === */
+    /* Canvas pinned/fixed to viewport, fills entire screen */
+    #canvas-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      object-fit: cover;
+      background: linear-gradient(135deg, #faf9f6 0%, #ffffff 100%);
+    }
+
+    /* === OVERLAY SECTIONS === */
+    /* Subtle Light Glassmorphism: whisper-thin white border, soft backdrop blur */
+    .overlay-text {
+      position: absolute;
+      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 16px;
+      padding: 3rem;
+      z-index: 20;
+      opacity: 0;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Section 1: Center Hero (0%) */
+    #hero-section {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      max-width: 700px;
+      width: 90%;
+    }
+
+    #hero-section h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(3.5rem, 8vw, 5.5rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: #111827;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    #hero-section p {
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: #9ca3af;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* Section 2: Bottom Left (33%) */
+    #feature-left {
+      bottom: 15%;
+      left: 5%;
+      max-width: 420px;
+      width: 100%;
+    }
+
+    #feature-left h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: #111827;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    #feature-left p {
+      font-size: 1rem;
+      color: #9ca3af;
+      font-weight: 400;
+      line-height: 1.6;
+      letter-spacing: 0.01em;
+    }
+
+    /* Section 3: Bottom Right (66%) */
+    #feature-right {
+      bottom: 15%;
+      right: 5%;
+      max-width: 420px;
+      width: 100%;
+    }
+
+    #feature-right h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: #111827;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    #feature-right p {
+      font-size: 1rem;
+      color: #9ca3af;
+      font-weight: 400;
+      line-height: 1.6;
+      letter-spacing: 0.01em;
+    }
+
+    /* Section 4: Center CTA (90%) */
+    #cta-section {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      max-width: 550px;
+      width: 90%;
+    }
+
+    #cta-section h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      color: #111827;
+      margin-bottom: 2rem;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    #cta-section button {
+      background-color: #111827;
+      color: #faf9f6;
+      padding: 1rem 3rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-radius: 12px;
+      border: 1px solid #111827;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    #cta-section button:hover {
+      background-color: #faf9f6;
+      color: #111827;
+      transform: translateY(-3px);
+      box-shadow: 0 20px 50px rgba(17, 24, 39, 0.15);
+    }
+
+    #cta-section button:active {
+      transform: translateY(-1px);
+    }
+
+    /* === SCROLL CONTAINER === */
+    /* The invisible container that provides scroll height (400vh) */
+    #scroll-container {
+      position: relative;
+      height: 400vh;
+      background: transparent;
+      z-index: 5;
+    }
+
+    /* Smooth scroll behavior */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 768px) {
+      #hero-section {
+        padding: 2rem;
+      }
+
+      #hero-section h1 {
+        margin-bottom: 0.75rem;
+      }
+
+      #feature-left,
+      #feature-right {
+        bottom: 8%;
+        max-width: 380px;
+        padding: 2.5rem;
+      }
+
+      #feature-left h2,
+      #feature-right h2 {
+        font-size: 1.75rem;
+      }
+
+      #cta-section {
+        padding: 2rem;
+      }
+
+      #cta-section h2 {
+        margin-bottom: 1.5rem;
+      }
+
+      .overlay-text {
+        border-radius: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .overlay-text {
+        padding: 2rem;
+        backdrop-filter: blur(6px);
+      }
+
+      #feature-left,
+      #feature-right {
+        left: 3% !important;
+        right: 3% !important;
+        bottom: 5%;
+        max-width: none;
+      }
+
+      #feature-left h2,
+      #feature-right h2 {
+        font-size: 1.5rem;
+      }
+
+      #cta-section button {
+        padding: 0.875rem 2.5rem;
+        font-size: 0.875rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CANVAS BACKDROP: Fixed/Pinned background with scroll-driven frame updates -->
+  <canvas id="canvas-backdrop"></canvas>
+
+  <!-- OVERLAY TEXT SECTIONS: Fade in/out at scroll checkpoints -->
+  
+  <!-- Section 1: Hero (0% - 30%) -->
+  <div id="hero-section" class="overlay-text">
+    <h1>MC Design</h1>
+    <p>Creative Front-End Developer</p>
+  </div>
+
+  <!-- Section 2: Bottom Left Feature (30% - 60%) -->
+  <div id="feature-left" class="overlay-text">
+    <h2>Interactive UI</h2>
+    <p>Motion Design. Engineering fluid digital experiences with precision and intent.</p>
+  </div>
+
+  <!-- Section 3: Bottom Right Feature (60% - 90%) -->
+  <div id="feature-right" class="overlay-text">
+    <h2>Pixel Perfect</h2>
+    <p>Clean Code. Semantic HTML5, Tailwind CSS, and modern ES6+ JavaScript.</p>
+  </div>
+
+  <!-- Section 4: CTA (90% - 100%) -->
+  <div id="cta-section" class="overlay-text">
+    <h2>Let's Build Something</h2>
+    <button onclick="alert('Contact form coming soon!')">Contact Me</button>
+  </div>
+
+  <!-- SCROLL CONTAINER: Provides scroll height for pinning (400vh) -->
+  <div id="scroll-container"></div>
+
+  <script>
+    // ============================================================
+    // GSAP ANIMATION SETUP: The "Antigravity" Scroll Engine
+    // ============================================================
+
+    // 1. Register ScrollTrigger Plugin
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 2. Canvas Setup with High-DPI Scaling
+    // ============================================================
+    const canvas = document.getElementById('canvas-backdrop');
+    const ctx = canvas.getContext('2d', { alpha: false });
+    
+    // High-DPI scaling for crisp rendering on retina displays
+    const dpr = window.devicePixelRatio || 1;
+    
+    function resizeCanvas() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      
+      // Set CSS size
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+      
+      // Set actual resolution with DPI scaling
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      
+      // Scale the drawing context for high-DPI
+      ctx.scale(dpr, dpr);
+    }
+    
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Frame cache for preloaded images
+    const frameCache = {};
+    const TOTAL_FRAMES = 294;
+    
+    // Load frame from sequence folder
+    const loadFrame = (index) => {
+      // Clamp index to valid range
+      const frameIndex = Math.max(0, Math.min(index, TOTAL_FRAMES - 1));
+      const frameNum = String(frameIndex + 1).padStart(3, '0');
+      const src = `/portfolio-next/public/sequence/ezgif-frame-${frameNum}.jpg`;
+      
+      if (!frameCache[src]) {
+        const img = new Image();
+        img.src = src;
+        img.onerror = () => console.warn(`Failed to load frame: ${src}`);
+        frameCache[src] = img;
+      }
+      return frameCache[src];
+    };
+
+    // Draw frame from image sequence
+    function drawFrame(progress) {
+      // Calculate frame index based on scroll progress (0 - 1)
+      const frameIndex = Math.floor(progress * (TOTAL_FRAMES - 1));
+      const img = loadFrame(frameIndex);
+      
+      // Clear canvas with white to maintain Scandinavian aesthetic
+      ctx.fillStyle = '#faf9f6';
+      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+      
+      // Draw image with contain aspect ratio
+      if (img && img.complete) {
+        const imageWidth = window.innerWidth;
+        const imageHeight = window.innerHeight;
+        const imgAspect = img.width / img.height;
+        const canvasAspect = imageWidth / imageHeight;
+        
+        let drawWidth = imageWidth;
+        let drawHeight = imageHeight;
+        let offsetX = 0;
+        let offsetY = 0;
+        
+        // Contain: fit entire image inside canvas
+        if (imgAspect > canvasAspect) {
+          drawHeight = imageWidth / imgAspect;
+          offsetY = (imageHeight - drawHeight) / 2;
+        } else {
+          drawWidth = imageHeight * imgAspect;
+          offsetX = (imageWidth - drawWidth) / 2;
+        }
+        
+        ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+      }
+    }
+
+    // 3. Canvas Animation via ScrollTrigger
+    // ============================================================
+    // Pin the canvas section for the entire 400vh scroll height
+    gsap.to(canvas, {
+      scrollTrigger: {
+        trigger: '#scroll-container',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 1,  // Heavy, smooth 1-second lag for premium feel
+        onUpdate: (self) => {
+          // Draw frame based on scroll progress (0 - 1)
+          drawFrame(self.getVars().progress || 0);
+        }
+      }
+    });
+
+    // Also update frame on scroll without animation
+    ScrollTrigger.create({
+      trigger: '#scroll-container',
+      start: 'top top',
+      end: 'bottom bottom',
+      onUpdate: (self) => {
+        drawFrame(self.progress);
+      }
+    });
+
+    // 4. Text Overlay Animations
+    // ============================================================
+    // Define animation checkpoints for each section
+    
+    // Section 1: Hero (0% - 30%)
+    gsap.fromTo(
+      '#hero-section',
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: '#scroll-container',
+          start: 'top 50%',
+          end: 'top 30%',
+          scrub: 0.5,
+          markers: false
+        }
+      }
+    );
+
+    gsap.to(
+      '#hero-section',
+      {
+        opacity: 0,
+        y: -30,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: '#scroll-container',
+          start: 'top 30%',
+          end: 'top 0%',
+          scrub: 0.5,
+          markers: false
+        }
+      }
+    );
+
+    // Section 2: Bottom Left Feature (30% - 60%)
+    gsap.fromTo(
+      '#feature-left',
+      { opacity: 0, x: -50 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: '#scroll-container',
+          start: 'top 30%',
+          end: 'top 15%',
+          scrub: 0.5,
+          markers: false
+        }
+      }
+    );
+
+    gsap.to(
+      '#feature-left',
+      {
+        opacity: 0,
+        x: -50,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: '#scroll-container',
+          start: 'top 15%',
+          end: 'top 0%',
+          scrub: 0.5,
+          markers: false
+        }
+      }
+    );
+
+    // Section 3: Bottom Right Feature (60% - 90%)
+    gsap.fromTo(
+      '#feature-right',
+      { opacity: 0, x: 50 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: '#scroll-container',
+          start: 'top 15%',
+          end: 'top 0%',
+          scrub: 0.5,
+          markers: false
+        }
+      }
+    );
+
+    gsap.to(
+      '#feature-right',
+      {
+        opacity: 0,
+        y: 50,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: '#scroll-container',
+          start: 'top 0%',
+          end: 'top -15%',
+          scrub: 0.5,
+          markers: false
+        }
+      }
+    );
+
+    // Section 4: CTA (90% - 100%)
+    gsap.fromTo(
+      '#cta-section',
+      { opacity: 0, scale: 0.95 },
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: '#scroll-container',
+          start: 'top -15%',
+          end: 'top -25%',
+          scrub: 0.5,
+          markers: false
+        }
+      }
+    );
+
+    // ============================================================
+    // INIT: Trigger initial frame draw
+    // ============================================================
+    drawFrame(0);
+  </script>
+
+</body>
+</html>

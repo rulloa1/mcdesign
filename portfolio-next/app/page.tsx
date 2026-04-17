@@ -32,11 +32,11 @@ export default function Home() {
         which we set to 400vh in the component logic so that the user has time 
         to read and experience the scrub.
       */}
-      <ScrollSequence frameCount={120} />
+      <ScrollSequence frameCount={294} />
 
       {/* Scrollytelling Overlay Container */}
-      <div className="fixed inset-0 pointer-events-none z-10 flex flex-col justify-center container mx-auto px-6 md:px-24">
-        
+      <div className="fixed inset-0 pointer-events-none z-10">
+
         {/* Beat A: 0-20% Scroll (Centered) */}
         <motion.div 
           style={{ opacity: opacityA, y: yA }} 
@@ -50,7 +50,7 @@ export default function Home() {
           </p>
         </motion.div>
 
-        {/* Beat B: 25-45% Scroll (Left-aligned) */}
+        {/* Beat B: 25-55% Scroll (Left-aligned) */}
         <motion.div 
           style={{ opacity: opacityB, y: yB }} 
           className="absolute left-6 md:left-24 top-1/2 -translate-y-1/2 max-w-lg"
@@ -63,7 +63,7 @@ export default function Home() {
           </p>
         </motion.div>
 
-        {/* Beat C: 50-70% Scroll (Right-aligned) */}
+        {/* Beat C: 50-80% Scroll (Right-aligned) */}
         <motion.div 
           style={{ opacity: opacityC, y: yC }} 
           className="absolute right-6 md:right-24 top-1/2 -translate-y-1/2 max-w-lg text-right"
@@ -76,7 +76,7 @@ export default function Home() {
           </p>
         </motion.div>
 
-        {/* Beat D: 75-95% Scroll (Centered CTA) */}
+        {/* Beat D: 75-100% Scroll (Centered CTA) */}
         <motion.div 
           style={{ opacity: opacityD, y: yD }} 
           className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center flex flex-col items-center"
