@@ -181,7 +181,7 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         model: 'dall-e-3',
-        prompt: `A photorealistic, architectural digest quality photograph of a room with this structure: ${description}. The room is designed in a ${style} style. High end, professional interior design photography, 8k resolution.`,
+        prompt: `An award-winning architectural portfolio photograph of a finished interior space with this structure: ${description}. Designed in a refined ${style} style. Shot for a high-end architecture firm portfolio: cinematic natural lighting, golden hour ambiance, ultra-sharp focus, precise composition with leading lines, generous negative space, neutral muted palette with subtle warm accents, magazine-quality finish (Architectural Digest, Dezeen, Dwell). Photorealistic, 8k, shot on Hasselblad, no people, no text, no watermarks.`,
         n: 1,
         size: '1024x1024',
       }),
