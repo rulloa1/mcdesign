@@ -28,8 +28,8 @@ const urlToBase64 = async (url: string): Promise<string> => {
 };
 
 export const AIRedesignDialog = ({ isOpen, onClose, imageUrl, onSave }: AIRedesignDialogProps) => {
-    const [style, setStyle] = useState("modern luxury");
-    const [creativity, setCreativity] = useState([50]);
+    const [style, setStyle] = useState("Modern Luxury");
+    const [creativity, setCreativity] = useState([30]);
     const [isGenerating, setIsGenerating] = useState(false);
     const [statusMessage, setStatusMessage] = useState("");
     const [generatedImage, setGeneratedImage] = useState<string | null>(null);
