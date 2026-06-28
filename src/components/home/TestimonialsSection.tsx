@@ -72,11 +72,9 @@ const TestimonialsSection = () => {
                     "{testimonial.quote}"
                   </blockquote>
                   <div className="flex items-center justify-center gap-4">
-                    <img
-                      src={testimonial.image}
-                      alt={testimonial.author}
-                      className="w-14 h-14 rounded-full object-cover border-2 border-primary"
-                    />
+                    <div className="w-14 h-14 rounded-full border-2 border-primary flex items-center justify-center bg-primary/10 flex-shrink-0">
+                      <span className="font-serif text-primary text-lg font-medium">{testimonial.initials}</span>
+                    </div>
                     <div className="text-left">
                       <p className="text-cream font-serif text-lg">{testimonial.author}</p>
                       <p className="text-primary text-sm">{testimonial.location}</p>

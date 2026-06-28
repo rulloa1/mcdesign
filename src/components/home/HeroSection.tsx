@@ -36,6 +36,8 @@ const HeroSection = () => {
             src={image}
             alt={`Luxury home ${index + 1}`}
             className="w-full h-full object-cover"
+            loading="eager"
+            fetchPriority={index === 0 ? "high" : "low"}
           />
           <div className="absolute inset-0 bg-charcoal/50" />
         </div>
@@ -63,7 +65,7 @@ const HeroSection = () => {
             </div>
             <div className="text-center">
               <span className="block text-6xl md:text-7xl lg:text-8xl font-light text-primary leading-none">
-                37
+                39
               </span>
               <span className="block text-xs md:text-sm tracking-[2px] text-cream/80 mt-2 uppercase">
                 Years of Excellence

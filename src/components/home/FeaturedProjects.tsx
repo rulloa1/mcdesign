@@ -44,6 +44,7 @@ const FeaturedProjects = () => {
                 src={project.coverImage}
                 alt={project.title}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/20 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-8">

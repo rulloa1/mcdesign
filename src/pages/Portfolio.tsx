@@ -163,7 +163,7 @@ const Portfolio = () => {
                 transition={{ delay: 0.9, duration: 0.6 }}
               >
                 <span className="block font-serif text-6xl md:text-7xl font-light text-gold leading-none mb-4">
-                  37
+                  39
                 </span>
                 <span className="text-[10px] tracking-[0.2em] text-muted-foreground font-light uppercase">
                   Years of Excellence

@@ -10,7 +10,13 @@ const CTASection = () => {
   } = useScrollAnimation();
   return <section ref={ref} className="relative py-32 overflow-hidden">
       <div className="absolute inset-0">
-        
+        <img
+          src="/projects/hospitality-pool-cover-v2.jpg"
+          alt=""
+          aria-hidden="true"
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
         <div className="absolute inset-0 bg-charcoal/80" />
       </div>
 

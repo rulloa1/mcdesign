@@ -4,20 +4,20 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
 const stats = [{
   icon: Clock,
-  value: "37+",
+  value: "39+",
   label: "Years Experience"
 }, {
   icon: Building2,
-  value: "500+",
-  label: "Projects Completed"
+  value: "$500M+",
+  label: "Capital Managed"
 }, {
   icon: Users,
   value: "100%",
   label: "Client Satisfaction"
 }, {
   icon: Award,
-  value: "25+",
-  label: "Awards Won"
+  value: "6",
+  label: "Global Regions"
 }];
 const AboutSection = () => {
   const {
