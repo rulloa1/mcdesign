@@ -10,6 +10,7 @@ const testimonials = [
     author: "Robert & Sarah Thompson",
     location: "Coastal Modern Estate",
     image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
+    initials: "RT",
   },
   {
     id: 2,
@@ -17,6 +18,7 @@ const testimonials = [
     author: "Jennifer Martinez",
     location: "Urban Loft Renovation",
     image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=80",
+    initials: "JM",
   },
   {
     id: 3,
@@ -24,6 +26,7 @@ const testimonials = [
     author: "David & Linda Chen",
     location: "Mountain Retreat",
     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",
+    initials: "DC",
   },
 ];
 

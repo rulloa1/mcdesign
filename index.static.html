@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michael Chandler - Executive Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --color-carbon: #0E0E0E;
+            --color-brass: #C9A961;
+            --color-bone: #F4F1EB;
+        }
+
+        body {
+            background-color: var(--color-carbon);
+            color: var(--color-bone);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .text-brass {
+            color: var(--color-brass);
+        }
+
+        .bg-brass {
+            background-color: var(--color-brass);
+        }
+
+        .bg-carbon {
+            background-color: var(--color-carbon);
+        }
+
+        .text-bone {
+            color: var(--color-bone);
+        }
+
+        .bg-bone {
+            background-color: var(--color-bone);
+        }
+
+        .brass-gradient {
+            background: linear-gradient(to right, var(--color-bone), var(--color-brass));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Marquee */
+        .marquee-container {
+            display: flex;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-content {
+            display: flex;
+            animation: marquee 30s linear infinite;
+        }
+
+        .marquee-container:hover .marquee-content {
+            animation-play-state: paused;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Canvas overlays */
+        #entrance-canvas,
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        /* Project grid hover */
+        .project-card .project-overlay {
+            opacity: 0;
+            transition: opacity 0.7s ease;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 0.85;
+        }
+
+        .project-card img {
+            transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .project-card:hover img {
+            transform: scale(1.03);
+            /* Subtle parallax depth */
+        }
+
+        /* Text Split Reveal Utility */
+        .split-word {
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: bottom;
+        }
+
+        .split-word span {
+            display: inline-block;
+            transform: translateY(100%);
+            opacity: 0;
+        }
+
+        .paper-texture {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.04;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4xIi8+Cjwvc3ZnPg==');
+            pointer-events: none;
+            mix-blend-mode: overlay;
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-[#C9A961] selection:text-[#0E0E0E]">
+
+    <!-- Cinematic Entrance -->
+    <div id="entrance-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-carbon flex-col">
+        <canvas id="entrance-canvas"></canvas>
+        <div class="relative z-10 text-center">
+            <h1 class="text-4xl md:text-6xl font-serif text-bone tracking-widest opacity-0 uppercase"
+                id="entrance-name">[EXECUTIVE NAME]</h1>
+            <div class="h-[1px] bg-brass w-0 mx-auto mt-6" id="entrance-line"></div>
+            <p class="font-mono text-xs uppercase tracking-[0.4em] text-brass mt-8 opacity-0" id="entrance-subline">
+                [Founder, Principal, CEO]</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-40 p-8 flex justify-between items-center mix-blend-difference">
+        <div class="font-serif text-xl tracking-widest text-bone font-semibold">EN.</div>
+        <button id="menu-btn" class="text-bone focus:outline-none group relative w-8 h-8 z-50">
+            <div class="absolute right-0 top-3 w-8 h-[1px] bg-bone transition-all duration-700 ease-in-out line-1">
+            </div>
+            <div class="absolute right-0 top-5 w-6 h-[1px] bg-bone transition-all duration-700 ease-in-out line-2">
+            </div>
+        </button>
+    </nav>
+
+    <!-- Full Screen Menu -->
+    <div id="full-menu" class="fixed inset-0 bg-carbon z-30 flex items-center justify-center translate-y-[-100%]">
+        <ul class="text-center font-serif text-5xl md:text-7xl space-y-12">
+            <li><a href="#work" class="text-bone hover:text-brass transition-colors duration-500 menu-link">Selected
+                    Works</a></li>
+            <li><a href="#featured-case"
+                    class="text-bone hover:text-brass transition-colors duration-500 menu-link">Signature Project</a>
+            </li>
+            <li><a href="#philosophy"
+                    class="text-bone hover:text-brass transition-colors duration-500 menu-link">Philosophy</a></li>
+            <li><a href="#process"
+                    class="text-bone hover:text-brass transition-colors duration-500 menu-link">Process</a></li>
+            <li><a href="#contact"
+                    class="text-bone hover:text-brass transition-colors duration-500 menu-link">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <canvas id="hero-canvas"></canvas>
+        <div class="paper-texture"></div>
+        <div class="container mx-auto px-6 relative z-10 pt-20">
+            <div class="max-w-6xl mx-auto">
+                <h1 class="text-6xl md:text-8xl lg:text-[7rem] font-serif leading-tight mb-8 brass-gradient split-text"
+                    id="hero-headline">
+                    Building What Others Imagine.
+                </h1>
+                <p class="text-xl md:text-2xl font-light text-bone/80 max-w-2xl mb-12 split-text" id="hero-subhead">
+                    Construction leadership across 25 years and $850M+ in delivered projects.
+                </p>
+                <div class="w-0 h-[1px] bg-brass/60 hero-line"></div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-0" id="hero-scroll">
+            <span class="text-[0.65rem] tracking-[0.3em] uppercase mb-6 text-brass/70 font-mono">Scroll</span>
+            <div class="w-[1px] h-20 bg-bone/10 overflow-hidden relative">
+                <div class="w-full h-full bg-brass absolute top-0 left-0 translate-y-[-100%]" id="scroll-indicator">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Mark - Marquee -->
+    <section class="py-8 bg-bone text-carbon border-y border-brass/20">
+        <div class="marquee-container">
+            <div class="marquee-content space-x-16 px-8 text-xl md:text-2xl font-serif italic font-semibold">
+                <span>Featured in Architectural Digest</span>
+                <span class="text-brass">•</span>
+                <span>AIA Excellence Award 2023</span>
+                <span class="text-brass">•</span>
+                <span>Monocle 100</span>
+                <span class="text-brass">•</span>
+                <span>$850M+ Delivered</span>
+                <span class="text-brass">•</span>
+                <span>Global Construction Summit Keynote</span>
+                <span class="text-brass">•</span>
+                <span>Featured in Architectural Digest</span>
+                <span class="text-brass">•</span>
+                <span>AIA Excellence Award 2023</span>
+                <span class="text-brass">•</span>
+                <span>Monocle 100</span>
+            </div>
+            <!-- Duplicate for infinite effect -->
+            <div class="marquee-content space-x-16 px-8 text-xl md:text-2xl font-serif italic font-semibold"
+                aria-hidden="true">
+                <span>Featured in Architectural Digest</span>
+                <span class="text-brass">•</span>
+                <span>AIA Excellence Award 2023</span>
+                <span class="text-brass">•</span>
+                <span>Monocle 100</span>
+                <span class="text-brass">•</span>
+                <span>$850M+ Delivered</span>
+                <span class="text-brass">•</span>
+                <span>Global Construction Summit Keynote</span>
+                <span class="text-brass">•</span>
+                <span>Featured in Architectural Digest</span>
+                <span class="text-brass">•</span>
+                <span>AIA Excellence Award 2023</span>
+                <span class="text-brass">•</span>
+                <span>Monocle 100</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Selected Works - Asymmetric Grid -->
+    <section id="work" class="py-32 md:py-48 px-6 container mx-auto">
+        <h2 class="text-xs tracking-[0.4em] uppercase text-brass mb-24 fade-in-up font-mono">Selected Works</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-24">
+            <!-- Project 1: Large -->
+            <div class="md:col-span-8 project-card relative group cursor-pointer fade-in-up">
+                <div class="overflow-hidden bg-carbon aspect-[4/3] relative">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop"
+                        alt="Project 1" class="w-full h-full object-cover">
+                    <div
+                        class="absolute inset-0 bg-carbon/60 project-overlay flex items-center justify-center border border-brass/0 group-hover:border-brass/30 transition-all duration-700">
+                        <span class="font-serif text-bone text-2xl tracking-widest uppercase text-shadow-sm">View Case
+                            Study</span>
+                    </div>
+                </div>
+                <div class="mt-8 flex justify-between items-baseline border-b border-bone/10 pb-6">
+                    <div>
+                        <h3 class="font-serif text-3xl md:text-4xl mb-3 text-bone">The Glass Pavilion</h3>
+                        <p class="text-bone/50 font-light text-sm tracking-wide uppercase">Principal Contractor &bull;
+                            Commercial</p>
+                    </div>
+                    <span class="text-brass font-serif italic text-xl">2023</span>
+                </div>
+            </div>
+
+            <!-- Project 2: Medium -->
+            <div class="md:col-span-4 project-card relative group cursor-pointer md:mt-64 fade-in-up">
+                <div class="overflow-hidden bg-carbon aspect-[3/4] relative">
+                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=2069&auto=format&fit=crop"
+                        alt="Project 2" class="w-full h-full object-cover">
+                    <div
+                        class="absolute inset-0 bg-carbon/60 project-overlay flex items-center justify-center border border-brass/0 group-hover:border-brass/30 transition-all duration-700">
+                        <span class="font-serif text-bone text-xl tracking-widest uppercase">View Case Study</span>
+                    </div>
+                </div>
+                <div class="mt-8 flex justify-between items-baseline border-b border-bone/10 pb-6">
+                    <div>
+                        <h3 class="font-serif text-2xl md:text-3xl mb-3 text-bone">Aura Residences</h3>
+                        <p class="text-bone/50 font-light text-sm tracking-wide uppercase">Lead Developer</p>
+                    </div>
+                    <span class="text-brass font-serif italic text-xl">2022</span>
+                </div>
+            </div>
+
+            <!-- Project 3: Medium -->
+            <div class="md:col-span-5 project-card relative group cursor-pointer fade-in-up">
+                <div class="overflow-hidden bg-carbon aspect-square relative">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
+                        alt="Project 3"
+                        class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000">
+                    <div
+                        class="absolute inset-0 bg-carbon/60 project-overlay flex items-center justify-center border border-brass/0 group-hover:border-brass/30 transition-all duration-700">
+                        <span class="font-serif text-bone text-xl tracking-widest uppercase">View Case Study</span>
+                    </div>
+                </div>
+                <div class="mt-8 flex justify-between items-baseline border-b border-bone/10 pb-6">
+                    <div>
+                        <h3 class="font-serif text-2xl md:text-3xl mb-3 text-bone">Nexus Tower</h3>
+                        <p class="text-bone/50 font-light text-sm tracking-wide uppercase">Advisory Role</p>
+                    </div>
+                    <span class="text-brass font-serif italic text-xl">2021</span>
+                </div>
+            </div>
+
+            <!-- Project 4: Large -->
+            <div class="md:col-span-7 project-card relative group cursor-pointer md:-mt-48 fade-in-up">
+                <div class="overflow-hidden bg-carbon aspect-[16/9] relative">
+                    <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=2069&auto=format&fit=crop"
+                        alt="Project 4" class="w-full h-full object-cover">
+                    <div
+                        class="absolute inset-0 bg-carbon/60 project-overlay flex items-center justify-center border border-brass/0 group-hover:border-brass/30 transition-all duration-700">
+                        <span class="font-serif text-bone text-2xl tracking-widest uppercase">View Case Study</span>
+                    </div>
+                </div>
+                <div class="mt-8 flex justify-between items-baseline border-b border-bone/10 pb-6">
+                    <div>
+                        <h3 class="font-serif text-3xl md:text-4xl mb-3 text-bone">Echo Art Museum</h3>
+                        <p class="text-bone/50 font-light text-sm tracking-wide uppercase">Executive Director &bull;
+                            Cultural</p>
+                    </div>
+                    <span class="text-brass font-serif italic text-xl">2020</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Case Study - Pinned Cinematic Reveal -->
+    <section id="featured-case" class="h-screen w-full relative overflow-hidden bg-black">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop"
+                class="w-full h-full object-cover opacity-100 scale-105 case-img case-img-1" alt="Case 1">
+            <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2070&auto=format&fit=crop"
+                class="w-full h-full object-cover opacity-0 scale-105 case-img case-img-2" alt="Case 2">
+            <img src="https://images.unsplash.com/photo-1600607687644-aac4c15cecb1?q=80&w=2070&auto=format&fit=crop"
+                class="w-full h-full object-cover opacity-0 scale-105 case-img case-img-3" alt="Case 3">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10"></div>
+        <div class="paper-texture z-10"></div>
+
+        <div class="relative z-20 h-full flex flex-col justify-between p-8 md:p-24 container mx-auto">
+            <div class="mt-16 md:mt-0">
+                <h2 class="text-xs tracking-[0.4em] uppercase text-brass mb-6 font-mono drop-shadow-md">Signature
+                    Project</h2>
+                <h3 class="text-6xl md:text-[5.5rem] font-serif text-bone leading-none drop-shadow-lg">The Horizon
+                    Estate</h3>
+
+                <!-- Crossfading Captions -->
+                <div class="mt-8 relative h-12 overflow-hidden">
+                    <p class="absolute top-0 left-0 text-xl font-light text-bone/90 case-caption case-caption-1">Phase
+                        01 &mdash; Groundbreaking & Structural Integrity</p>
+                    <p
+                        class="absolute top-0 left-0 text-xl font-light text-bone/90 case-caption case-caption-2 opacity-0 translate-y-full">
+                        Phase 02 &mdash; Material Integration & Envelope</p>
+                    <p
+                        class="absolute top-0 left-0 text-xl font-light text-bone/90 case-caption case-caption-3 opacity-0 translate-y-full">
+                        Phase 03 &mdash; The Final Editorial Polish</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 border-t border-bone/20 pt-12 pb-12"
+                id="stats-counter">
+                <div>
+                    <p class="text-xs font-mono tracking-widest text-bone/50 mb-4 uppercase">Scale</p>
+                    <p class="font-serif text-5xl text-brass drop-shadow-md"><span class="odometer"
+                            data-val="125">0</span>k <span class="text-2xl text-bone/80">sq ft</span></p>
+                </div>
+                <div>
+                    <p class="text-xs font-mono tracking-widest text-bone/50 mb-4 uppercase">Budget</p>
+                    <p class="font-serif text-5xl text-brass drop-shadow-md">$<span class="odometer"
+                            data-val="42">0</span>M</p>
+                </div>
+                <div>
+                    <p class="text-xs font-mono tracking-widest text-bone/50 mb-4 uppercase">Timeline</p>
+                    <p class="font-serif text-5xl text-brass drop-shadow-md"><span class="odometer"
+                            data-val="18">0</span> <span class="text-2xl text-bone/80">Months</span></p>
+                </div>
+                <div>
+                    <p class="text-xs font-mono tracking-widest text-bone/50 mb-4 uppercase">Project Team</p>
+                    <p class="font-serif text-5xl text-brass drop-shadow-md"><span class="odometer"
+                            data-val="150">0</span>+</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Philosophy -->
+    <section id="philosophy" class="py-48 relative bg-bone text-carbon overflow-hidden">
+        <div class="paper-texture bg-carbon opacity-10"></div>
+        <div class="container mx-auto px-6 max-w-5xl text-center relative z-10">
+            <h2 class="text-xs tracking-[0.4em] uppercase text-carbon/40 mb-20 fade-in-up font-mono">The Philosophy</h2>
+            <blockquote
+                class="text-4xl md:text-6xl lg:text-7xl font-serif leading-tight mb-20 fade-in-up text-carbon/90">
+                "Great architecture isn't just built; it's meticulously orchestrated. Every detail serves the narrative
+                of the space."
+            </blockquote>
+            <div class="w-64 mx-auto fade-in-up opacity-80">
+                <!-- Authentic-looking vector signature path -->
+                <svg viewBox="0 0 400 120" class="stroke-carbon w-full fill-none" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path class="signature-path"
+                        d="M30,80 C50,60 80,40 100,50 C120,60 90,100 110,110 C130,120 150,70 160,50 C170,30 200,60 210,80 C220,100 240,60 260,50 C280,40 310,70 320,60 C330,50 360,20 380,10"
+                        stroke-dasharray="1000" stroke-dashoffset="1000" />
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Process - Horizontal Scroll -->
+    <section id="process" class="py-32 bg-carbon relative overflow-hidden h-screen flex items-center">
+        <div class="absolute top-24 left-0 w-full px-12 md:px-24 z-20">
+            <h2 class="text-xs tracking-[0.4em] uppercase text-brass font-mono">Methodology</h2>
+        </div>
+
+        <div class="process-wrapper flex w-[400vw] h-full items-center relative">
+            <div class="absolute top-1/2 left-0 w-full h-[1px] bg-bone/10 -translate-y-1/2 z-0"></div>
+            <div class="absolute top-1/2 left-0 h-[1px] bg-brass -translate-y-1/2 z-0 shadow-[0_0_15px_rgba(201,169,97,0.5)]"
+                id="process-line" style="width: 0%;"></div>
+
+            <!-- Step 1 -->
+            <div class="w-screen px-12 md:px-32 flex-shrink-0 relative z-10 flex flex-col justify-center h-full">
+                <div class="w-3 h-3 bg-brass rounded-full mb-12 process-node ring-4 ring-carbon"></div>
+                <p class="font-mono text-brass mb-6 text-sm">Phase 01</p>
+                <h3 class="text-5xl md:text-7xl font-serif text-bone mb-8 drop-shadow-md">Listen.</h3>
+                <p class="text-2xl text-bone/60 max-w-2xl font-light leading-relaxed">Understanding the unspoken vision
+                    before a single line is drawn on the blueprint.</p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="w-screen px-12 md:px-32 flex-shrink-0 relative z-10 flex flex-col justify-center h-full">
+                <div class="w-3 h-3 bg-brass rounded-full mb-12 process-node ring-4 ring-carbon"></div>
+                <p class="font-mono text-brass mb-6 text-sm">Phase 02</p>
+                <h3 class="text-5xl md:text-7xl font-serif text-bone mb-8 drop-shadow-md">Strategize.</h3>
+                <p class="text-2xl text-bone/60 max-w-2xl font-light leading-relaxed">Aligning financial realities with
+                    architectural ambitions for uncompromising delivery.</p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="w-screen px-12 md:px-32 flex-shrink-0 relative z-10 flex flex-col justify-center h-full">
+                <div class="w-3 h-3 bg-brass rounded-full mb-12 process-node ring-4 ring-carbon"></div>
+                <p class="font-mono text-brass mb-6 text-sm">Phase 03</p>
+                <h3 class="text-5xl md:text-7xl font-serif text-bone mb-8 drop-shadow-md">Build.</h3>
+                <p class="text-2xl text-bone/60 max-w-2xl font-light leading-relaxed">Executing with relentless
+                    precision, absolute safety, and material integrity.</p>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="w-screen px-12 md:px-32 flex-shrink-0 relative z-10 flex flex-col justify-center h-full">
+                <div class="w-3 h-3 bg-brass rounded-full mb-12 process-node ring-4 ring-carbon"></div>
+                <p class="font-mono text-brass mb-6 text-sm">Phase 04</p>
+                <h3 class="text-5xl md:text-7xl font-serif text-bone mb-8 drop-shadow-md">Deliver.</h3>
+                <p class="text-2xl text-bone/60 max-w-2xl font-light leading-relaxed">Handing over a profound legacy,
+                    not simply a set of operational keys.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Stats Calculator -->
+    <section class="py-40 px-6 container mx-auto border-t border-bone/10 relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-bone/5 to-transparent opacity-50 pointer-events-none"></div>
+        <div class="max-w-5xl mx-auto relative z-10">
+            <h2 class="text-xs tracking-[0.4em] uppercase text-brass mb-24 text-center font-mono">By The Numbers</h2>
+
+            <div class="mb-24 bg-bone/5 p-12 md:p-16 rounded-sm border border-bone/10">
+                <label class="flex justify-between items-end text-bone font-serif text-2xl mb-8">
+                    <span class="tracking-wide">Years of Industry Leadership</span>
+                    <span class="text-brass text-5xl font-light" id="years-val">25</span>
+                </label>
+                <div class="relative w-full h-1 bg-bone/20 rounded-full mt-4">
+                    <input type="range" min="5" max="40" value="25"
+                        class="absolute w-full h-full opacity-0 cursor-pointer z-20" id="years-slider">
+                    <div class="absolute h-full bg-brass left-0 top-0 z-10 rounded-full transition-all duration-100"
+                        id="slider-fill" style="width: 57.14%;"></div>
+                    <div class="absolute h-4 w-4 bg-bone rounded-full top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 shadow-[0_0_10px_rgba(201,169,97,0.8)] transition-all duration-100"
+                        id="slider-thumb" style="left: 57.14%;"></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
+                <div>
+                    <p class="text-bone/40 text-xs font-mono tracking-widest uppercase mb-4">Projects Led</p>
+                    <p class="text-6xl font-serif text-bone drop-shadow-sm" id="calc-projects">84</p>
+                </div>
+                <div>
+                    <p class="text-bone/40 text-xs font-mono tracking-widest uppercase mb-4">Sq Ft Delivered</p>
+                    <p class="text-6xl font-serif text-bone drop-shadow-sm"><span id="calc-sqft">3.2</span>M</p>
+                </div>
+                <div>
+                    <p class="text-bone/40 text-xs font-mono tracking-widest uppercase mb-4">Capital Managed</p>
+                    <p class="text-6xl font-serif text-bone drop-shadow-sm">$<span id="calc-cap">850</span>M</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Selected Testimonials -->
+    <section class="py-40 bg-bone text-carbon px-6 relative border-t border-carbon/10">
+        <div class="paper-texture bg-carbon opacity-5"></div>
+        <div class="container mx-auto max-w-6xl relative z-10">
+            <h2 class="text-xs tracking-[0.4em] uppercase text-carbon/40 mb-32 text-center font-mono">Endorsements</h2>
+
+            <div class="space-y-32">
+                <div class="testimonial fade-in-up border-l-[3px] border-brass pl-10 py-2">
+                    <p class="font-serif text-4xl md:text-5xl leading-tight mb-10 text-carbon/90">"Their ability to
+                        foresee construction hurdles during the conceptual phase saved us millions. True visionary
+                        leadership."</p>
+                    <p class="font-sans font-semibold tracking-widest text-xs uppercase text-carbon/70">Sarah Jenkins
+                        &mdash; <span class="font-light">Board Member, The Horizon Trust</span></p>
+                </div>
+
+                <div class="testimonial fade-in-up border-l-[3px] border-brass pl-10 py-2 ml-0 md:ml-32">
+                    <p class="font-serif text-4xl md:text-5xl leading-tight mb-10 text-carbon/90">"A rare combination of
+                        design sensibility and rigorous project management. They don't just build; they elevate the
+                        standard."</p>
+                    <p class="font-sans font-semibold tracking-widest text-xs uppercase text-carbon/70">Marcus Thorne
+                        &mdash; <span class="font-light">Principal Architect, Studio North</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Press & Recognition Logo Wall -->
+    <section class="py-24 bg-carbon border-b border-bone/10">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div
+                class="flex flex-wrap justify-center gap-16 md:gap-32 items-center opacity-50 grayscale hover:grayscale-0 transition-all duration-700">
+                <div
+                    class="text-2xl font-serif font-bold tracking-widest hover:text-brass transition-colors duration-500 cursor-default">
+                    MONOCLE</div>
+                <div class="text-2xl font-serif italic hover:text-brass transition-colors duration-500 cursor-default">
+                    Architectural Digest</div>
+                <div
+                    class="text-2xl font-serif uppercase tracking-[0.2em] hover:text-brass transition-colors duration-500 cursor-default">
+                    Forbes</div>
+                <div
+                    class="text-2xl font-serif font-light hover:text-brass transition-colors duration-500 cursor-default">
+                    WALLPAPER*</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-48 flex flex-col items-center justify-center relative px-6 text-center">
+        <div class="paper-texture"></div>
+        <div class="relative z-10 max-w-4xl mx-auto">
+            <p class="font-serif text-4xl md:text-6xl text-bone leading-tight mb-20 fade-in-up">
+                For project inquiries, speaking engagements, and board consultations.
+            </p>
+
+            <a href="mailto:contact@example.com" class="group relative inline-block fade-in-up">
+                <div
+                    class="absolute inset-0 bg-brass blur-xl opacity-20 group-hover:opacity-60 transition-opacity duration-700">
+                </div>
+                <div
+                    class="relative px-12 py-6 border border-brass text-brass uppercase tracking-[0.3em] text-sm hover:bg-brass hover:text-carbon transition-colors duration-500 font-mono">
+                    Begin a Conversation
+                </div>
+            </a>
+
+            <div
+                class="mt-32 flex flex-col md:flex-row gap-8 justify-center items-center text-xs font-mono tracking-widest text-bone/50 uppercase fade-in-up">
+                <a href="#" class="hover:text-brass transition-colors duration-500">Email</a>
+                <span class="hidden md:inline text-bone/20">/</span>
+                <a href="#" class="hover:text-brass transition-colors duration-500">LinkedIn</a>
+                <span class="hidden md:inline text-bone/20">/</span>
+                <span class="flex items-center gap-2">
+                    <svg class="w-4 h-4 text-brass" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                        </path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    New York &bull; London
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Utility: Split text for word-by-word reveal (replicates SplitText capability)
+        function splitText(selector) {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(el => {
+                const text = el.innerText;
+                const words = text.split(' ');
+                el.innerHTML = '';
+                words.forEach(word => {
+                    const spanOuter = document.createElement('span');
+                    spanOuter.className = 'split-word';
+                    const spanInner = document.createElement('span');
+                    spanInner.innerHTML = word + '&nbsp;';
+                    spanOuter.appendChild(spanInner);
+                    el.appendChild(spanOuter);
+                });
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // --- Entrance Cinematic Animation ---
+            const tlEntrance = gsap.timeline();
+            tlEntrance.to('#entrance-name', { opacity: 1, duration: 2.5, ease: "power2.inOut", delay: 0.5 })
+                .to('#entrance-line', { width: "100%", duration: 2, ease: "power4.inOut" }, "-=1.5")
+                .to('#entrance-subline', { opacity: 1, duration: 1.5, ease: "power2.out" }, "-=1")
+                .to('#entrance-overlay', { yPercent: -100, duration: 2, ease: "power4.inOut", delay: 1.5 });
+
+            // --- Hero Text Reveal ---
+            splitText('#hero-headline');
+            splitText('#hero-subhead');
+
+            tlEntrance.to('#hero-headline .split-word span', {
+                y: "0%", opacity: 1, duration: 1.5, stagger: 0.15, ease: "power4.out"
+            }, "-=0.5")
+                .to('#hero-subhead .split-word span', {
+                    y: "0%", opacity: 1, duration: 1.2, stagger: 0.08, ease: "power3.out"
+                }, "-=1")
+                .to('.hero-line', { width: "100%", duration: 2, ease: "power4.out" }, "-=0.8")
+                .to('#hero-scroll', { opacity: 1, duration: 1, ease: "power2.out" }, "-=0.5");
+
+            // Scroll indicator downward animation loop
+            gsap.to('#scroll-indicator', {
+                y: "100%", duration: 2, ease: "power2.inOut", repeat: -1
+            });
+
+            // --- Full Screen Menu Toggle ---
+            const menuBtn = document.getElementById('menu-btn');
+            const fullMenu = document.getElementById('full-menu');
+            const line1 = document.querySelector('.line-1');
+            const line2 = document.querySelector('.line-2');
+            let menuOpen = false;
+
+            menuBtn.addEventListener('click', () => {
+                menuOpen = !menuOpen;
+                if (menuOpen) {
+                    gsap.to(fullMenu, { y: "0%", duration: 1.2, ease: "power4.inOut" });
+                    gsap.to(line1, { rotation: 45, y: 4, width: "1.5rem", backgroundColor: "#C9A961", duration: 0.6, ease: "power3.inOut" });
+                    gsap.to(line2, { rotation: -45, y: -4, width: "1.5rem", backgroundColor: "#C9A961", duration: 0.6, ease: "power3.inOut" });
+                } else {
+                    gsap.to(fullMenu, { y: "-100%", duration: 1.2, ease: "power4.inOut" });
+                    gsap.to(line1, { rotation: 0, y: 0, width: "2rem", backgroundColor: "#F4F1EB", duration: 0.6, ease: "power3.inOut" });
+                    gsap.to(line2, { rotation: 0, y: 0, width: "1.5rem", backgroundColor: "#F4F1EB", duration: 0.6, ease: "power3.inOut" });
+                }
+            });
+
+            document.querySelectorAll('.menu-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    menuOpen = false;
+                    gsap.to(fullMenu, { y: "-100%", duration: 1.2, ease: "power4.inOut" });
+                    gsap.to(line1, { rotation: 0, y: 0, width: "2rem", backgroundColor: "#F4F1EB", duration: 0.6, ease: "power3.inOut" });
+                    gsap.to(line2, { rotation: 0, y: 0, width: "1.5rem", backgroundColor: "#F4F1EB", duration: 0.6, ease: "power3.inOut" });
+                });
+            });
+
+            // --- Deliberate Fade in Up ---
+            gsap.utils.toArray('.fade-in-up').forEach(elem => {
+                gsap.fromTo(elem,
+                    { y: 80, opacity: 0 },
+                    {
+                        scrollTrigger: {
+                            trigger: elem,
+                            start: "top 85%",
+                        },
+                        y: 0,
+                        opacity: 1,
+                        duration: 1.5,
+                        ease: "power3.out"
+                    }
+                );
+            });
+
+            // --- Pinned Case Study (Crossfade & Parallax Scale) ---
+            const caseTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#featured-case",
+                    start: "top top",
+                    end: "+=300%",
+                    pin: true,
+                    scrub: 1.5 // Smoother scrubbing
+                }
+            });
+
+            // Scale effect on images for continuous slow depth
+            gsap.to('.case-img', {
+                scale: 1,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#featured-case",
+                    start: "top top",
+                    end: "+=300%",
+                    scrub: 0
+                }
+            });
+
+            caseTl.to('.case-img-2', { opacity: 1, duration: 1, ease: "power1.inOut" })
+                .to('.case-caption-1', { y: "-100%", opacity: 0, duration: 0.5 }, "<")
+                .to('.case-caption-2', { y: "0%", opacity: 1, duration: 0.5 }, "<0.5")
+                .to('.case-img-3', { opacity: 1, duration: 1, ease: "power1.inOut" })
+                .to('.case-caption-2', { y: "-100%", opacity: 0, duration: 0.5 }, "<")
+                .to('.case-caption-3', { y: "0%", opacity: 1, duration: 0.5 }, "<0.5");
+
+            // Odometer effect in pinned section
+            ScrollTrigger.create({
+                trigger: "#stats-counter",
+                start: "top 70%",
+                onEnter: () => {
+                    document.querySelectorAll('.odometer').forEach(el => {
+                        const target = parseInt(el.getAttribute('data-val'));
+                        gsap.to(el, {
+                            innerHTML: target,
+                            duration: 3,
+                            snap: { innerHTML: 1 },
+                            ease: "power3.out"
+                        });
+                    });
+                },
+                once: true
+            });
+
+            // --- Philosophy Signature Draw ---
+            gsap.to('.signature-path', {
+                scrollTrigger: {
+                    trigger: "#philosophy",
+                    start: "top 60%",
+                },
+                strokeDashoffset: 0,
+                duration: 4,
+                ease: "power2.inOut"
+            });
+
+            // --- Horizontal Process Scroll ---
+            const processContainer = document.querySelector('.process-wrapper');
+            const processSections = gsap.utils.toArray(processContainer.children).filter(c => c.classList.contains('w-screen'));
+
+            gsap.to(processSections, {
+                xPercent: -100 * (processSections.length - 1),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#process",
+                    pin: true,
+                    scrub: 1.5,
+                    end: () => "+=" + processContainer.offsetWidth
+                }
+            });
+
+            // Draw connecting line during scroll
+            gsap.to('#process-line', {
+                width: "100%",
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#process",
+                    start: "top top",
+                    scrub: 1.5,
+                    end: () => "+=" + processContainer.offsetWidth
+                }
+            });
+
+            // --- Interactive Stats Calculator UI ---
+            const slider = document.getElementById('years-slider');
+            const sliderFill = document.getElementById('slider-fill');
+            const sliderThumb = document.getElementById('slider-thumb');
+
+            const yearsVal = document.getElementById('years-val');
+            const calcProj = document.getElementById('calc-projects');
+            const calcSqft = document.getElementById('calc-sqft');
+            const calcCap = document.getElementById('calc-cap');
+
+            function updateCalculator(val) {
+                // UI update
+                const percent = ((val - 5) / (40 - 5)) * 100;
+                sliderFill.style.width = percent + '%';
+                sliderThumb.style.left = percent + '%';
+                yearsVal.innerText = val;
+
+                // Numbers update with GSAP for smooth counting
+                gsap.to(calcProj, { innerHTML: Math.floor(val * 3.36), duration: 0.5, snap: { innerHTML: 1 }, ease: "power2.out" });
+                gsap.to(calcSqft, { innerHTML: (val * 0.128).toFixed(1), duration: 0.5, snap: { innerHTML: 0.1 }, ease: "power2.out" });
+                gsap.to(calcCap, { innerHTML: Math.floor(val * 34), duration: 0.5, snap: { innerHTML: 1 }, ease: "power2.out" });
+            }
+
+            slider.addEventListener('input', (e) => {
+                updateCalculator(parseInt(e.target.value));
+            });
+
+            // --- Canvas Particles: Entrance Blueprint Lines ---
+            const cvs1 = document.getElementById('entrance-canvas');
+            const ctx1 = cvs1.getContext('2d');
+            let w1, h1;
+
+            function resize1() {
+                w1 = cvs1.width = window.innerWidth;
+                h1 = cvs1.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize1);
+            resize1();
+
+            const lines = [];
+            for (let i = 0; i < 35; i++) {
+                let isHorizontal = Math.random() > 0.5;
+                lines.push({
+                    x: Math.random() * w1,
+                    y: Math.random() * h1,
+                    w: isHorizontal ? Math.random() * 500 + 100 : 1,
+                    h: isHorizontal ? 1 : Math.random() * 500 + 100,
+                    alpha: Math.random() * 0.5,
+                    speed: Math.random() * 0.01 + 0.002,
+                    fade: Math.random() > 0.5 ? 1 : -1
+                });
+            }
+
+            function draw1() {
+                ctx1.clearRect(0, 0, w1, h1);
+                ctx1.strokeStyle = 'rgba(201, 169, 97, 0.25)'; // Brass
+                ctx1.lineWidth = 1;
+
+                lines.forEach(l => {
+                    ctx1.beginPath();
+                    ctx1.globalAlpha = l.alpha;
+                    ctx1.rect(l.x, l.y, l.w, l.h);
+                    ctx1.stroke();
+
+                    l.alpha += l.speed * l.fade;
+                    if (l.alpha > 0.5) l.fade = -1;
+                    if (l.alpha < 0) {
+                        l.fade = 1;
+                        let isHorizontal = Math.random() > 0.5;
+                        l.x = Math.random() * w1;
+                        l.y = Math.random() * h1;
+                        l.w = isHorizontal ? Math.random() * 500 + 100 : 1;
+                        l.h = isHorizontal ? 1 : Math.random() * 500 + 100;
+                    }
+                });
+                requestAnimationFrame(draw1);
+            }
+            draw1();
+
+            // --- Canvas Particles: Hero Dust & Light Beams ---
+            const cvs2 = document.getElementById('hero-canvas');
+            const ctx2 = cvs2.getContext('2d');
+            let w2, h2;
+
+            function resize2() {
+                w2 = cvs2.width = window.innerWidth;
+                h2 = cvs2.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize2);
+            resize2();
+
+            const dust = [];
+            for (let i = 0; i < 120; i++) {
+                dust.push({
+                    x: Math.random() * w2,
+                    y: Math.random() * h2,
+                    r: Math.random() * 1.5 + 0.5,
+                    vx: (Math.random() - 0.5) * 0.15,
+                    vy: Math.random() * -0.4 - 0.1,
+                    alpha: Math.random() * 0.6 + 0.1
+                });
+            }
+
+            function draw2() {
+                ctx2.clearRect(0, 0, w2, h2);
+
+                // Warm light beam gradient
+                const grad = ctx2.createLinearGradient(0, 0, w2, h2);
+                grad.addColorStop(0, 'rgba(201, 169, 97, 0.06)'); // Faint brass glow
+                grad.addColorStop(0.8, 'rgba(14, 14, 14, 0)');
+                ctx2.fillStyle = grad;
+                ctx2.fillRect(0, 0, w2, h2);
+
+                ctx2.fillStyle = '#F4F1EB'; // Bone cream particles
+                dust.forEach(p => {
+                    ctx2.beginPath();
+                    ctx2.globalAlpha = p.alpha;
+                    ctx2.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx2.fill();
+
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    // Wrap around
+                    if (p.y < 0) p.y = h2;
+                    if (p.x < 0) p.x = w2;
+                    if (p.x > w2) p.x = 0;
+                });
+                ctx2.globalAlpha = 1;
+
+                requestAnimationFrame(draw2);
+            }
+            draw2();
+        });
+    </script>
+</body>
+
+</html>
